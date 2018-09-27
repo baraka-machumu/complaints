@@ -27,7 +27,7 @@ class UserController extends Controller
      */
     public function create()
     {
-        $userData = "";
+        $userData  = $this->getAllUsers();
         return view('user.user_registration',with(['userData'=>$userData]));
     }
 
@@ -59,9 +59,9 @@ class UserController extends Controller
 
         }
 
-         $userData  = $this->getLastInsertedData();
+         $userData  = $this->getAllUsers();
 
-        return view('user.user_registration',with(['userData'=>$userData]));
+        return redirect('user/register');
 
     }
 
@@ -88,16 +88,32 @@ class UserController extends Controller
         return view('user.edit',compact(['id'=>$id]));
     }
 
-    /**
-     * Update the specified resource in storage.
-     *
-     * @param  \Illuminate\Http\Request  $request
-     * @param  int  $id
-     * @return \Illuminate\Http\Response
-     */
-    public function update(Request $request, $id)
+
+    public function updates(Request $request)
     {
-        //
+
+        $id  =  $request->get('user_id');
+
+        $user =  User::find($id);
+
+        $user->name  =  $request->get('username');
+        $user->email =  $request->get('email');
+
+        $success = $user->save();
+
+
+        if ($success)
+        {
+            Session::flash('alert-success', 'successful Updated');
+
+        } else {
+            Session::flash('alert-warning', 'Failed to update, try again');
+
+        }
+
+        return redirect('user/register');
+
+
     }
 
     /**
@@ -108,7 +124,25 @@ class UserController extends Controller
      */
     public function destroy($id)
     {
-        //
+        $user =  User::find($id);
+
+        $user->status =  0;
+
+        $success = $user->save();
+
+
+        if ($success)
+        {
+            Session::flash('alert-success', 'successful Updated');
+
+        } else {
+            Session::flash('alert-warning', 'Failed to update, try again');
+
+        }
+
+        return redirect('user/register');
+
+
     }
 
 
@@ -129,4 +163,12 @@ class UserController extends Controller
 
         return $user;
     }
+
+    public function getAllUsers()
+    {
+        $user =  DB::table('users')->where('status', '1')->get()->toArray();
+
+        return $user;
+    }
+
 }
