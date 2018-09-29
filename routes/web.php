@@ -33,6 +33,13 @@ Route::get('/', function () {
     return $roleProfiles;
 });
 
+//Complaints Controller
+Route::resource('complaints','Complaints\ComplaintsController');
+
+//Complaints type Controller
+Route::resource('complaints-types','Complaints\ComplaintsTypeController');
+
+
 //user route
 Route::get('user/register','Admin\UserController@create');
 Route::get('user/edit','Admin\UserController@create');
@@ -72,5 +79,7 @@ Route::get('userProfile/assign/profile/{id}','Admin\UserProfileController@assign
 Route::resource('userProfile','Admin\UserProfileController');
 
 Route::post('userProfile/update','Admin\UserProfileController@updates');
+
+
 
 

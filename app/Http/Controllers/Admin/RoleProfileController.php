@@ -44,12 +44,39 @@ class RoleProfileController extends Controller
         $role_names = $request->get('role_name');
         $roleProfile = new RoleProfile();
         $profileId =  $request->get('profile_id');
-        for ($i=0; $i<sizeof($role_names); $i++)
-        {
-            $roleProfile->role_id = $role_names[$i];
-            $roleProfile->profile_id = $profileId;
+
+        $data  =  array();
+
+        $data_check_if_exist =  array();
+        for ($i=0; $i<count($role_names); $i++){
+
+            $insert =   array('profile_id'=>$profileId, 'role_id'=>$role_names[$i]);
+            array_push($data,$insert);
+
+            if (RoleProfile::where('role_id', '=', $role_names[$i])->exists()) {
+
+                $role_name = Role::where('id', $role_names[$i])->first()->role_name;
+                array_push($data_check_if_exist,array('id'=>$role_names[$i],'role_name'=>$role_name));
+            }
         }
-        $success= $roleProfile->save();
+
+        if (count($data_check_if_exist)>0){
+
+            $data_exist  =  "";
+            foreach ($data_check_if_exist as $data){
+                $name = $data['role_name'];
+
+                $data_exist  .=" ".$name."";
+
+            }
+
+            Session::flash('alert-warning', $data_exist.' Already Exists, Please Assign New One(s)');
+            return redirect('roleProfile/assign/role/'.$profileId);
+
+        }
+
+
+        $success= Roleprofile::insert($data);
 
         if ($success)
         {
