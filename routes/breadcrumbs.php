@@ -12,3 +12,12 @@ Breadcrumbs::register('register', function ($trail) {
     $trail->parent('user');
     $trail->push('Register', url('user/register'));
 });
+
+Breadcrumbs::register('roleProfile', function ($trail) {
+    $trail->push('RoleProfile', url('roleProfile'));
+});
+
+Breadcrumbs::register('assign/profile', function ($trail) {
+    $trail->parent('roleProfile');
+    $trail->push('Assign/Profile', url('assign/profile'));
+});

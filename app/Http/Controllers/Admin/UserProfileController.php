@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers\Admin;
 
+use App\Profile;
 use App\User;
 use App\UserProfile;
 use Illuminate\Http\Request;
@@ -43,18 +44,45 @@ class UserProfileController extends Controller
     public function store(Request $request)
     {
 
+//        dd($request);
+
         $profiles_names  =  $request->get('profile_name');
         $userProfile =  new UserProfile();
         $user_id = $request->get('user_id');
 
-      for ($i=0; $i<sizeof($profiles_names); $i++){
 
-          $userProfile->profile_id = $profiles_names[$i];
-          $userProfile->user_id =$user_id;
-          $userProfile->save();
-      }
 
-        $success=  $userProfile->save();
+        $data  =  array();
+
+        $data_check_if_exist =  array();
+        for ($i=0; $i<count($profiles_names); $i++){
+
+            $insert =   array('user_id'=>$user_id, 'profile_id'=>$profiles_names[$i]);
+            array_push($data,$insert);
+
+            if (UserProfile::where('profile_id', '=', $profiles_names[$i])->exists()) {
+
+                $profile_name = Profile::where('id', $profiles_names[$i])->first()->profile_name;
+                array_push($data_check_if_exist,array('id'=>$profiles_names[$i],'profile_name'=>$profile_name));
+            }
+        }
+
+        if (count($data_check_if_exist)>0){
+
+            $data_exist  =  "";
+            foreach ($data_check_if_exist as $data){
+                $name = $data['profile_name'];
+
+                $data_exist  .=" ".$name."";
+
+            }
+
+            Session::flash('alert-warning', $data_exist.' Already Exists, Please Assign New One(s)');
+            return redirect('userProfile/assign/profile/'.$user_id);
+
+        }
+
+        $success =  UserProfile::insert($data);
 
         if ($success)
         {
@@ -64,7 +92,6 @@ class UserProfileController extends Controller
             Session::flash('alert-warning', 'Failed to update, try again');
 
         }
-
 
         return redirect('userProfile/assign/profile/'.$user_id);
 

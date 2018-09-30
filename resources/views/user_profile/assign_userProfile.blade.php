@@ -4,12 +4,11 @@
 
 @section('content_header')
 
-    <h4>{{ Breadcrumbs::render('register') }} </h4>
+    <h4>{{ Breadcrumbs::render('assign/profile') }} </h4>
 
 @stop
 
 @section('content')
-
 
     <div class="flash-message">
         @foreach (['danger', 'warning', 'success', 'info'] as $msg)
@@ -25,7 +24,6 @@
         <div class="col-md-6">
 
             <h4><span>Asign Profile(s) to <strong>{{$username}}</strong></span></h4>
-
 
             <form action="{{url('userProfile')}}" method="post">
                 {{ csrf_field() }}
@@ -79,7 +77,6 @@
                             </button>
                         </form>
                     </td>
-
                 </tr>
                     <?php $i++; ?>
                     @endforeach
