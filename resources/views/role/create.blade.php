@@ -3,7 +3,7 @@
 @section('title', 'Dashboard')
 
 @section('content_header')
-    <h1>Dashboard</h1>
+    <h4>{{Breadcrumbs::render('role/create')}}</h4>
     <hr>
     <div class="clearfix"></div>
 @stop
@@ -34,7 +34,7 @@
 
             <div class="col-md-8">
 
-                <table class="table table-striped" id="roleTable">
+                <table class="table table-striped table-bordered table-condensed" id="roleTable">
                     <tr><td colspan="12">Role Details</td></tr>
                     <tr>
                         <th>#</th>

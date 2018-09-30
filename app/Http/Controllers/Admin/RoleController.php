@@ -43,6 +43,12 @@ class RoleController extends Controller
 
         $role->role_name  = $role_name;
 
+        if (Role::where('role_name', '=', $request->get('role_name'))->exists()) {
+            Session::flash('alert-warning', $request->get('role_name').' Role Already Exists');
+            return redirect('role/create');
+
+        }
+
         $success =  $role->save();
 
         if ($success)
@@ -54,7 +60,7 @@ class RoleController extends Controller
 
         }
         $role  = $this->getAllRole();
-        return view('role.create',with(['role'=>$role]));
+        return redirect('role/create');
 
 
     }

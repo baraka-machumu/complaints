@@ -12,7 +12,7 @@
 
     <div class="col-md-8">
 
-        <table class="table table-striped" id="roleTable">
+        <table class="table table-striped table-bordered table-condensed" id="roleTable">
             <tr><td colspan="12">Profile Details</td></tr>
             <tr>
                 <th>#</th>

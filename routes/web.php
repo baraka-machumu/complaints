@@ -36,6 +36,13 @@ Auth::routes();
 
 Route::get('/home', 'HomeController@index')->name('home');
 
+//Complaints Controller
+Route::resource('complaints','Complaints\ComplaintsController');
+
+//Complaints type Controller
+Route::resource('complaints-types','Complaints\ComplaintsTypeController');
+
+
 //user route
 Route::get('user/register','Admin\UserController@create');
 Route::get('user/edit','Admin\UserController@create');
@@ -77,6 +84,4 @@ Route::resource('userProfile','Admin\UserProfileController');
 Route::post('userProfile/update','Admin\UserProfileController@updates');
 
 
-Auth::routes();
 
-Route::get('/home', 'HomeController@index')->name('home');

@@ -13,6 +13,27 @@ Breadcrumbs::register('register', function ($trail) {
     $trail->push('Register', url('user/register'));
 });
 
+
+//fetty
+Breadcrumbs::register('role', function ($trait)
+{
+    $trait->push('Role', url('role'));
+});
+
+Breadcrumbs::register('role/create', function ($trail)
+{
+   $trail->parent('role');
+   $trail->push('Create', url('role/create'));
+});
+Breadcrumbs::register('assign/role', function ($trail) {
+    $trail->parent('role');
+    $trail->push('roleProfile', url('roleProfile/assign/role'));
+});
+
+
+
+
+
 Breadcrumbs::register('roleProfile', function ($trail) {
     $trail->push('RoleProfile', url('roleProfile'));
 });
