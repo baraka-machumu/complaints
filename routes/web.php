@@ -18,12 +18,8 @@ use Illuminate\Support\Facades\DB;
 
 Route::get('/test', function () {
 
-    $profile_name ="Top Management";
-    if (\App\Profile::where('profile_name', '=', $profile_name)->exists()) {
-      echo  "exists";
-    } else {
-        echo  "not exists";
-    }
+    echo  Auth::guest();
+
 
 });
 
@@ -31,6 +27,7 @@ Route::get('/test', function () {
 
 Route::get('/','Auth\LoginController@index');
 
+Route::get('logout', 'Auth\LoginController@logout');
 
 Auth::routes();
 
