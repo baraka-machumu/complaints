@@ -1,9 +1,8 @@
 <?php
 
 
+
 $menu =  [
-
-
 
     'title' => 'Complaints',
 
@@ -45,13 +44,21 @@ $menu =  [
 
         [
             'text' => 'Home',
-            'url'  => 'user/settings',
+            'url'  => '',
             'icon' => 'home',
+        ],
+        [
+            'text' => 'Fuatilia Lalamiko',
+            'url'  =>'#',
+            'icon' => 'th',
+
+
         ],
         [
             'text' => 'Registration',
             'url'  => 'user/settings',
             'icon' => 'th',
+            'can'=>'islogin'
         ],
         [
             'text'    => 'Complaints',
@@ -86,6 +93,8 @@ $menu =  [
                 ],
 
             ],
+
+            'can'=>'islogin'
         ],
 
         [
@@ -153,6 +162,7 @@ $menu =  [
                 ],
 
             ],
+            'can'=>'islogin'
         ],
         [
             'text'    => 'System Setting',
@@ -190,7 +200,8 @@ $menu =  [
 
 
 
-            ]
+            ],
+            'can'=>'islogin'
         ]
 
     ],
@@ -214,83 +225,4 @@ $menu =  [
 ];
 
 
-$menu_user_not_loggedin =
- [
-
-
-
-    'title' => 'Complaints',
-
-    'title_prefix' => '',
-
-    'title_postfix' => '',
-
-    'logo' => '<b>Complaints</b>',
-
-    'logo_mini' => '<b>A</b>LT',
-
-
-
-    'skin' => 'blue',
-
-
-
-    'layout' => null,
-
-    'collapse_sidebar' => false,
-
-
-
-    'dashboard_url' => 'home',
-
-    'logout_url' => 'logout',
-
-    'logout_method' => null,
-
-    'login_url' => 'login',
-
-    'register_url' => 'register',
-
-
-    'menu' => [
-
-
-        [
-            'text' => 'Home',
-            'url'  => 'user/settings',
-            'icon' => 'home',
-        ],
-        [
-            'text' => 'Fuatilia Lalamiko',
-            'url'  => 'user/settings',
-            'icon' => 'th',
-        ],
-
-    ],
-
-
-
-    'filters' => [
-        JeroenNoten\LaravelAdminLte\Menu\Filters\HrefFilter::class,
-        JeroenNoten\LaravelAdminLte\Menu\Filters\ActiveFilter::class,
-        JeroenNoten\LaravelAdminLte\Menu\Filters\SubmenuFilter::class,
-        JeroenNoten\LaravelAdminLte\Menu\Filters\ClassesFilter::class,
-        JeroenNoten\LaravelAdminLte\Menu\Filters\GateFilter::class,
-    ],
-
-
-    'plugins' => [
-        'datatables' => true,
-        'select2'    => true,
-        'chartjs'    => true,
-    ],
-];
-
-$i = 24;
-
-if ($i==2){
-
     return $menu;
-}
-
-return $menu_user_not_loggedin;

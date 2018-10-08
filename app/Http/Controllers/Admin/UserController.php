@@ -6,6 +6,7 @@ use App\User;
 use Carbon\Carbon;
 use Illuminate\Http\Request;
 use App\Http\Controllers\Controller;
+use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\DB;
 use Illuminate\Support\Facades\Session;
 
@@ -171,6 +172,17 @@ class UserController extends Controller
         $user =  DB::table('users')->where('status', '1')->get()->toArray();
 
         return $user;
+    }
+
+
+
+    public function  logged()
+    {
+        if (Auth::guest()){
+            return 0;
+        }
+        return 1;
+
     }
 
 }

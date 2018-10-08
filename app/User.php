@@ -5,6 +5,7 @@ namespace App;
 use Illuminate\Notifications\Notifiable;
 use Illuminate\Foundation\Auth\User as Authenticatable;
 
+use Illuminate\Support\Facades\Auth;
 use Tymon\JWTAuth\Contracts\JWTSubject;
 
 class User extends Authenticatable
@@ -31,12 +32,16 @@ class User extends Authenticatable
 
 
 
-    /**
-     * Return a key value array, containing any custom claims to be added to the JWT.
-     *
-     * @return array
-     */
+ public  function  isloggedin(){
 
+     return Auth::guest();
+ }
+
+
+    public function isAdmin()
+    {
+        return 1;
+    }
 
 
 }
