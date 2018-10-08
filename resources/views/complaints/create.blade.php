@@ -51,7 +51,7 @@
                 <div class="form-group">
                     <label for="mfuko">Mfuko/Scheme:</label>
                     <select name="mfuko"  class="form-control">
-                        <option value="psssf">PSSSF</option>
+                        <option value="psssf">Public Social Security Service Fund</option>
                         <option value="nssf">Nationa Social Security Fund</option>
                         <option value="wcf">Workers Compersation Fund</option>
                     </select>
