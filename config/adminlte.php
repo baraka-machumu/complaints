@@ -168,6 +168,11 @@ $menu =  [
             'text'    => 'System Setting',
             'icon'    => 'th',
             'submenu' => [
+
+                [
+                    'text' => 'Register Complaints Type',
+                    'url'  => 'complaints-types/create',
+                ],
                 [
                     'text' => 'Register User',
                     'url'  => 'user/register',
