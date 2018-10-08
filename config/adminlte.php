@@ -165,7 +165,7 @@ $menu =  [
             'can'=>'islogin'
         ],
         [
-            'text'    => 'System Setting',
+            'text'    => 'System user Setting',
             'icon'    => 'th',
             'submenu' => [
 
@@ -207,7 +207,22 @@ $menu =  [
 
             ],
             'can'=>'islogin'
+        ],
+        [
+            'text'    => 'System Configuration',
+            'icon'    => 'th',
+            'submenu' => [
+                [
+                    'text' => 'Create Social Security Status',
+                    'url'  => '',
+                ],
+
+
+
+            ],
+            'can'=>'islogin'
         ]
+
 
     ],
 
