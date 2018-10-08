@@ -43,7 +43,6 @@ class ProfileController extends Controller
 
         $profile  = new Profile();
 
-
         $profile->profile_name = $request->get('profile_name');
 
         if (Profile::where('profile_name', '=', $request->get('profile_name'))->exists()) {
