@@ -3,7 +3,7 @@
 @section('title', 'Dashboard')
 
 @section('content_header')
-    <h1>Dashboard</h1>
+    <h1>User Dashboard</h1>
 @stop
 
 @section('content')
@@ -91,9 +91,9 @@
 
         @section('css')
             <style>
-                .content-wrapper {
-                    background-color:white;
-                }
+                /*.content-wrapper {*/
+                    /*background-color:white;*/
+                /*}*/
             </style>
 
         @stop
