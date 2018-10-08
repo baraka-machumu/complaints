@@ -34,7 +34,9 @@ Auth::routes();
 Route::get('/home', 'HomeController@index')->name('home');
 
 //Complaints Controller
+Route::get('create','Complaints\ComplaintsController@create');
 Route::resource('complaints','Complaints\ComplaintsController');
+
 
 //Complaints type Controller
 Route::resource('complaints-types','Complaints\ComplaintsTypeController');

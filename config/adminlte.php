@@ -56,7 +56,7 @@ $menu =  [
         ],
         [
             'text' => 'Registration',
-            'url'  => 'user/settings',
+            'url'  => 'complaints/create',
             'icon' => 'th',
             'can'=>'islogin'
         ],
