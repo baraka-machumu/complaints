@@ -13,25 +13,28 @@
 
 use App\User;
 use Carbon\Carbon;
+use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\DB;
 
-Route::get('/', function () {
+Route::get('/test', function () {
 
-    $user_id = 12;
-    $user_profile  = DB::table('user_profiles')
-        ->join('profiles', 'user_profiles.profile_id', '=', 'profiles.id')
-        ->select('profiles.profile_name')
-        ->where('user_profiles.user_id','=',$user_id)
-    ->get();
+    $profile_name ="Top Management";
+    if (\App\Profile::where('profile_name', '=', $profile_name)->exists()) {
+      echo  "exists";
+    } else {
+        echo  "not exists";
+    }
 
-    return $user_profile;
-    $roleProfiles = DB::table('role_profiles')
-        ->join('roles', 'role_profiles.role_id', '=', 'roles.id')
-        ->select('roles.role_name','role_profiles.id')
-        ->where('role_profiles.profile_id', '=', 3)
-        ->get();
-    return $roleProfiles;
 });
+
+// get default url
+
+Route::get('/','Auth\LoginController@index');
+
+
+Auth::routes();
+
+Route::get('/home', 'HomeController@index')->name('home');
 
 //Complaints Controller
 Route::resource('complaints','Complaints\ComplaintsController');
@@ -79,7 +82,6 @@ Route::get('userProfile/assign/profile/{id}','Admin\UserProfileController@assign
 Route::resource('userProfile','Admin\UserProfileController');
 
 Route::post('userProfile/update','Admin\UserProfileController@updates');
-
 
 
 

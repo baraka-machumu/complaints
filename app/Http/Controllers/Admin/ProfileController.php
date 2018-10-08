@@ -46,6 +46,11 @@ class ProfileController extends Controller
 
         $profile->profile_name = $request->get('profile_name');
 
+        if (Profile::where('profile_name', '=', $request->get('profile_name'))->exists()) {
+
+            Session::flash('alert-warning', $request->get('profile_name').' Already Exists');
+            return redirect('profile/create');
+        }
         $success = $profile->save();
 
 

@@ -32,3 +32,13 @@ Breadcrumbs::register('assign/role', function ($trail) {
 
 
 
+
+
+Breadcrumbs::register('roleProfile', function ($trail) {
+    $trail->push('RoleProfile', url('roleProfile'));
+});
+
+Breadcrumbs::register('assign/profile', function ($trail) {
+    $trail->parent('roleProfile');
+    $trail->push('Assign/Profile', url('assign/profile'));
+});
