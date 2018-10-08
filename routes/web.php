@@ -43,6 +43,11 @@ Route::resource('complaints-types','Complaints\ComplaintsTypeController');
 Route::post('complaints-types/update','Complaints\ComplaintsTypeController@updates');
 
 
+//Scheme type Controller
+Route::resource('scheme-types','Scheme\SchemeTypeController');
+Route::post('scheme-types/update','Scheme\SchemeTypeController@updates');
+
+
 //user route
 Route::get('user/register','Admin\UserController@create');
 Route::get('user/edit','Admin\UserController@create');

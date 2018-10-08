@@ -1,14 +1,13 @@
 <?php
 
-namespace App\Http\Controllers\Complaints;
+namespace App\Http\Controllers\Scheme;
 
-use App\ComplaintType;
-use App\Role;
+use App\SchemeType;
 use Illuminate\Http\Request;
 use App\Http\Controllers\Controller;
 use Illuminate\Support\Facades\Session;
 
-class ComplaintsTypeController extends Controller
+class SchemeTypeController extends Controller
 {
     /**
      * Display a listing of the resource.
@@ -27,9 +26,10 @@ class ComplaintsTypeController extends Controller
      */
     public function create()
     {
-        $complaintsTypes = $this->getAllComplaintsType();
-        return view('complaintsType.create', with(['complaintsTypes'=>$complaintsTypes]));
+        $schemeTypes = $this->getAllSchemeType();
+        return view('schemeType.create', with(['schemeTypes'=>$schemeTypes]));
     }
+
     /**
      * Store a newly created resource in storage.
      *
@@ -38,29 +38,29 @@ class ComplaintsTypeController extends Controller
      */
     public function store(Request $request)
     {
-        $complaintsTypes  =  new ComplaintType();
-        $complaint_type_name = $request->get('complaint_type_name');
+        $schemeTypes  =  new SchemeType();
+        $scheme_type_name = $request->get('scheme_type_name');
 
-        $complaintsTypes->complaint_type_name  = $complaint_type_name;
+        $schemeTypes->scheme_type_name  = $scheme_type_name;
 
-        if (ComplaintType::where('complaint_type_name', '=', $request->get('complaint_type_name'))->exists()) {
-            Session::flash('alert-warning', $request->get('complaint_type_name').' Complain Type Already Exists');
-            return redirect('complaints-types/create');
+        if (SchemeType::where('scheme_type_name', '=', $request->get('scheme_type_name'))->exists()) {
+            Session::flash('alert-warning', $request->get('scheme_type_name').' Scheme Type Already Exists');
+            return redirect('scheme-types/create');
 
         }
 
-        $success =  $complaintsTypes->save();
+        $success =  $schemeTypes->save();
 
         if ($success)
         {
-            Session::flash('alert-success', 'successful Complaints type added');
+            Session::flash('alert-success', 'successful Sheme added');
 
         } else {
-            Session::flash('alert-warning', 'Failed to add Complaints type');
+            Session::flash('alert-warning', 'Failed to add Scheme');
 
         }
-        $complaintsTypes  = $this->getAllComplaintsType();
-        return redirect('complaints-types/create');
+        $schemeTypes  = $this->getAllSchemeType();
+        return redirect('scheme-types/create');
     }
 
     /**
@@ -82,8 +82,7 @@ class ComplaintsTypeController extends Controller
      */
     public function edit($id)
     {
-        return view('complaintsType.edit',compact(['id'=>$id]));
-
+        //
     }
 
     /**
@@ -97,13 +96,13 @@ class ComplaintsTypeController extends Controller
     {
         $id  =  $request->get('id');
 
-        $complaint_types =  ComplaintType::find($id);
+        $scheme_types =  SchemeType::find($id);
 
-        $complaint_types->complaint_type_name  =  $request->get('complaint_type_name');
+        $scheme_types->scheme_type_name  =  $request->get('scheme_type_name');
 
-//        dd($complaint_types);
+//        dd($scheme_types);
 
-        $success = $complaint_types->save();
+        $success = $scheme_types->save();
 
 
         if ($success)
@@ -115,7 +114,7 @@ class ComplaintsTypeController extends Controller
 
         }
 
-        return redirect('complaints-types/create');
+        return redirect('scheme-types/create');
 
     }
 
@@ -130,9 +129,10 @@ class ComplaintsTypeController extends Controller
         //
     }
 
-    public function getAllComplaintsType()
+    public function getAllSchemeType()
     {
-        $complaintsTypes = ComplaintType::all()->toArray();
-        return $complaintsTypes;
+        $schemTypes = SchemeType::all()->toArray();
+        return $schemTypes;
+
     }
 }

@@ -46,14 +46,21 @@
                 <h4>Taarifa za Hifadhi ya Jamii/Social Security Details</h4>
                 <div class="form-group">
                     <label for="social_security_status">Hali ya Uanachama/Social Security Status:</label>
-                    <input type="text" class="form-control" id="social_security_status" name="social_security_status" >
+                    <select class="form-control" id="lgFormGroupInput" name="mfuko"  style="height: 35px; font-size: 14px" required>
+                        <option selected="true" disabled="disabled">---Select Scheme--</option>
+                        @foreach($membership_status as $status)
+                            <option value="{{$status['id']}}">{{$status['name']}}</option>
+                        @endforeach
+                    </select>
+                    {{--<input type="text" class="form-control" id="social_security_status" name="social_security_status" >--}}
                 </div>
                 <div class="form-group">
                     <label for="mfuko">Mfuko/Scheme:</label>
-                    <select name="mfuko"  class="form-control">
-                        <option value="psssf">Public Social Security Service Fund</option>
-                        <option value="nssf">Nationa Social Security Fund</option>
-                        <option value="wcf">Workers Compersation Fund</option>
+                    <select class="form-control" id="lgFormGroupInput" name="mfuko"  style="height: 35px; font-size: 14px" required>
+                        <option selected="true" disabled="disabled">---Select Scheme--</option>
+                        @foreach($all_scheme_types as $all_scheme_type)
+                            <option value="{{$all_scheme_type['id']}}">{{$all_scheme_type['scheme_type_name']}}</option>
+                        @endforeach
                     </select>
                 </div>
                 <div class="form-group">
@@ -67,7 +74,13 @@
                 <h4>Taarifa za Lalamiko/Complaints Details</h4>
                 <div class="form-group">
                     <label for="complaint_type">Aina ya Lalamiko / Complaint Type</label>
-                    <input type="text" class="form-control" id="complaint_type" name="complaint_type" >
+                    <select class="form-control" id="lgFormGroupInput" name="complaint_type"  style="height: 35px; font-size: 14px" required>
+                        <option selected="true" disabled="disabled">---Select Aina ya Lalamiko/Complaint Type--</option>
+                        @foreach($complaintsTypes as $complaintsType)
+                            <option value="{{$complaintsType['id']}}">{{$complaintsType['complaint_type_name']}}</option>
+                        @endforeach
+                    </select>
+                    {{--<input type="text" class="form-control" id="complaint_type" name="complaint_type" >--}}
                 </div>
                 <div class="form-group">
                     <label for="complaint_type">Lalamiko binafsi au kikundi / Individual or Group Complaint</label>
@@ -90,6 +103,9 @@
         @stop
 
         @section('css')
+            .content-wrapper
+        {
+        }
             <link rel="stylesheet" href="/css/admin_custom.css">
         @stop
 

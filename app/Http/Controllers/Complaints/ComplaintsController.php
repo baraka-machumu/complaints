@@ -2,6 +2,9 @@
 
 namespace App\Http\Controllers\Complaints;
 
+use App\ComplaintType;
+use App\MembershipStatus;
+use App\SchemeType;
 use Illuminate\Http\Request;
 use App\Http\Controllers\Controller;
 
@@ -24,7 +27,11 @@ class ComplaintsController extends Controller
      */
     public function create()
     {
-        return view('complaints.create');
+        $membership_status = MembershipStatus::all()->toArray();
+        $all_scheme_types = SchemeType::all()->toArray();
+        $complaintsTypes = ComplaintType::all()->toArray();
+        return view('complaints.create', with(['all_scheme_types'=>$all_scheme_types,'complaintsTypes'=>$complaintsTypes
+            ,'membership_status'=>$membership_status]));
     }
 
     /**
