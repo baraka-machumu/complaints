@@ -41,9 +41,9 @@ class ComplaintsTypeController extends Controller
         $complaintsTypes  =  new ComplaintType();
         $complaint_type_name = $request->get('complaint_type_name');
 
-        $complaintsTypes->role_name  = $complaint_type_name;
+        $complaintsTypes->complaint_type_name  = $complaint_type_name;
 
-        if (Role::where('complaint_type_name', '=', $request->get('complaint_type_name'))->exists()) {
+        if (ComplaintType::where('complaint_type_name', '=', $request->get('complaint_type_name'))->exists()) {
             Session::flash('alert-warning', $request->get('complaint_type_name').' Complain Type Already Exists');
             return redirect('complaints-types/create');
 
@@ -82,7 +82,8 @@ class ComplaintsTypeController extends Controller
      */
     public function edit($id)
     {
-        //
+        return view('complaints_type.edit',compact(['id'=>$id]));
+
     }
 
     /**
@@ -92,9 +93,30 @@ class ComplaintsTypeController extends Controller
      * @param  int  $id
      * @return \Illuminate\Http\Response
      */
-    public function update(Request $request, $id)
+    public function updates(Request $request)
     {
-        //
+        $id  =  $request->get('id');
+
+        $complaint_types =  ComplaintType::find($id);
+
+        $complaint_types->complaint_type_name  =  $request->get('complaint_type_name');
+
+//        dd($complaint_types);
+
+        $success = $complaint_types->save();
+
+
+        if ($success)
+        {
+            Session::flash('alert-success', 'successful Updated');
+
+        } else {
+            Session::flash('alert-warning', 'Failed to update, try again');
+
+        }
+
+        return redirect('complaints-types/create');
+
     }
 
     /**
