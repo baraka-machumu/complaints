@@ -38,13 +38,13 @@ Route::resource('complaints','Complaints\ComplaintsController');
 
 //Complaints type Controller
 Route::resource('complaints-types','Complaints\ComplaintsTypeController');
+Route::post('complaints-types/update','Complaints\ComplaintsTypeController@updates');
 
 
 //user route
 Route::get('user/register','Admin\UserController@create');
 Route::get('user/edit','Admin\UserController@create');
 Route::get('user/delete','Admin\UserController@create');
-
 Route::resource('user','Admin\UserController');
 
 //Role route

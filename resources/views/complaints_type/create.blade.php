@@ -33,7 +33,7 @@
 
         <div class="col-md-8">
 
-            <table class="table table-striped table-bordered table-condensed" id="roleTable">
+            <table class="table table-striped table-bordered table-condensed complaint_types" id="roleTable">
                 <tr><td colspan="12">Complaints Type</td></tr>
                 <tr>
                     <th>#</th>
@@ -46,7 +46,7 @@
                 @foreach($complaintsTypes as $complaintsType)
                     <tr>
                         <td>{{$i}}</td>
-                        <td>{{ $complaintsType['role_name'] }}</td>
+                        <td>{{ $complaintsType['complaint_type_name'] }}</td>
                         <td style="display: none">{{ $complaintsType['id'] }}</td>
                         <td><a href="#" class="glyphicon glyphicon-pencil edit" data-toggle="modal" data-target="#edit">
                             </a>
@@ -69,7 +69,41 @@
     </div>
 
 
+    <!-- Modal -->
+    <div class="modal fade" id="edit" tabindex="-1" role="dialog" aria-labelledby="myModalLabel">
+        <div class="modal-dialog" role="document">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
+                    <h4 class="modal-title" id="myModalLabel">Edit Complaints Type</h4>
+                </div>
+                <div class="modal-body">
+
+                    <div class="row">
+                        <div class="col-md-8">
+
+                            <form action="{{url('complaints-types/update')}}" method="post">
+                                {{ csrf_field() }}
+
+                                <input type="hidden" class="form-control id" name="id" >
+
+                                <div class="form-group">
+                                    <label for="username">complaints Type Name:</label>
+                                    <input type="text" class="form-control complaint_type_name" id="complaint_type_name"  name="complaint_type_name" >
+                                </div>
+                    </div>
+                    <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
+                    <button type="submit" class="btn btn-primary">Save changes</button>
+                    </form>
+                    <div class="modal-footer">
+
+                    </div>
+                </div>
+            </div>
+        </div>
+
         @stop
+
         @section('css')
             <style>
                 .content-wrapper {
@@ -80,5 +114,25 @@
         @stop
 
         @section('js')
+            <script>
 
+                $(document).ready( function (e) {
+
+                    $(".complaint_types").on('click', '.edit', function () {
+
+                        var currentRow=$(this).closest("tr");
+
+                        var complaint_type_name =currentRow.find("td:eq(1)").text();
+                        var id =  currentRow.find("td:eq(0)").text();
+
+                        $(".complaint_type_name").val(complaint_type_name);
+                        $(".id").val(id);
+
+                        console.log(complaint_type_name);
+
+                    });
+
+
+                });
+            </script>
 @stop
