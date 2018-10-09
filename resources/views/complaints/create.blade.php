@@ -103,9 +103,7 @@
         @stop
 
         @section('css')
-            .content-wrapper
-        {
-        }
+
             <link rel="stylesheet" href="/css/admin_custom.css">
         @stop
 
