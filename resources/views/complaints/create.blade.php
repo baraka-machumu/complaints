@@ -47,7 +47,7 @@
                 <div class="form-group">
                     <label for="social_security_status">Hali ya Uanachama/Social Security Status:</label>
                     <select class="form-control" id="lgFormGroupInput" name="mfuko"  style="height: 35px; font-size: 14px" required>
-                        <option selected="true" disabled="disabled">---Select Scheme--</option>
+                        <option selected="true" disabled="disabled">---Select social security status--</option>
                         @foreach($membership_status as $status)
                             <option value="{{$status['id']}}">{{$status['name']}}</option>
                         @endforeach
@@ -103,9 +103,6 @@
         @stop
 
         @section('css')
-            .content-wrapper
-        {
-        }
             <link rel="stylesheet" href="/css/admin_custom.css">
         @stop
 
