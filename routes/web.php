@@ -18,19 +18,26 @@ use Illuminate\Support\Facades\DB;
 
 Route::get('/test', function () {
 
-    echo  Auth::guest();
+    $openComplaints = DB::table('complaints')
+        ->where('complstatus_id', '=', 2)->count();
 
+    $pendingComplaints = DB::table('complaints')
+        ->where('complstatus_id', '=', 2)->count();
+
+    $closedComplaints = DB::table('complaints')
+        ->where('complstatus_id', '=', 2)->count();
+    $data= ['open'=>$openComplaints,'pending'=>$pendingComplaints,'closed'=>$closedComplaints];
+    return response()->json($data,'200',['json']);
 
 });
 
 // get default url
-
 Route::get('/','Auth\LoginController@index');
 
 Route::get('logout', 'Auth\LoginController@logout');
 
 Auth::routes();
-
+Route::get('api/complaints/count', 'HomeController@complaintsStatus');
 Route::get('/home', 'HomeController@index')->name('home');
 
 //Complaints Controller
