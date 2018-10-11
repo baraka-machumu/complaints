@@ -4,7 +4,7 @@ namespace App;
 
 use Illuminate\Database\Eloquent\Model;
 
-class SchemeType extends Model
+class Scheme extends Model
 {
     //
 }

@@ -224,9 +224,7 @@
             <script src="/complaints/js/chart.js"></script>
             <script src="/complaints/js/line.js"></script>
             <script src="/complaints/js/complaints_count.js"></script>
-
-
-
 @stop
+    </div>
 
 

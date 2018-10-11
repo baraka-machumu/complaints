@@ -18,16 +18,19 @@ use Illuminate\Support\Facades\DB;
 
 Route::get('/test', function () {
 
-    $openComplaints = DB::table('complaints')
-        ->where('complstatus_id', '=', 2)->count();
+    $data_wcf= (object) DB::select(" SELECT COUNT(complaint_status_name) AS wcf FROM vw_complaints WHERE scheme_name LIKE 'wcf%' AND complaint_status_name LIKE 'open%' UNION
+SELECT COUNT(complaint_status_name) AS wcf FROM vw_complaints WHERE scheme_name LIKE 'wcf%' AND complaint_status_name LIKE 'closed%' UNION
+SELECT COUNT(complaint_status_name) AS wcf FROM vw_complaints WHERE scheme_name LIKE 'wcf%' AND complaint_status_name LIKE 'pending%' UNION
+SELECT COUNT(complaint_status_name) AS wcf FROM vw_complaints WHERE scheme_name LIKE 'wcf%'
+" );
 
-    $pendingComplaints = DB::table('complaints')
-        ->where('complstatus_id', '=', 2)->count();
+    $dataarray = [];
+    foreach ($data_wcf as $data){
+        array_push($dataarray,$data->wcf);
+    }
 
-    $closedComplaints = DB::table('complaints')
-        ->where('complstatus_id', '=', 2)->count();
-    $data= ['open'=>$openComplaints,'pending'=>$pendingComplaints,'closed'=>$closedComplaints];
-    return response()->json($data,'200',['json']);
+    return response()->json($dataarray)->header('content-type','json');
+
 
 });
 
