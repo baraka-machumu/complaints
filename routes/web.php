@@ -34,6 +34,14 @@ SELECT COUNT(complaint_status_name) AS wcf FROM vw_complaints WHERE scheme_name 
 
 });
 
+
+Route::get('api/json/all/complaints/open','HomeController@getJsonOPenComplaintsPerMonth');
+Route::get('api/json/all/complaints/pending','HomeController@getJsonPendingComplaintsPerMonth');
+Route::get('api/json/all/complaints/closed','HomeController@getJsonClosedComplaintsPerMonth');
+
+
+Route::get('api/json/all/complaints/piechart','HomeController@getJsonAllComplaintsPiechart');
+
 // get default url
 Route::get('/','Auth\LoginController@index');
 

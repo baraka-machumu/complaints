@@ -65,22 +65,22 @@
         <div class="col-md-12" style="">
             <div class="box">
                 <div class="box-header with-border">
-                    <h3 class="box-title">Monthly Recap Report</h3>
+                    <h3 class="box-title">Complaints By Line Graph</h3>
+                    <div class="btn-group">
+                        <button type="button" class="btn btn-box-tool dropdown-toggle" data-toggle="dropdown">
+                            <i class="fa fa-wrench"></i></button>
+                        <ul class="dropdown-menu" role="menu">
+                            <li><a href="javascript:void(0);" id="open-graph">Open Complaints Graph</a></li>
+                            <li><a  href="javascript:void(0);" id="pending-graph"> Pending Complaints Graph</a></li>
+                            <li><a  href="javascript:void(0);" id="closed-graph">Closed Complaints Graph</a></li>
+
+                        </ul>
+                    </div>
 
                     <div class="box-tools pull-right">
                         <button type="button" class="btn btn-box-tool" data-widget="collapse"><i class="fa fa-minus"></i>
                         </button>
-                        <div class="btn-group">
-                            <button type="button" class="btn btn-box-tool dropdown-toggle" data-toggle="dropdown">
-                                <i class="fa fa-wrench"></i></button>
-                            <ul class="dropdown-menu" role="menu">
-                                <li><a href="#">Action</a></li>
-                                <li><a href="#">Another action</a></li>
-                                <li><a href="#">Something else here</a></li>
-                                <li class="divider"></li>
-                                <li><a href="#">Separated link</a></li>
-                            </ul>
-                        </div>
+
                         <button type="button" class="btn btn-box-tool" data-widget="remove"><i class="fa fa-times"></i></button>
                     </div>
                 </div>
@@ -89,12 +89,12 @@
                     <div class="row">
                         <div class="col-md-8">
                             <p class="text-center">
-                                <strong>Sales: 1 Jan, 2014 - 30 Jul, 2014</strong>
+                                <strong>complaints</strong>
                             </p>
 
                             <div class="chart">
                                 <!-- Sales Chart Canvas -->
-                                <canvas id="salesChart" style="height: 180px; width: 645px;" width="967" height="270"></canvas>
+                                <canvas class="salesChart" style="height: 180px; width: 645px;" width="967" height="270"></canvas>
                             </div>
                             <!-- /.chart-responsive -->
                         </div>
@@ -102,7 +102,7 @@
                         <div class="col-md-4">
                             <div class="box box-default">
                                 <div class="box-header with-border">
-                                    <h3 class="box-title">Browser Usage</h3>
+                                    <h3 class="box-title">Complaints  Pie Chart</h3>
 
                                     <div class="box-tools pull-right">
                                         <button type="button" class="btn btn-box-tool" data-widget="collapse"><i class="fa fa-minus"></i>
@@ -115,19 +115,19 @@
                                     <div class="row">
                                         <div class="col-md-8">
                                             <div class="chart-responsive">
-                                                <canvas id="pieChart" height="150"></canvas>
+                                                <canvas id="pieChart" height="150">
+
+                                                </canvas>
                                             </div>
                                             <!-- ./chart-responsive -->
                                         </div>
                                         <!-- /.col -->
                                         <div class="col-md-4">
                                             <ul class="chart-legend clearfix">
-                                                <li><i class="fa fa-circle-o text-red"></i> Chrome</li>
-                                                <li><i class="fa fa-circle-o text-green"></i> IE</li>
-                                                <li><i class="fa fa-circle-o text-yellow"></i> FireFox</li>
-                                                <li><i class="fa fa-circle-o text-aqua"></i> Safari</li>
-                                                <li><i class="fa fa-circle-o text-light-blue"></i> Opera</li>
-                                                <li><i class="fa fa-circle-o text-gray"></i> Navigator</li>
+                                                <li><i class="fa fa-circle-o text-red"></i> Open</li>
+                                                <li><i class="fa fa-circle-o text-yellow"></i>Pending </li>
+                                                <li><i class="fa fa-circle-o text-green"></i> Closed</li>
+
                                             </ul>
                                         </div>
                                         <!-- /.col -->
@@ -224,6 +224,11 @@
             <script src="/complaints/js/chart.js"></script>
             <script src="/complaints/js/line.js"></script>
             <script src="/complaints/js/complaints_count.js"></script>
+
+
+    consolo.log(333);
+
+
 @stop
     </div>
 
