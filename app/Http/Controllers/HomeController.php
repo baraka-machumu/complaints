@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers;
 
+use App\Complaints;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\DB;
 
@@ -26,6 +27,22 @@ class HomeController extends Controller
     {
         return view('home');
     }
+
+    public function complaintsStatus()
+    {
+
+        $openComplaints = DB::table('complaints')
+            ->where('complstatus_id', '=', 1)->count();
+
+        $pendingComplaints = DB::table('complaints')
+            ->where('complstatus_id', '=', 2)->count();
+
+        $closedComplaints = DB::table('complaints')
+            ->where('complstatus_id', '=', 3)->count();
+        $data= ['open'=>$openComplaints,'pending'=>$pendingComplaints,'closed'=>$closedComplaints];
+        return response()->json($data,'200',['json']);
+    }
+
 
 
     /*  getJsonAllComplaints  returns json that contains all total number of open,closed,pending, total complaints

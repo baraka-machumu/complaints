@@ -4,7 +4,8 @@ namespace App;
 
 use Illuminate\Database\Eloquent\Model;
 
-class Complaints extends Model
+class Complaint extends Model
 {
-    //
+
+
 }

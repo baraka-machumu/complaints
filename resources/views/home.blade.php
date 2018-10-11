@@ -14,7 +14,7 @@
 
                 <div class="info-box-content">
                     <span class="info-box-text">Open Complaints</span>
-                    <span class="info-box-number">90<small>%</small></span>
+                    <span class="info-box-number" id="open"></span>
                 </div>
                 <!-- /.info-box-content -->
             </div>
@@ -26,7 +26,7 @@
 
                 <div class="info-box-content">
                     <span class="info-box-text">Pending Complaints</span>
-                    <span class="info-box-number">90<small>%</small></span>
+                    <span class="info-box-number" id="pending"></span>
                 </div>
                 <!-- /.info-box-content -->
             </div>
@@ -39,7 +39,7 @@
 
                 <div class="info-box-content">
                     <span class="info-box-text">Closed Complaints</span>
-                    <span class="info-box-number">90<small>%</small></span>
+                    <span class="info-box-number" id="closed"></span>
                 </div>
                 <!-- /.info-box-content -->
             </div>
@@ -52,7 +52,7 @@
 
                 <div class="info-box-content">
                     <span class="info-box-text">Total Complaints</span>
-                    <span class="info-box-number">90<small>%</small></span>
+                    <span class="info-box-number" id="total"></span>
                 </div>
                 <!-- /.info-box-content -->
             </div>
@@ -223,6 +223,8 @@
         @section('js')
             <script src="/complaints/js/chart.js"></script>
             <script src="/complaints/js/line.js"></script>
+            <script src="/complaints/js/complaints_count.js"></script>
+
 
     consolo.log(333);
 

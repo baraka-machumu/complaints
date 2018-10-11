@@ -29,6 +29,7 @@ class CreateComplaintsTable extends Migration
             $table->string('employer');
             $table->string('complaint_type');
             $table->string('complaints');
+            $table->string('status');
             $table->string('validator');
             $table->timestamps();
         });
