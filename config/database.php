@@ -55,9 +55,7 @@ return [
             'options'   => [
                 \PDO::ATTR_EMULATE_PREPARES => true
             ]
-            'options'   => [
-                \PDO::ATTR_EMULATE_PREPARES => true
-            ],
+          
         ],
 
         'pgsql' => [
