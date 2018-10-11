@@ -18,10 +18,16 @@ use Illuminate\Support\Facades\DB;
 
 Route::get('/test', function () {
 
-    echo  Auth::guest();
-
 
 });
+
+
+Route::get('api/json/all/complaints/open','HomeController@getJsonOPenComplaintsPerMonth');
+Route::get('api/json/all/complaints/pending','HomeController@getJsonPendingComplaintsPerMonth');
+Route::get('api/json/all/complaints/closed','HomeController@getJsonClosedComplaintsPerMonth');
+
+
+Route::get('api/json/all/complaints/piechart','HomeController@getJsonAllComplaintsPiechart');
 
 // get default url
 
