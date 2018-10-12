@@ -6,12 +6,7 @@ $(function () {
 
     summaryByScheme();
 
-    var id = 9;
-    $("#dash").append("<label id=lick me</label>");
-    $("#"+id).click(function (e) {
 
-        alert(9);
-    });
 });
 
 function summaryByScheme()
@@ -20,17 +15,15 @@ function summaryByScheme()
     {
         console.log("summmary");
 
-        var ids = "d";
-        $("#summarybyscheme ").append("<tr><td></td></tr>");
         for(var i = 0; i<data.length; i++)
         {
              var id = "scheme-data-"+i;
 
-            $("#summarybyschemeP").append("<tr id=id></tr>");
+            $("#summarybyscheme ").append('<tr id="'+id+'"><td>'+(i+1)+'</td></tr>');
+
             for(var x = 0; x<5; x++)
             {
-                // console.log(data[i][x]);
-                $("#"+id).append("<td>"+data[i][x]+"</td>");
+                $("#"+id).append('<td>'+data[i][x]+'</td>');
             }
 
         }

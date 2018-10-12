@@ -22,6 +22,19 @@ class LoginController extends Controller
 
     use AuthenticatesUsers;
 
+
+
+
+
+
+    protected function authenticated(Request $request, $user)
+    {
+        if (Auth::check() ) {// do your margic here
+            return redirect()->route('dashboard');
+        }
+
+    }
+
     /**
      * Where to redirect users after login.
      *
@@ -41,6 +54,9 @@ class LoginController extends Controller
 
     public  function  index()
     {
+        if (Auth::check() ) {
+            return redirect()->route('dashboard');
+        }
 
         return view('user.default_page_before_login');
     }

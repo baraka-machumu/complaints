@@ -54,7 +54,7 @@ Route::get('logout', 'Auth\LoginController@logout');
 
 Auth::routes();
 Route::get('api/complaints/count', 'HomeController@complaintsStatus');
-Route::get('/home', 'HomeController@index')->name('home');
+Route::get('/dashboard', 'HomeController@index')->name('dashboard');
 
 //Complaints Controller
 Route::get('create','Complaints\ComplaintsController@create');

@@ -44,7 +44,7 @@ $menu =  [
 
         [
             'text' => 'Home',
-            'url'  => '',
+            'url'  => 'dashboard',
             'icon' => 'home',
         ],
         [
@@ -208,21 +208,6 @@ $menu =  [
             ],
             'can'=>'islogin'
         ],
-        [
-            'text'    => 'System Configuration',
-            'icon'    => 'th',
-            'submenu' => [
-                [
-                    'text' => 'Create Social Security Status',
-                    'url'  => '',
-                ],
-
-
-
-            ],
-            'can'=>'islogin'
-        ]
-
 
     ],
 
