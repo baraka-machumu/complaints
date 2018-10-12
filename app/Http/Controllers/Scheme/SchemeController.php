@@ -2,12 +2,12 @@
 
 namespace App\Http\Controllers\Scheme;
 
-use App\SchemeType;
+use App\Scheme;
 use Illuminate\Http\Request;
 use App\Http\Controllers\Controller;
 use Illuminate\Support\Facades\Session;
 
-class SchemeTypeController extends Controller
+class SchemeController extends Controller
 {
     /**
      * Display a listing of the resource.
@@ -38,12 +38,12 @@ class SchemeTypeController extends Controller
      */
     public function store(Request $request)
     {
-        $schemeTypes  =  new SchemeType();
+        $schemeTypes  =  new Scheme();
         $scheme_type_name = $request->get('scheme_type_name');
 
         $schemeTypes->scheme_type_name  = $scheme_type_name;
 
-        if (SchemeType::where('scheme_type_name', '=', $request->get('scheme_type_name'))->exists()) {
+        if (Scheme::where('scheme_type_name', '=', $request->get('scheme_type_name'))->exists()) {
             Session::flash('alert-warning', $request->get('scheme_type_name').' Scheme Type Already Exists');
             return redirect('scheme-types/create');
 
@@ -96,7 +96,7 @@ class SchemeTypeController extends Controller
     {
         $id  =  $request->get('id');
 
-        $scheme_types =  SchemeType::find($id);
+        $scheme_types =  Scheme::find($id);
 
         $scheme_types->scheme_type_name  =  $request->get('scheme_type_name');
 
@@ -131,7 +131,7 @@ class SchemeTypeController extends Controller
 
     public function getAllSchemeType()
     {
-        $schemTypes = SchemeType::all()->toArray();
+        $schemTypes = Scheme::all()->toArray();
         return $schemTypes;
 
     }

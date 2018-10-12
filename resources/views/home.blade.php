@@ -3,7 +3,7 @@
 @section('title', 'AdminLTE')
 
 @section('content_header')
-    <h1>Dashboard</h1>
+    <h1 id="dash">Dashboard</h1>
 @stop
 
 @section('content')
@@ -174,7 +174,7 @@
                             </div>
                         </div>
 
-                        <table class="table table-striped table-bordered table-condensed" id="roleTable">
+                        <table class="table table-striped table-bordered table-condensed" id="summarybyscheme">
                             <tr>
                                 <th>#</th>
                                 <th>Name of Scheme</th>
@@ -182,21 +182,8 @@
                                 <th>Pending Complaints</th>
                                 <th>Closed Complaints</th>
                                 <th>Tota Complaints</th>
-
                             </tr>
-                            <tbody>
-                            <?php $i =1?>
-                            <tr>
-                                <td>{{$i}}</td>
-                                <td>ppf</td>
-                                <td>2</td>
-                                <td>2</td>
-                                <td>2</td>
-                                <td>2</td>
 
-                            </tr>
-                            <?php $i++;?>
-                            </tbody>
                         </table>
                     </div>
                 </div>
@@ -224,11 +211,13 @@
             <script src="/complaints/js/chart.js"></script>
             <script src="/complaints/js/line.js"></script>
             <script src="/complaints/js/complaints_count.js"></script>
+            <script src="/complaints/js/complaint_byscheme.js"></script>
 
 
-    consolo.log(333);
+            consolo.log(333);
 
 
 @stop
+    </div>
 
 
