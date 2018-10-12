@@ -18,10 +18,10 @@ use Illuminate\Support\Facades\DB;
 
 Route::get('/test', function () {
 
-    $data_wcf= (object) DB::select(" SELECT COUNT(complaint_status_name) AS wcf FROM vw_complaints WHERE scheme_name LIKE 'wcf%' AND complaint_status_name LIKE 'open%' UNION
-SELECT COUNT(complaint_status_name) AS wcf FROM vw_complaints WHERE scheme_name LIKE 'wcf%' AND complaint_status_name LIKE 'closed%' UNION
-SELECT COUNT(complaint_status_name) AS wcf FROM vw_complaints WHERE scheme_name LIKE 'wcf%' AND complaint_status_name LIKE 'pending%' UNION
-SELECT COUNT(complaint_status_name) AS wcf FROM vw_complaints WHERE scheme_name LIKE 'wcf%'
+    $data_wcf= (object) DB::select(" SELECT COUNT(complaint_status_name) AS wcf FROM vw_complaints WHERE scheme_name LIKE 'GEPF%' AND complaint_status_name LIKE 'open%' UNION
+SELECT COUNT(complaint_status_name) AS wcf FROM vw_complaints WHERE scheme_name LIKE 'GEPF%' AND complaint_status_name LIKE 'closed%' UNION
+SELECT COUNT(complaint_status_name) AS wcf FROM vw_complaints WHERE scheme_name LIKE 'GEPF%' AND complaint_status_name LIKE 'pending%' UNION
+SELECT COUNT(complaint_status_name) AS wcf FROM vw_complaints WHERE scheme_name LIKE 'GEPF%'
 " );
 
     $dataarray = [];
@@ -38,6 +38,11 @@ SELECT COUNT(complaint_status_name) AS wcf FROM vw_complaints WHERE scheme_name 
 Route::get('api/json/all/complaints/open','HomeController@getJsonOPenComplaintsPerMonth');
 Route::get('api/json/all/complaints/pending','HomeController@getJsonPendingComplaintsPerMonth');
 Route::get('api/json/all/complaints/closed','HomeController@getJsonClosedComplaintsPerMonth');
+Route::get('api/json/summary/byscheme','HomeController@summaryBySchemeApi');
+
+
+
+
 
 
 Route::get('api/json/all/complaints/piechart','HomeController@getJsonAllComplaintsPiechart');

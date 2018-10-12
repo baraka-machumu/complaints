@@ -32,13 +32,13 @@ class HomeController extends Controller
     {
 
         $openComplaints = DB::table('complaints')
-            ->where('complstatus_id', '=', 1)->count();
+            ->where('complaint_status_id', '=', 1)->count();
 
         $pendingComplaints = DB::table('complaints')
-            ->where('complstatus_id', '=', 2)->count();
+            ->where('complaint_status_id', '=', 2)->count();
 
         $closedComplaints = DB::table('complaints')
-            ->where('complstatus_id', '=', 3)->count();
+            ->where('complaint_status_id', '=', 3)->count();
         $data= ['open'=>$openComplaints,'pending'=>$pendingComplaints,'closed'=>$closedComplaints];
         return response()->json($data,'200',['json']);
     }
@@ -52,12 +52,12 @@ SELECT COUNT(complaint_status_name) AS ppf FROM vw_complaints WHERE scheme_name 
 SELECT COUNT(complaint_status_name) AS ppf FROM vw_complaints WHERE scheme_name LIKE 'PPF%'
 " );
 
-        $dataarray = [];
+        $dataarray = ['PPF Pensions Fund'];
         foreach ($data_ppf as $data){
             array_push($dataarray,$data->ppf);
         }
 
-        return response()->json($dataarray)->header('content-type','json');
+        return $dataarray;
 
     }
 
@@ -70,30 +70,30 @@ SELECT COUNT(complaint_status_name) AS Pspf FROM vw_complaints WHERE scheme_name
 SELECT COUNT(complaint_status_name) AS Pspf FROM vw_complaints WHERE scheme_name LIKE 'Pspf%'
 " );
 
-        $dataarray = [];
+        $dataarray = ['Public Service Pensions Fund'];
         foreach ($data_Pspf as $data){
             array_push($dataarray,$data->Pspf);
         }
 
-        return response()->json($dataarray)->header('content-type','json');
+        return $dataarray;
 
     }
 
 
     public  function complaintsBySchemewcf()
     {
-        $data_wcf= (object) DB::select(" SELECT COUNT(complaint_status_name) AS wcf FROM vw_complaints WHERE scheme_name LIKE 'wcf%' AND complaint_status_name LIKE 'open%' UNION
-SELECT COUNT(complaint_status_name) AS wcf FROM vw_complaints WHERE scheme_name LIKE 'wcf%' AND complaint_status_name LIKE 'closed%' UNION
-SELECT COUNT(complaint_status_name) AS wcf FROM vw_complaints WHERE scheme_name LIKE 'wcf%' AND complaint_status_name LIKE 'pending%' UNION
-SELECT COUNT(complaint_status_name) AS wcf FROM vw_complaints WHERE scheme_name LIKE 'wcf%'
+        $data_wcf= (object) DB::select(" SELECT COUNT(complaint_status_name) AS wcf FROM vw_complaints WHERE scheme_name LIKE 'WCF%' AND complaint_status_name LIKE 'open%' UNION
+SELECT COUNT(complaint_status_name) AS wcf FROM vw_complaints WHERE scheme_name LIKE 'WCF%' AND complaint_status_name LIKE 'closed%' UNION
+SELECT COUNT(complaint_status_name) AS wcf FROM vw_complaints WHERE scheme_name LIKE 'WCF%' AND complaint_status_name LIKE 'pending%' UNION
+SELECT COUNT(complaint_status_name) AS wcf FROM vw_complaints WHERE scheme_name LIKE 'WCF%'
 " );
 
-        $dataarray = [];
+        $dataarray = ['Workers Compersation Fund'];
         foreach ($data_wcf as $data){
             array_push($dataarray,$data->wcf);
         }
 
-        return response()->json($dataarray)->header('content-type','json');
+        return $dataarray;
 
     }
 
@@ -106,15 +106,15 @@ SELECT COUNT(complaint_status_name) AS wcf FROM vw_complaints WHERE scheme_name 
     */
     public function  getJsonAllComplaintsPiechart(){
 
-        $open_count = DB::table('complaints')->where('complstatus_id','=',1)->count();
-        $closed_count = DB::table('complaints')->where('complstatus_id','=',2)->count();
-        $pending_count = DB::table('complaints')->where('complstatus_id','=',3)->count();
+        $open_count = DB::table('complaints')->where('complaint_status_id','=',1)->count();
+        $closed_count = DB::table('complaints')->where('complaint_status_id','=',2)->count();
+        $pending_count = DB::table('complaints')->where('complaint_status_id','=',3)->count();
 
         $total_count = DB::table('complaints')->count();
 
         $data = array('open'=>$open_count,'pending'=>$pending_count,'closed'=>$closed_count,'total'=>$total_count);
 
-        return response()->json($data)->header('content-type','json');
+        return response()->json($data)->header('Content-type','text/json');
     }
 
 
@@ -129,7 +129,7 @@ SELECT COUNT(complaint_status_name) AS wcf FROM vw_complaints WHERE scheme_name 
         $months  = [1,2,3,4,5,6,7,8,9,10,11,12];
 
         $data_open=  (object)DB::select(" SELECT COUNT(*) AS count_open,month(date_complaint) AS date 
-                    FROM complaints WHERE YEAR(date_complaint) = '2018' AND complstatus_id=1
+                    FROM complaints WHERE YEAR(date_complaint) = '2018' AND complaint_status_id=1
                     GROUP BY month(date_complaint) 
                     ORDER BY month(date_complaint)  ASC" );
 
@@ -138,7 +138,7 @@ SELECT COUNT(complaint_status_name) AS wcf FROM vw_complaints WHERE scheme_name 
             array_push($array_data,$data->count_open);
             array_push($array_data_months,$data->date);
         }
-        return response()->json(['open'=>$array_data,'date'=>$array_data_months])->header('content-type','json');
+        return response()->json(['open'=>$array_data,'date'=>$array_data_months])->header('Content-type','text/json');
     }
 
     public function getJsonPendingComplaintsPerMonth(){
@@ -150,7 +150,7 @@ SELECT COUNT(complaint_status_name) AS wcf FROM vw_complaints WHERE scheme_name 
         $months  = [1,2,3,4,5,6,7,8,9,10,11,12];
 
         $data_pending=  (object)DB::select(" SELECT COUNT(*) AS count_pending,month(date_complaint) AS date 
-                    FROM complaints WHERE YEAR(date_complaint) = '2018' AND complstatus_id=2
+                    FROM complaints WHERE YEAR(date_complaint) = '2018' AND complaint_status_id=2
                     GROUP BY month(date_complaint) 
                     ORDER BY month(date_complaint)  ASC" );
 
@@ -159,7 +159,7 @@ SELECT COUNT(complaint_status_name) AS wcf FROM vw_complaints WHERE scheme_name 
             array_push($array_data,$data->count_pending);
             array_push($array_data_months,$data->date);
         }
-        return response()->json(['pending'=>$array_data,'date'=>$array_data_months])->header('content-type','json');
+        return response()->json(['pending'=>$array_data,'date'=>$array_data_months])->header('Content-type','text/json');
     }
 
     public function getJsonClosedComplaintsPerMonth(){
@@ -171,7 +171,7 @@ SELECT COUNT(complaint_status_name) AS wcf FROM vw_complaints WHERE scheme_name 
         $months  = [1,2,3,4,5,6,7,8,9,10,11,12];
 
         $data_closed=  (object)DB::select(" SELECT COUNT(*) AS count_closed,month(date_complaint) AS date 
-                    FROM complaints WHERE YEAR(date_complaint) = '2018' AND complstatus_id=3
+                    FROM complaints WHERE YEAR(date_complaint) = '2018' AND complaint_status_id=3
                     GROUP BY month(date_complaint) 
                     ORDER BY month(date_complaint)  ASC" );
 
@@ -180,7 +180,7 @@ SELECT COUNT(complaint_status_name) AS wcf FROM vw_complaints WHERE scheme_name 
             array_push($array_data,$data->count_closed);
             array_push($array_data_months,$data->date);
         }
-        return response()->json(['closed'=>$array_data,'date'=>$array_data_months])->header('content-type','json');
+        return response()->json(['closed'=>$array_data,'date'=>$array_data_months])->header('Content-type','text/json');
     }
 
 
@@ -192,12 +192,12 @@ SELECT COUNT(complaint_status_name) AS gepf FROM vw_complaints WHERE scheme_name
 SELECT COUNT(complaint_status_name) AS gepf FROM vw_complaints WHERE scheme_name LIKE 'GEPF%'
 " );
 
-        $dataarray = [];
+        $dataarray = ['GEPF Retirement Benefits Fund'];
         foreach ($data_gepf as $data){
             array_push($dataarray,$data->gepf);
         }
 
-        return response()->json($dataarray)->header('content-type','json');
+        return $dataarray;
 
     }
 
@@ -210,12 +210,12 @@ SELECT COUNT(complaint_status_name) AS lapf FROM vw_complaints WHERE scheme_name
 SELECT COUNT(complaint_status_name) AS lapf FROM vw_complaints WHERE scheme_name LIKE 'LAPF%'
 " );
 
-        $dataarray = [];
+        $dataarray = ['LAPF Pensions Fund'];
         foreach ($data_lapf as $data){
             array_push($dataarray,$data->lapf);
         }
 
-        return response()->json($dataarray)->header('content-type','json');
+        return $dataarray;
 
     }
 
@@ -227,12 +227,12 @@ SELECT COUNT(complaint_status_name) AS nhif FROM vw_complaints WHERE scheme_name
 SELECT COUNT(complaint_status_name) AS nhif FROM vw_complaints WHERE scheme_name LIKE 'NHIF%'
 " );
 
-        $dataarray = [];
+        $dataarray = ['National Health Insurance Fund'];
         foreach ($data_nhif as $data){
             array_push($dataarray,$data->nhif);
         }
 
-        return response()->json($dataarray)->header('content-type','json');
+        return $dataarray;
 
     }
 
@@ -245,13 +245,27 @@ SELECT COUNT(complaint_status_name) AS nssf FROM vw_complaints WHERE scheme_name
 SELECT COUNT(complaint_status_name) AS nssf FROM vw_complaints WHERE scheme_name LIKE 'NSSF%'
 " );
 
-        $dataarray = [];
+        $dataarray = ['National Social Security Fund'];
         foreach ($data_nssf as $data){
             array_push($dataarray,$data->nssf);
         }
 
-        return response()->json($dataarray)->header('content-type','json');
 
+        return $dataarray;
+    }
+
+    public function summaryBySchemeApi()
+    {
+        $gepf = $this->complaintsBySchemeGepf();
+        $lapf = $this->complaintsBySchemeLapf();
+        $nhif = $this->complaintsBySchemeNhif();
+        $nssf = $this->complaintsBySchemeNssf();
+        $ppf = $this->complaintsBySchemePpf();
+        $pspf =$this->complaintsBySchemePspf();
+        $wcf = $this->complaintsBySchemewcf();
+
+        $api = [$gepf,$lapf,$nhif,$nssf,$ppf,$pspf,$wcf];
+        return response()->json($api)->header('Content-type', 'text/json');
     }
 
 

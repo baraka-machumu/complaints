@@ -14,7 +14,6 @@ $(function () {
         var closed = datacount.closed;
         var total = open + pending + closed;
 
-
         $("#open").append(open);
         $("#pending").append(pending);
         $("#closed").append(closed);
