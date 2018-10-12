@@ -193,7 +193,7 @@ SELECT COUNT(complaint_status_name) AS nssf FROM vw_complaints WHERE scheme_name
         $dataarray = [];
         foreach ($data_nssf as $data){
             array_push($dataarray,$data->nssf);
-        }
+    }
 
         return response()->json($dataarray)->header('content-type','json');
 
