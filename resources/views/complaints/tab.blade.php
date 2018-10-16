@@ -27,6 +27,7 @@
 
             <div class="tab-pane active" id="1" style="background-color: white">
 
+                @include('complaints.edit',compact('complaint_edit'))
 
             </div>
 
@@ -48,36 +49,18 @@
             <div class="tab-pane" id="6">
 
             </div>
-
-                @include('complaints.edit',compact('complaint_edit'))
-
-            </div>
-
-            <div class="tab-pane" id="2">
-
-            </div>
-            <div class="tab-pane" id="3">
-
-            </div>
-
-            <div class="tab-pane" id="4">
-
-            </div>
-
-            <div class="tab-pane" id="5">
-
-            </div>
-
-            <div class="tab-pane" id="6">
-
-            </div>
         </div>
+    </div>
+@stop
 
+
+@section('js')
+
+    <script src="/complaints/js/tab_open.js"></script>
+    <script src="/complaints/js/tab_edit.js"></script>
 
 @stop
 
-@section('css')
-    {{--<link rel="stylesheet" href="/css/admin_custom.css">--}}
-@stop
+
 
 

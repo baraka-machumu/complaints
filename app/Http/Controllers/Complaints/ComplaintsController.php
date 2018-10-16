@@ -104,7 +104,6 @@ class ComplaintsController extends Controller
 
     public function complaintTab()
     {
-//        $complaint_edit =  $this->editComplaints();
         return view('complaints.tab');
     }
 
@@ -196,9 +195,6 @@ class ComplaintsController extends Controller
             ->paginate(10);
         return $complaint_edit_search;
     }
-
-
-    
 
     public function  openComplaints(){
 
