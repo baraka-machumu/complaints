@@ -2,11 +2,13 @@
 
 namespace App\Http\Controllers\Complaints;
 
+use App\Complaint;
 use App\ComplaintType;
 use App\MembershipStatus;
 use App\Scheme;
 use Illuminate\Http\Request;
 use App\Http\Controllers\Controller;
+use Illuminate\Support\Facades\DB;
 
 class ComplaintsController extends Controller
 {
@@ -64,7 +66,17 @@ class ComplaintsController extends Controller
      */
     public function edit($id)
     {
-        //
+        $complaint_type = ComplaintType::all()->toArray();
+        $schemes = Scheme::all()->toArray();
+        $data = $this->editComplaintsDetails($id);
+
+        $complaint_edit =[];
+
+        foreach ($data as $data_edit){
+
+            array_push($complaint_edit,$data_edit);
+        }
+        return view('complaints.editcomplaints', compact('complaint_edit', 'complaint_type', 'schemes', 'id'));
     }
 
     /**
@@ -89,4 +101,102 @@ class ComplaintsController extends Controller
     {
         //
     }
+
+    public function complaintTab()
+    {
+//        $complaint_edit =  $this->editComplaints();
+        return view('complaints.tab');
+    }
+
+
+    public function complaintEditing(Request $request)
+    {
+        $complaint_editing = $this->editComplaints();
+
+        if ($request->ajax()){
+
+            $editing_complaints_search= $this->editComplaintSearch($request->fullname);
+
+            $table = "<table class='table table-bordered table-striped'><tr><th>Full name</th><th>Complaint</th><th>Complaint Type</th><th>Action</th></tr>";
+
+            foreach ($editing_complaints_search as $editing){
+
+                $fullname  = $editing->firstname.' '.$editing->surname;
+                $complaint = substr($editing->complaint,0,100);
+                $complaint_type  = $editing->complaint_type_name.' '.$editing->complaint_type_name;
+
+
+                $table .= "<tr><td>$fullname</td>";
+                $table .= "<td>$complaint</td>";
+                $table .= "<td>$complaint_type</td>";
+                $table .= "<td><a href='#'><span class='glyphicon glyphicon-edit'>Edit</span></a>";
+            }
+
+            $table .="</table>";
+
+            return $table;
+
+        }
+
+        $table = "<table class='table table-bordered table-striped'><tr><th>Full name</th><th>Complaint</th><th>Complaint Type</th><th>Action</th></tr>";
+
+        foreach ($complaint_editing as $editing){
+
+            $fullname  = $editing->firstname.' '.$editing->surname;
+            $complaint = substr($editing->complaint,0,100);
+            $complaint_type  = $editing->complaint_type_name.' '.$editing->complaint_type_name;
+
+
+            $table .= "<tr><td>$fullname</td>";
+            $table .= "<td>$complaint</td>";
+            $table .= "<td>$complaint_type</td>";
+            $table .= "<td><a href='#'><span class='glyphicon glyphicon-edit'>edit</span></a>";
+        }
+
+        $table .="</table>";
+
+        return $table;
+
+    }
+
+
+    public function  editComplaints(){
+
+        $complaint_edit=  DB::table('complaints')
+            ->join('complainer', 'complaints.complainer_id', '=', 'complainer.complainer_id')
+            ->join('complaint_types', 'complaints.complaint_type_id', '=', 'complaint_types.complaint_type_id')
+            ->where('complaints.complaint_status_id', '=', '1')
+            ->paginate(10);
+        return $complaint_edit;
+
+    }
+
+    public function  editComplaintsDetails($complaint_id){
+
+        $complaint_edit=  DB::table('complaints')
+            ->join('complainer', 'complaints.complainer_id', '=', 'complainer.complainer_id')
+            ->join('complaint_types', 'complaints.complaint_type_id', '=', 'complaint_types.complaint_type_id')
+            ->where
+            ([
+                ['complaints.complaint_status_id', '=', '1'],
+                ['complaints.complaint_id', '=', $complaint_id]
+            ] )
+            ->get();
+        return $complaint_edit;
+
+    }
+
+    public function editComplaintSearch($fullname)
+    {
+        $complaint_edit_search=  DB::table('complaints')
+            ->join('complainer', 'complaints.complainer_id', '=', 'complainer.complainer_id')
+            ->join('complaint_types', 'complaints.complaint_type_id', '=', 'complaint_types.complaint_type_id')
+            ->where('complaints.complaint_status_id', '=', '1')
+            ->where(DB::raw('concat(complainer.firstname," ",complainer.surname)') , 'LIKE' , '%'.$fullname.'%')
+            ->paginate(10);
+        return $complaint_edit_search;
+    }
+
+
+
 }

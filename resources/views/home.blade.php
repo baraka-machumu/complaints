@@ -134,11 +134,11 @@
                                     </div>
                                     <!-- /.row -->
                                 </div>
+                            </div>
+                            <!-- /.col -->
                         </div>
-                        <!-- /.col -->
+                        <!-- /.row -->
                     </div>
-                    <!-- /.row -->
-                </div>
 
                 </div>
                 <!-- /.box-footer -->
@@ -149,10 +149,10 @@
 
 
 
-            <div class="row">
-                <div class="col-md-12">
-                    <div class="box">
-                        <div class="box-body" style="">
+        <div class="row">
+            <div class="col-md-12">
+                <div class="box">
+                    <div class="box-body" style="">
                         <div class="box-header with-border">
                             <h3 class="box-title">Summary of the Complaints (by Schemes)</h3>
 
@@ -207,7 +207,7 @@
             consolo.log(333);
 
 
-@stop
+        @stop
     </div>
 
 

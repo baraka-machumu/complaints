@@ -63,39 +63,13 @@ $menu =  [
         [
             'text'    => 'Complaints',
             'icon'    => 'th',
-            'submenu' => [
-                [
-                    'text' => 'Edit complaints',
-
-                    'url'  => '#',
-
-                ],
-
-                [
-                    'text' => 'Open complaints',
-                    'url'  => '#',
-                ],
-                [
-                    'text' => 'Pending complaints',
-                    'url'  => '#',
-                ],
-                [
-                    'text' => 'Closed complaints',
-                    'url'  => '#',
-                ],
-                [
-                    'text' => 'Delayed complaints',
-                    'url'  => '#',
-                ],
-                [
-                    'text' => 'Overdue complaints',
-                    'url'  => '#',
-                ],
-
-            ],
-
+            'url'      => 'complaint/tab',
             'can'=>'islogin'
+
+
+
         ],
+
 
         [
             'text'    => 'Report',
