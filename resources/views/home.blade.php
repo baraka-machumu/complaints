@@ -204,9 +204,6 @@
             <script src="/complaints/js/complaint_byscheme.js"></script>
 
 
-            consolo.log(333);
-
-
 @stop
     </div>
 

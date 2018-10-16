@@ -18,19 +18,16 @@ use Illuminate\Support\Facades\DB;
 
 Route::get('/test', function () {
 
-    $data_wcf= (object) DB::select(" SELECT COUNT(complaint_status_name) AS wcf FROM vw_complaints WHERE scheme_name LIKE 'GEPF%' AND complaint_status_name LIKE 'open%' UNION
-SELECT COUNT(complaint_status_name) AS wcf FROM vw_complaints WHERE scheme_name LIKE 'GEPF%' AND complaint_status_name LIKE 'closed%' UNION
-SELECT COUNT(complaint_status_name) AS wcf FROM vw_complaints WHERE scheme_name LIKE 'GEPF%' AND complaint_status_name LIKE 'pending%' UNION
-SELECT COUNT(complaint_status_name) AS wcf FROM vw_complaints WHERE scheme_name LIKE 'GEPF%'
-" );
+    $fullname = "ha";
+    $data_open =  DB::table('complaints')
+        ->leftJoin('complainer','complaints.complainer_id','=','complainer.complainer_id')
+        ->join('schemes','schemes.scheme_id','=','complainer.scheme_id')
+        ->select('complainer.firstname','complainer.surname','complainer.surname','complaints.complaint','complaints.date_complaint')
+        ->where('complaint_status_id','=','1')
+        ->where(DB::raw('concat(complainer.firstname," ",complainer.surname)') , 'LIKE' , '%'.$fullname.'%')
+        ->paginate(20);
 
-    $dataarray = [];
-    foreach ($data_wcf as $data){
-        array_push($dataarray,$data->wcf);
-    }
-
-    return response()->json($dataarray)->header('content-type','json');
-
+    return $data_open;
 
 });
 
@@ -58,6 +55,10 @@ Route::get('/dashboard', 'HomeController@index')->name('dashboard');
 
 //Complaints Controller
 Route::get('create','Complaints\ComplaintsController@create');
+Route::get('complaints/tab','Complaints\ComplaintsController@complaintTab');
+Route::get('api/complaints/opening/all','Complaints\ComplaintsController@complaintOpening');
+
+
 Route::resource('complaints','Complaints\ComplaintsController');
 
 
