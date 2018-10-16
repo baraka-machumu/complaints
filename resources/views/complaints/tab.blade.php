@@ -4,7 +4,7 @@
 
 @section('content')
 
-    <div id="exTab2" >
+    <div id="exTab2">
         <ul class="nav nav-tabs">
             <li class="active">
                 <a  href="#1" data-toggle="tab"><span class="glyphicon glyphicon-edit"></span> Edit Complaints</a>
@@ -26,6 +26,28 @@
         padding: 10px;" >
 
             <div class="tab-pane active" id="1" style="background-color: white">
+
+
+            </div>
+
+            <div class="tab-pane" id="2" style="background-color: white">
+
+                @include('complaints.open',compact('open_complaints'))
+
+            </div>
+
+            <div class="tab-pane" id="3">
+
+            </div>
+            <div class="tab-pane" id="4">
+
+            </div>
+            <div class="tab-pane" id="5">
+
+            </div>
+            <div class="tab-pane" id="6">
+
+            </div>
 
                 @include('complaints.edit',compact('complaint_edit'))
 
@@ -50,7 +72,7 @@
 
             </div>
         </div>
-    </div>
+
 
 @stop
 
