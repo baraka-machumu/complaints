@@ -198,14 +198,7 @@ class ComplaintsController extends Controller
     }
 
 
-
-
-
-    public function complaintTab(){
-
-        return view('complaints.tab');
-
-    }
+    
 
     public function  openComplaints(){
 
