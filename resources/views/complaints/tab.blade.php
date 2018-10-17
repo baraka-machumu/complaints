@@ -13,11 +13,11 @@
             </li>
             <li><a href="#3" data-toggle="tab"><span class="fa fa-adjust"></span>Pending Complaints</a>
             </li>
-            <li><a href="#3" data-toggle="tab"><span class="fa fa-lock"></span>Closed Complaints</a>
+            <li><a href="#4" data-toggle="tab"><span class="fa fa-lock"></span>Closed Complaints</a>
             </li>
-            <li><a href="#3" data-toggle="tab"><span class="glyphicon glyphicon-edit"></span>Delayed Complaints</a>
+            <li><a href="#5" data-toggle="tab"><span class="glyphicon glyphicon-edit"></span>Delayed Complaints</a>
             </li>
-            <li><a href="#3" data-toggle="tab"><span class="glyphicon glyphicon-edit"></span>Overdue Complaints</a>
+            <li><a href="#6" data-toggle="tab"><span class="glyphicon glyphicon-edit"></span>Overdue Complaints</a>
             </li>
         </ul>
 
@@ -37,21 +37,21 @@
 
             </div>
 
-            <div class="tab-pane" id="3">
+            <div class="tab-pane" id="3" style="background-color: white">
 
 
-                {{--@include('complaints.closed')--}}
-
-            </div>
-
-            <div class="tab-pane" id="4">
-
+                @include('complaints.pending',compact('pending_complaints'))
 
             </div>
-            <div class="tab-pane" id="5">
+
+            <div class="tab-pane" id="4" style="background-color: white;">
+
 
             </div>
-            <div class="tab-pane" id="6">
+            <div class="tab-pane" id="5" style="background-color: white">
+
+            </div>
+            <div class="tab-pane" id="6" style="background-color: white">
 
             </div>
         </div>
@@ -61,12 +61,9 @@
 
 @section('js')
 
-
-    <script src="/complaints/js/paging.js"></script>
-    <script src="/complaints/js/paging.min.js"></script>
-
     <script src="/complaints/js/tab_open.js"></script>
     <script src="/complaints/js/tab_edit.js"></script>
+    <script src="/complaints/js/tab_pending.js"></script>
     <script src="/complaints/js/tab_closed.js"></script>
 
 

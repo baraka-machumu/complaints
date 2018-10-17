@@ -104,10 +104,10 @@ class ComplaintsController extends Controller
 
     public function complaintTab()
     {
-
+        $pending_complaints = $this->pendingComplaints();
         $open_complaints =$this->openComplaints();
         $edit_complaints = $this->editComplaints();
-        return view('complaints.tab',compact('open_complaints','edit_complaints'));
+        return view('complaints.tab',compact('open_complaints','edit_complaints', 'pending_complaints'));
     }
 
     public function complaintEditing(Request $request)
@@ -238,33 +238,30 @@ class ComplaintsController extends Controller
                 $i++;
             }
 
-            $table .="</table>
-                
-
-                ";
+            $table .="</table> ";
 
             return $table;
 
         }
 
-         $table = "<table class='table table-bordered table-striped open-data-table' ><tr><th>#</th><th>Full name</th><th>Complaint</th><th>Date</th><th>Action</th></tr>";
+        $table = "<table class='table table-bordered table-striped open-data-table' ><tr><th>#</th><th>Full name</th><th>Complaint</th><th>Date</th><th>Action</th></tr>";
 
         $i=1;
-         foreach ($open_complaints as $open){
+        foreach ($open_complaints as $open){
 
-             $fullname  = $open->firstname.' '.$open->surname;
-             $complaint = substr($open->complaint,0,100);
-             $date = substr($open->date_complaint,0,11);
+            $fullname  = $open->firstname.' '.$open->surname;
+            $complaint = substr($open->complaint,0,100);
+            $date = substr($open->date_complaint,0,11);
 
-             $table .= "<tr><td style='width: 10%;'>&nbsp;$i</td>";
-             $table .= "<td style='width: 20%;'>&nbsp;$fullname</td>";
-             $table .= "<td style='width: 40%;'>&nbsp;$complaint</td>";
-             $table .= "<td style='width: 10%;'>&nbsp;$date</td>";
-             $table .= "<td style='width: 20%;'>&nbsp;<a href='#'><span class='glyphicon glyphicon-eye-open'>view</span></a>";
-             $table .= "<a href='#'>   <span class='fa fa-lock'>close</span></a></td></tr>";
+            $table .= "<tr><td style='width: 10%;'>&nbsp;$i</td>";
+            $table .= "<td style='width: 20%;'>&nbsp;$fullname</td>";
+            $table .= "<td style='width: 40%;'>&nbsp;$complaint</td>";
+            $table .= "<td style='width: 10%;'>&nbsp;$date</td>";
+            $table .= "<td style='width: 20%;'>&nbsp;<a href='#'><span class='glyphicon glyphicon-eye-open'>view</span></a>";
+            $table .= "<a href='#'>   <span class='fa fa-lock'>close</span></a></td></tr>";
 
-             $i++;
-         }
+            $i++;
+        }
         $table .="</table>";
 
         return $table;
@@ -359,4 +356,86 @@ class ComplaintsController extends Controller
         return $table;
 
     }
+
+    public function complaintPending(Request $request){
+
+        $pending_complaints= $this->pendingComplaints();
+
+        if ($request->ajax()){
+
+            $pending_complaints_search= $this->closedComplaintsSearch($request->fullname);
+
+            $table = "<table class='table table-bordered table-striped'><tr><th>Full name</th><th>Complaint</th><th>Date</th><th>Action</th></tr>";
+
+            foreach ($pending_complaints_search as $pending){
+
+                $fullname  = $pending->firstname.' '.$pending->surname;
+                $complaint = substr($pending->complaint,0,100);
+                $date = substr($pending->date_complaint,0,11);
+
+                $table .= "<tr><td>&nbsp;$fullname</td>";
+                $table .= "<td>&nbsp;$complaint</td>";
+                $table .= "<td>&nbsp;$date</td>";
+                $table .= "<td>&nbsp;<a href='#'><span class='glyphicon glyphicon-eye-open'>view</span></a>";
+                $table .= "<a href='#'>   <span class='fa fa-lock'>close</span></a></td></tr>";
+
+            }
+
+            $table .="</table>";
+
+            return $table;
+
+        }
+
+
+        $table = "<table class='table table-bordered table-striped'><tr><th>Full name</th><th>Complaint</th><th>Date</th><th>Action</th></tr>";
+
+        foreach ($pending_complaints as $pending){
+
+            $fullname  = $pending->firstname.' '.$pending->surname;
+            $complaint = substr($pending->complaint,0,100);
+            $date = substr($pending->date_complaint,0,11);
+
+            $table .= "<tr><td>$fullname</td>";
+            $table .= "<td>$complaint</td>";
+            $table .= "<td>$date</td>";
+            $table .= "<td><a href='#'><span class='glyphicon glyphicon-eye-open'>view</span></a>";
+            $table .= "<a href='#'>   <span class='fa fa-lock'>close</span></a></td></tr>";
+
+        }
+        $table .="</table>";
+
+        return $table;
+    }
+
+    public function  pendingComplaints(){
+
+        $data_pending =  DB::table('complaints')
+            ->leftJoin('complainer','complaints.complainer_id','=','complainer.complainer_id')
+            ->join('schemes','schemes.scheme_id','=','complainer.scheme_id')
+            ->select('complainer.firstname','complainer.surname','complainer.surname','complaints.complaint','complaints.date_complaint')
+            ->where('complaint_status_id','=','3')
+            ->get();
+
+        return $data_pending;
+    }
+
+    public function search($fullsearch)
+    {
+        $search =  DB::table('complaints')
+            ->join('complainer','complaints.complainer_id','=','complainer.complainer_id')
+            ->join('schemes','schemes.scheme_id','=','complainer.scheme_id')
+            ->join('complaint_status','complaint_status.complaint_status_id','=','complaints.complaint_status_id')
+            ->where(
+                [DB::raw('concat(complainer.firstname," ",complainer.surname)') ,'LIKE' , '%'.$fullsearch.'%'])
+            ->orwhere(['complainer.residence'  ,'LIKE' , '%'.$fullsearch.'%'])
+            ->orwhere(['complainer.ssno'  ,'LIKE' , '%'.$fullsearch.'%'])
+            ->orwhere(['complainer.email'  ,'LIKE' , '%'.$fullsearch.'%'])
+            ->orwhere(['complaints.date_complaint'  ,'LIKE' , '%'.$fullsearch.'%'])
+            ->get();
+     return $search;
+
+
+    }
+
 }
