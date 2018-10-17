@@ -17,19 +17,14 @@ use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\DB;
 
 Route::get('/test', function () {
-
-    $data_wcf= (object) DB::select(" SELECT COUNT(complaint_status_name) AS wcf FROM vw_complaints WHERE scheme_name LIKE 'GEPF%' AND complaint_status_name LIKE 'open%' UNION
-SELECT COUNT(complaint_status_name) AS wcf FROM vw_complaints WHERE scheme_name LIKE 'GEPF%' AND complaint_status_name LIKE 'closed%' UNION
-SELECT COUNT(complaint_status_name) AS wcf FROM vw_complaints WHERE scheme_name LIKE 'GEPF%' AND complaint_status_name LIKE 'pending%' UNION
-SELECT COUNT(complaint_status_name) AS wcf FROM vw_complaints WHERE scheme_name LIKE 'GEPF%'
-" );
-
-    $dataarray = [];
-    foreach ($data_wcf as $data){
-        array_push($dataarray,$data->wcf);
-    }
-
-    return response()->json($dataarray)->header('content-type','json');
+$fullname = "ally";
+    $data_pending =  DB::table('complaints')
+        ->leftJoin('complainer','complaints.complainer_id','=','complainer.complainer_id')
+        ->join('schemes','schemes.scheme_id','=','complainer.scheme_id')
+        ->where('complaint_status_id','=','1')
+        ->where(DB::raw('concat(complainer.firstname," ",complainer.surname)') , 'LIKE' , '%'.$fullname.'%')
+        ->paginate(20);
+    return $data_pending;
 
 
 });
@@ -62,6 +57,7 @@ Route::get('create','Complaints\ComplaintsController@create');
 Route::get('complaints/tab','Complaints\ComplaintsController@complaintTab');
 Route::get('api/complaints/opening/all','Complaints\ComplaintsController@complaintOpening');
 Route::get('api/complaints/editing/all','Complaints\ComplaintsController@complaintEditing');
+Route::get('api/complaints/pending/all','Complaints\ComplaintsController@complaintPending');
 Route::resource('complaints','Complaints\ComplaintsController');
 
 

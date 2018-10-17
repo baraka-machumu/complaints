@@ -1,3 +1,8 @@
-<div class="container" style="background-color: white">
-    <span>pending complaints</span>
+
+<input type="text" id="search_pending" class="form-control" placeholder="Search here" >
+<div id="table-pending">
+
+
+
 </div>
+
