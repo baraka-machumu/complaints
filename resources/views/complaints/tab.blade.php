@@ -4,7 +4,7 @@
 
 @section('content')
 
-    <div id="exTab2">
+
         <ul class="nav nav-tabs">
             <li class="active">
                 <a  href="#1" data-toggle="tab"><span class="glyphicon glyphicon-edit"></span> Edit Complaints</a>
@@ -13,11 +13,11 @@
             </li>
             <li><a href="#3" data-toggle="tab"><span class="fa fa-adjust"></span>Pending Complaints</a>
             </li>
-            <li><a href="#3" data-toggle="tab"><span class="fa fa-lock"></span>Closed Complaints</a>
+            <li><a href="#4" data-toggle="tab"><span class="fa fa-lock"></span>Closed Complaints</a>
             </li>
-            <li><a href="#3" data-toggle="tab"><span class="glyphicon glyphicon-edit"></span>Delayed Complaints</a>
+            <li><a href="#5" data-toggle="tab"><span class="glyphicon glyphicon-edit"></span>Delayed Complaints</a>
             </li>
-            <li><a href="#3" data-toggle="tab"><span class="glyphicon glyphicon-edit"></span>Overdue Complaints</a>
+            <li><a href="#6" data-toggle="tab"><span class="glyphicon glyphicon-edit"></span>Overdue Complaints</a>
             </li>
         </ul>
 
@@ -40,22 +40,21 @@
             <div class="tab-pane" id="3">
 
 
-                {{--@include('complaints.closed')--}}
-
             </div>
 
             <div class="tab-pane" id="4">
+
+                @include('complaints.closed',compact('closed_complaints'))
 
 
             </div>
             <div class="tab-pane" id="5">
 
             </div>
-            <div class="tab-pane" id="6">
+            {{--<div class="tab-pane" id="6">--}}
 
-            </div>
+            {{--</div>--}}
         </div>
-    </div>
 @stop
 
 

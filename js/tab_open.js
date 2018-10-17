@@ -2,7 +2,7 @@
 $(function () {
 
 
-    $('#edit-data-table').dataTable();
+    $('#open-data-table').dataTable();
 
 
 });

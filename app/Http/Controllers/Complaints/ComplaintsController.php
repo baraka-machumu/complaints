@@ -107,7 +107,9 @@ class ComplaintsController extends Controller
 
         $open_complaints =$this->openComplaints();
         $edit_complaints = $this->editComplaints();
-        return view('complaints.tab',compact('open_complaints','edit_complaints'));
+        $closed_complaints =  $this->closedComplaints();
+
+        return view('complaints.tab',compact('open_complaints','edit_complaints','closed_complaints'));
     }
 
     public function complaintEditing(Request $request)
@@ -290,7 +292,7 @@ class ComplaintsController extends Controller
             ->join('schemes','schemes.scheme_id','=','complainer.scheme_id')
             ->select('complainer.firstname','complainer.surname','complainer.surname','complaints.complaint','complaints.date_complaint')
             ->where('complaint_status_id','=','2')
-            ->paginate(10);
+            ->get();
 
         return $data_closed;
 
@@ -304,7 +306,7 @@ class ComplaintsController extends Controller
             ->select('complainer.firstname','complainer.surname','complainer.surname','complaints.complaint','complaints.date_complaint')
             ->where('complaint_status_id','=','2')
             ->where(DB::raw('concat(complainer.firstname," ",complainer.surname)') , 'LIKE' , '%'.$fullname.'%')
-            ->paginate(10);
+            ->get();
         return $data_open;
     }
 
