@@ -37,35 +37,35 @@
 
             </div>
 
-            <div class="tab-pane" id="3">
+            <div class="tab-pane" id="3" style="background-color: white">
 
+
+                @include('complaints.pending',compact('pending_complaints'))
 
             </div>
 
-            <div class="tab-pane" id="4">
+            <div class="tab-pane" id="4" style="background-color: white;">
 
                 @include('complaints.closed',compact('closed_complaints'))
 
 
             </div>
-            <div class="tab-pane" id="5">
+            <div class="tab-pane" id="5" style="background-color: white">
 
             </div>
-            {{--<div class="tab-pane" id="6">--}}
+            <div class="tab-pane" id="6" style="background-color: white">
 
-            {{--</div>--}}
+            </div>
         </div>
+    </div>
 @stop
 
 
 @section('js')
 
-
-    <script src="/complaints/js/paging.js"></script>
-    <script src="/complaints/js/paging.min.js"></script>
-
     <script src="/complaints/js/tab_open.js"></script>
     <script src="/complaints/js/tab_edit.js"></script>
+    <script src="/complaints/js/tab_pending.js"></script>
     <script src="/complaints/js/tab_closed.js"></script>
 
 

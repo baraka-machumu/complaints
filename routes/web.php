@@ -18,20 +18,19 @@ use Illuminate\Support\Facades\DB;
 
 Route::get('/test', function () {
 
-    $data_wcf= (object) DB::select(" SELECT COUNT(complaint_status_name) AS wcf FROM vw_complaints WHERE scheme_name LIKE 'GEPF%' AND complaint_status_name LIKE 'open%' UNION
-SELECT COUNT(complaint_status_name) AS wcf FROM vw_complaints WHERE scheme_name LIKE 'GEPF%' AND complaint_status_name LIKE 'closed%' UNION
-SELECT COUNT(complaint_status_name) AS wcf FROM vw_complaints WHERE scheme_name LIKE 'GEPF%' AND complaint_status_name LIKE 'pending%' UNION
-SELECT COUNT(complaint_status_name) AS wcf FROM vw_complaints WHERE scheme_name LIKE 'GEPF%'
-" );
-
-    $dataarray = [];
-    foreach ($data_wcf as $data){
-        array_push($dataarray,$data->wcf);
-    }
-
-    return response()->json($dataarray)->header('content-type','json');
-
-
+    $fullsearch = "2014-06-12";
+    $search =  DB::table('complaints')
+        ->join('complainer','complaints.complainer_id','=','complainer.complainer_id')
+        ->join('schemes','schemes.scheme_id','=','complainer.scheme_id')
+        ->join('complaint_status','complaint_status.complaint_status_id','=','complaints.complaint_status_id')
+        ->where(
+            DB::raw('concat(complainer.firstname," ",complainer.surname)') ,'LIKE' , '%'.$fullsearch.'%')
+        ->orwhere('complainer.residence'  ,'LIKE' , '%'.$fullsearch.'%')
+        ->orwhere('complainer.ssno'  ,'LIKE' , '%'.$fullsearch.'%')
+        ->orwhere('complainer.email'  ,'LIKE' , '%'.$fullsearch.'%')
+        ->orwhere('complaints.date_complaint'  ,'LIKE' , '%'.$fullsearch.'%')
+        ->get();
+    return $search;
 });
 
 
@@ -62,8 +61,6 @@ Route::get('create','Complaints\ComplaintsController@create');
 Route::get('complaints/tab','Complaints\ComplaintsController@complaintTab');
 Route::get('api/complaints/opening/all','Complaints\ComplaintsController@complaintOpening');
 Route::get('api/complaints/editing/all','Complaints\ComplaintsController@complaintEditing');
-Route::get('api/complaints/closing/all','Complaints\ComplaintsController@complaintClosing');
-
 Route::resource('complaints','Complaints\ComplaintsController');
 
 
@@ -116,6 +113,10 @@ Route::get('userProfile/assign/profile/{id}','Admin\UserProfileController@assign
 Route::resource('userProfile','Admin\UserProfileController');
 
 Route::post('userProfile/update','Admin\UserProfileController@updates');
+
+//Search Controller
+Route::get('search/form', 'SearchController@create');
+Route::get('api/search', 'SearchController@apiSearch');
 
 
 

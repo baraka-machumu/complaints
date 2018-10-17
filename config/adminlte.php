@@ -40,12 +40,16 @@ $menu =  [
 
 
     'menu' => [
-
-
         [
             'text' => 'Home',
             'url'  => 'dashboard',
             'icon' => 'home',
+        ],
+
+        [
+            'text' => 'Search',
+            'url'  => 'search/form',
+            'icon' => 'th',
         ],
         [
             'text' => 'Fuatilia Lalamiko',
