@@ -1,3 +1,8 @@
-<div class="container" style="background-color: white">
-    <span>closed complaints</span>
+
+<input type="text" placeholder="Search here" id="search_closed" class="form-control">
+
+<div id="table-closed">
+
 </div>
+
+

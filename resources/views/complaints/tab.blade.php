@@ -27,7 +27,7 @@
 
             <div class="tab-pane active" id="1" style="background-color: white">
 
-                @include('complaints.edit',compact('complaint_edit'))
+                @include('complaints.edit',compact('edit_complaints'))
 
             </div>
 
@@ -39,8 +39,13 @@
 
             <div class="tab-pane" id="3">
 
+
+                {{--@include('complaints.closed')--}}
+
             </div>
+
             <div class="tab-pane" id="4">
+
 
             </div>
             <div class="tab-pane" id="5">
@@ -56,8 +61,14 @@
 
 @section('js')
 
+
+    <script src="/complaints/js/paging.js"></script>
+    <script src="/complaints/js/paging.min.js"></script>
+
     <script src="/complaints/js/tab_open.js"></script>
     <script src="/complaints/js/tab_edit.js"></script>
+    <script src="/complaints/js/tab_closed.js"></script>
+
 
 @stop
 

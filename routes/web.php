@@ -62,6 +62,8 @@ Route::get('create','Complaints\ComplaintsController@create');
 Route::get('complaints/tab','Complaints\ComplaintsController@complaintTab');
 Route::get('api/complaints/opening/all','Complaints\ComplaintsController@complaintOpening');
 Route::get('api/complaints/editing/all','Complaints\ComplaintsController@complaintEditing');
+Route::get('api/complaints/closing/all','Complaints\ComplaintsController@complaintClosing');
+
 Route::resource('complaints','Complaints\ComplaintsController');
 
 
