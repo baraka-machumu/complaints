@@ -15,6 +15,8 @@
                 <td>{{ $pending->date_complaint}}</td>
                 <td><a href='#'><span class='glyphicon glyphicon-edit'>view</span></a>
                 </td>
+                <td><a href='#'><span class='fa fa-lock'>close</span></a></td>
+
             </tr>
 
         @endforeach

@@ -41,8 +41,8 @@ class SearchController extends Controller
                 $table .= "<tr><td>$fullname</td>";
                 $table .= "<td>$email</td>";
                 $table .= "<td>$date</td>";
-                $table .= "<td><a href='#'><span class='glyphicon glyphicon-eye-open'>view</span></a>";
-                $table .= "<a href='#'>   <span class='fa fa-lock'>close</span></a></td></tr>";
+                $table .= "<td><a href='#'><span class='glyphicon glyphicon-eye-open'>view Responses</span></a>";
+
             }
             $table .="</table>";
         }
