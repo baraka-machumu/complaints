@@ -25,9 +25,7 @@
     </table>
 
 </div>
-<script>
 
-</script>
 
 
 

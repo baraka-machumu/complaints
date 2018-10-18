@@ -4,7 +4,7 @@
 
 @section('content')
 
-    <div id="exTab2">
+
         <ul class="nav nav-tabs">
             <li class="active">
                 <a  href="#1" data-toggle="tab"><span class="glyphicon glyphicon-edit"></span> Edit Complaints</a>
@@ -45,6 +45,8 @@
             </div>
 
             <div class="tab-pane" id="4" style="background-color: white;">
+
+                @include('complaints.closed',compact('closed_complaints'))
 
 
             </div>
