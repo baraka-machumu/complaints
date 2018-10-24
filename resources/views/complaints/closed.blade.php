@@ -15,7 +15,7 @@
             <tr><td>{{$closed->firstname.' '.$closed->surname}}</td>
                 <td>{{substr($closed->complaint,0,100)}}</td>
                 <td>{{ $closed->date_complaint}}</td>
-                <td><a href='#'><span class='glyphicon glyphicon-edit'>view</span></a>
+                <td><a href='#'><span class='glyphicon glyphicon-eye-open'>view</span></a>
                 </td>
             </tr>
 
