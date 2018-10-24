@@ -120,3 +120,10 @@ Route::get('api/search', 'SearchController@apiSearch');
 
 
 
+//Report Controller
+
+Route::get('report/select','Report\ReportController@select');
+Route::get('report/category','Report\ReportController@category');
+
+
+

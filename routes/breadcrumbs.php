@@ -1,6 +1,8 @@
 <?php
  use DaveJamesMiller\Breadcrumbs\Facades\Breadcrumbs;
 
+
+ // by machumu...
 Breadcrumbs::register('home', function ($trail) {
     $trail->push('Home', url('/'));
 });
@@ -13,6 +15,20 @@ Breadcrumbs::register('register', function ($trail) {
     $trail->push('Register', url('user/register'));
 });
 
+
+Breadcrumbs::register('report',function ($trail){
+
+    $trail->push('Report',url('report'));
+
+});
+
+
+Breadcrumbs::register('report_select',function ($trail){
+
+    $trail->parent('report');
+    $trail->push('Select',url('report'));
+
+});
 
 //fetty
 Breadcrumbs::register('role', function ($trait)
