@@ -107,10 +107,10 @@ class ComplaintsController extends Controller
         $pending_complaints = $this->pendingComplaints();
         $open_complaints =$this->openComplaints();
         $edit_complaints = $this->editComplaints();
-        return view('complaints.tab',compact('open_complaints','edit_complaints', 'pending_complaints'));
         $closed_complaints =  $this->closedComplaints();
 
-        return view('complaints.tab',compact('open_complaints','edit_complaints','closed_complaints'));
+        return view('complaints.tab',compact('open_complaints','edit_complaints', 'pending_complaints','closed_complaints'));
+
     }
 
     public function complaintEditing(Request $request)

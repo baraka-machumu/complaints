@@ -78,69 +78,8 @@ $menu =  [
 
         [
             'text'    => 'Report',
+            'url'     =>'report/select',
             'icon'    => 'th',
-            'submenu' => [
-                [
-                    'text' => 'Summary Report',
-                    'url'  => '#',
-                ],
-
-                [
-                    'text' => 'No. of Complaints per Category',
-                    'url'  => '#',
-                ],
-                [
-                    'text' => 'No. of Complaints per Category By Date',
-                    'url'  => '#',
-                ],
-                [
-                    'text' => 'Filter Per Scheme',
-                    'url'  => '#',
-                ],
-                [
-                    'text' => 'Filter Per category',
-                    'url'  => '#',
-                ],
-                [
-                    'text' => 'Search complainants',
-                    'url'  => '#',
-                ],
-
-                [
-                    'text' => 'Search By Date',
-                    'url'  => '#',
-                ],
-
-                [
-                    'text' => 'Search Detailed Report By Date',
-                    'url'  => '#',
-                ],
-
-                [
-                    'text' => 'Mobile App Complaints',
-                    'url'  => '#',
-                ],
-
-                [
-                    'text' => 'Letter Comlaints',
-                    'url'  => '#',
-                ],
-
-                [
-                    'text' => 'Face to Face Complaints',
-                    'url'  => '#',
-                ],
-                [
-                    'text' => 'Phone call Comlaints',
-                    'url'  => '#',
-                ],
-
-                [
-                    'text' => 'Email Comlaints',
-                    'url'  => '#',
-                ],
-
-            ],
             'can'=>'islogin'
         ],
         [
