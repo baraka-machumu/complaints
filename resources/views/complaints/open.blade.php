@@ -15,9 +15,9 @@
 
         @foreach ($open_complaints as $open)
         <tr><td>{{$open->firstname.' '.$open->surname}}</td>
-            <td>{{substr($open->complaint,0,100)}}</td>
+            <td> {{substr($open->complaint,0,100)}}</td>
             <td>{{ $open->date_complaint}}</td>
-            <td><a href='#'><span class='glyphicon glyphicon-edit'>view</span></a>
+            <td><a href="{{url('responde/attend', $open->complaint_id)}}"><span class='glyphicon glyphicon-eye-open'>open</span></a>
             </td>
         </tr>
 

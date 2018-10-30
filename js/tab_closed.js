@@ -2,6 +2,8 @@
 $(function () {
 
 
-    $('#closed-data-table').dataTable();
+    $('#closed-data-table').dataTable({
+        "ordering": false
+    });
 
 });

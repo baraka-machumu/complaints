@@ -1,7 +1,9 @@
 
-$(function () {
+$(function ()
+{
+    $('#pending-data-table').dataTable({
 
-
-    $('#pending-data-table').dataTable();
+        "ordering": false
+    });
 
 });
