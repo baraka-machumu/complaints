@@ -15,8 +15,9 @@
         <tr><td>{{$editing->firstname.' '.$editing->surname}}</td>
            <td>{{substr($editing->complaint,0,100)}}</td>
            <td>{{ $editing->complaint_type_name}}</td>
-            <td><a href='#'><span class='glyphicon glyphicon-edit'>Edit</span></a>
+            <td><a href="{{action('Complaints\ComplaintsController@edit', $editing->complaint_id)}}"><span class='glyphicon glyphicon-edit'>Edit</span></a>
             </td>
+            {{--{{action('Complaints/ComplaintsController@edit', $editing->complaint_id)}}--}}
         </tr>
 
     @endforeach

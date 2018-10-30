@@ -2,7 +2,12 @@
 $(function () {
 
 
-    $('#open-data-table').dataTable();
+    $('#open-data-table').dataTable({
+
+        "ordering": false
+    });
+
+
 
 
 });

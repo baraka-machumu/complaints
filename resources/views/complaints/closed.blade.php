@@ -6,24 +6,19 @@
     <table class='table table-bordered table-striped' id="closed-data-table">
         <thead>
         <tr>
-            <th>#</th><th>Full name</th><th>Complaint</th><th>Date submitted</th><th>Date Closed</th><th>Action</th>
+            <th>Full name</th><th>Complaint</th><th>Date</th><th>Action</th>
 
         </tr>
         </thead>
 
-        <?php $i=1;?>
         @foreach ($closed_complaints as $closed)
-            <tr>
-                <td>{{$i}}</td>
-                <td>{{$closed->firstname.' '.$closed->surname}}</td>
-                <td>{{substr($closed->complaint,0,100)."...."}}<a href="#" class="read_more" >Read More</a></td>
-                <td>{{ substr($closed->date_complaint,0,10)}}</td>
-                <td>{{ substr($closed->close_date,0,10)}}</td>
-                <td><a href='#'><span class='glyphicon glyphicon-eye-open'>view Response</span></a>
+            <tr><td>{{$closed->firstname.' '.$closed->surname}}</td>
+                <td>{{substr($closed->complaint,0,100)}}</td>
+                <td>{{ $closed->date_complaint}}</td>
+                <td><a href="{{url('complaints/response', $closed->complaint_id)}}"><span class='glyphicon glyphicon-eye-open'>view</span></a>
                 </td>
             </tr>
 
-            <?php $i++;?>
         @endforeach
     </table>
 

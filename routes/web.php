@@ -18,21 +18,12 @@ use Illuminate\Support\Facades\DB;
 
 Route::get('/test', function () {
 
-    $fullsearch = "2014-06-12";
-    $search =  DB::table('complaints')
-        ->join('complainer','complaints.complainer_id','=','complainer.complainer_id')
-        ->join('schemes','schemes.scheme_id','=','complainer.scheme_id')
-        ->join('complaint_status','complaint_status.complaint_status_id','=','complaints.complaint_status_id')
-        ->where(
-            DB::raw('concat(complainer.firstname," ",complainer.surname)') ,'LIKE' , '%'.$fullsearch.'%')
-        ->orwhere('complainer.residence'  ,'LIKE' , '%'.$fullsearch.'%')
-        ->orwhere('complainer.ssno'  ,'LIKE' , '%'.$fullsearch.'%')
-        ->orwhere('complainer.email'  ,'LIKE' , '%'.$fullsearch.'%')
-        ->orwhere('complaints.date_complaint'  ,'LIKE' , '%'.$fullsearch.'%')
-        ->get();
-    return $search;
-});
+    $complaint_id = 45;
 
+    $r =  new \App\Http\Controllers\Complaints\ComplaintsController();
+    $details = $r->responseDetail($complaint_id);
+    return $details;
+});
 
 Route::get('api/json/all/complaints/open','HomeController@getJsonOPenComplaintsPerMonth');
 Route::get('api/json/all/complaints/pending','HomeController@getJsonPendingComplaintsPerMonth');
@@ -61,6 +52,7 @@ Route::get('create','Complaints\ComplaintsController@create');
 Route::get('complaints/tab','Complaints\ComplaintsController@complaintTab');
 Route::get('api/complaints/opening/all','Complaints\ComplaintsController@complaintOpening');
 Route::get('api/complaints/editing/all','Complaints\ComplaintsController@complaintEditing');
+Route::get('complaints/response/{complaint_id}','Complaints\ComplaintsController@response');
 Route::resource('complaints','Complaints\ComplaintsController');
 
 
@@ -122,8 +114,13 @@ Route::get('api/search', 'SearchController@apiSearch');
 //Report Controller
 
 Route::get('report/select','Report\ReportController@selectReport');
-
 Route::get('report/get/{id}','Report\ReportController@getReport')->name('report_get');
 Route::post('report/params','Report\ReportController@paramReport');
+
+
+//Reponse controller
+
+Route::get('response/attend/{complaint_id}','Complaints\ResponseController@attend');
+
 
 

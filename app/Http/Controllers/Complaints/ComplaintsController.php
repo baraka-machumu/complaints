@@ -9,6 +9,7 @@ use App\Scheme;
 use Illuminate\Http\Request;
 use App\Http\Controllers\Controller;
 use Illuminate\Support\Facades\DB;
+use Illuminate\Support\Facades\Session;
 
 class ComplaintsController extends Controller
 {
@@ -55,7 +56,15 @@ class ComplaintsController extends Controller
      */
     public function show($id)
     {
-        //
+        $data = $this->openComplaints($id);
+        $complaint_open_show =[];
+
+        foreach ($data as $data_show){
+
+            array_push($complaint_open_show,$data_show);
+        }
+
+        return view('complaints.showOpenComplaints');
     }
 
     /**
@@ -66,7 +75,7 @@ class ComplaintsController extends Controller
      */
     public function edit($id)
     {
-        $complaint_type = ComplaintType::all()->toArray();
+        $complaint_types = ComplaintType::all()->toArray();
         $schemes = Scheme::all()->toArray();
         $data = $this->editComplaintsDetails($id);
 
@@ -76,7 +85,7 @@ class ComplaintsController extends Controller
 
             array_push($complaint_edit,$data_edit);
         }
-        return view('complaints.editcomplaints', compact('complaint_edit', 'complaint_type', 'schemes', 'id'));
+        return view('complaints.editcomplaints', compact('complaint_edit', 'complaint_types', 'schemes', 'id'));
     }
 
     /**
@@ -88,7 +97,21 @@ class ComplaintsController extends Controller
      */
     public function update(Request $request, $id)
     {
-        //
+        $complaint_edit = Complaint::find($id);
+        $complaint_edit->complaint_type_id = $request->get('complaint_type_id');
+//        dd($complaint_edit);
+        $success = $complaint_edit->save();
+        if ($success)
+        {
+            Session::flash('alert-success', 'successful Complaints updated');
+
+        } else {
+            Session::flash('alert-warning', 'Failed to update Complaints');
+
+        }
+        return redirect('complaints/tab');
+
+
     }
 
     /**
@@ -204,15 +227,47 @@ class ComplaintsController extends Controller
     public function  openComplaints(){
 
         $data_open =  DB::table('complaints')
-            ->leftJoin('complainer','complaints.complainer_id','=','complainer.complainer_id')
+            ->join('complainer','complaints.complainer_id','=','complainer.complainer_id')
             ->join('schemes','schemes.scheme_id','=','complainer.scheme_id')
-            ->select('complainer.firstname','complainer.surname','complainer.surname','complaints.complaint','complaints.date_complaint')
+            ->select('complainer.firstname','complainer.surname','complainer.surname','complaints.complaint','complaints.date_complaint','complaints.complaint_id')
             ->where('complaint_status_id','=','1')
             ->get();
 
         return $data_open;
+    }
+
+    public function response($complaint_id)
+    {
+
+
+        $complainer =  $this->complainerDetail($complaint_id);
+        $responses =  $this->responseDetail($complaint_id);
+
+//        dd($responses);
+
+        return view('complaints.response', compact('responses','complainer'));
+    }
+
+    public function complainerDetail($complaint_id)
+    {
+        $details = (array)DB::table('vw_complaints')
+            ->select('*')
+            ->where('complaint_id', '=', $complaint_id)
+            ->first();
+        return $details;
 
     }
+
+    public function responseDetail($complaint_id)
+    {
+        $details = DB::table('response')
+            ->select('*')
+            ->where('complaint_id', '=', $complaint_id)
+            ->get();
+        return $details;
+
+    }
+
 
     public function complaintOpening(Request $request){
 
@@ -235,7 +290,7 @@ class ComplaintsController extends Controller
                 $table .= "<td style='width: 20%;'>&nbsp;$fullname</td>";
                 $table .= "<td style='width: 40%;'>&nbsp;$complaint</td>";
                 $table .= "<td style='width: 10%;'>&nbsp;$date</td>";
-                $table .= "<td style='width: 20%;'>&nbsp;<a href='#'><span class='glyphicon glyphicon-eye-open'>view</span></a>";
+                $table .= "<td>&nbsp;<a href='#'><span class='glyphicon glyphicon-eye-open'>view</span></a>";
                 $table .= "<a href='#'>   <span class='fa fa-lock'>close</span></a></td></tr>";
 
                 $i++;
@@ -260,7 +315,7 @@ class ComplaintsController extends Controller
             $table .= "<td style='width: 20%;'>&nbsp;$fullname</td>";
             $table .= "<td style='width: 40%;'>&nbsp;$complaint</td>";
             $table .= "<td style='width: 10%;'>&nbsp;$date</td>";
-            $table .= "<td style='width: 20%;'>&nbsp;<a href='#'><span class='glyphicon glyphicon-eye-open'>view</span></a>";
+            $table .= "<td>&nbsp;<a href='#'><span class='glyphicon glyphicon-eye-open'>view</span></a>";
             $table .= "<a href='#'>   <span class='fa fa-lock'>close</span></a></td></tr>";
 
             $i++;
@@ -288,7 +343,7 @@ class ComplaintsController extends Controller
         $data_closed =  DB::table('complaints')
             ->leftJoin('complainer','complaints.complainer_id','=','complainer.complainer_id')
             ->join('schemes','schemes.scheme_id','=','complainer.scheme_id')
-            ->select('complainer.firstname','complainer.surname','complainer.surname','complaints.complaint','complaints.date_complaint','complaints.close_date')
+            ->select('complaints.complaint_id','complainer.firstname','complainer.surname','complainer.surname','complaints.complaint','complaints.date_complaint')
             ->where('complaint_status_id','=','2')
             ->get();
 
@@ -416,9 +471,9 @@ class ComplaintsController extends Controller
         $data_pending =  DB::table('complaints')
             ->leftJoin('complainer','complaints.complainer_id','=','complainer.complainer_id')
             ->join('schemes','schemes.scheme_id','=','complainer.scheme_id')
-            ->select('complainer.firstname','complainer.surname','complainer.surname','complaints.complaint','complaints.date_complaint')
+            ->select('complaints.complaint_id','complainer.firstname','complainer.surname','complainer.surname','complaints.complaint','complaints.date_complaint')
             ->where('complaint_status_id','=','3')
-            ->get();
+            ->paginate(10);
 
         return $data_pending;
     }
@@ -437,8 +492,6 @@ class ComplaintsController extends Controller
             ->orwhere(['complaints.date_complaint'  ,'LIKE' , '%'.$fullsearch.'%'])
             ->get();
      return $search;
-
-
     }
 
 }
