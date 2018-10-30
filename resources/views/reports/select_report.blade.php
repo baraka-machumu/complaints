@@ -22,11 +22,21 @@
 
     <div class="row">
         <div class="col-md-6">
+
             @foreach($report_names as $report_name)
-                <a href="{{route('report_get',['id'=>$report_name->id])}}" class="list-group-item" >{{$report_name->report_name}}</a>
-            @endforeach
+
+            <a href="{{route('report_get', ['id'=>$report_name->id])}}" class="list-group-item" >{{$report_name->report_name}}</a>
+
+                @endforeach
         </div>
         <div class="col-md-6">
+
+
+            <div class="form-group">
+
+
+            </div>
+
 
         </div>
     </div>
@@ -34,7 +44,7 @@
 
 @section('css')
     <style>
-        .row  a{
+       .row  a{
             color: #3C8DBC;
         }
 

@@ -134,7 +134,6 @@ class ComplaintsController extends Controller
 
         return view('complaints.tab',compact('open_complaints','edit_complaints', 'pending_complaints','closed_complaints'));
 
-        return view('complaints.tab',compact('open_complaints', 'pending_complaints','edit_complaints','closed_complaints'));
     }
 
     public function complaintEditing(Request $request)
