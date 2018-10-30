@@ -1,7 +1,4 @@
 
-
-{{--<input type="text" placeholder="Search here" id="search_open" class="form-control">--}}
-
 <div id="table-open">
 
 
@@ -17,10 +14,9 @@
         <tr><td>{{$open->firstname.' '.$open->surname}}</td>
             <td> {{substr($open->complaint,0,100)}}</td>
             <td>{{ $open->date_complaint}}</td>
-            <td><a href="{{url('responde/attend', $open->complaint_id)}}"><span class='glyphicon glyphicon-eye-open'>open</span></a>
+            <td><a href="{{action('Complaints\ResponseController@attend', $open->complaint_id)}}"><span class='glyphicon glyphicon-eye-open'>open</span></a>
             </td>
         </tr>
-
         @endforeach
     </table>
 

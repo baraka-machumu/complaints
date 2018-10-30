@@ -6,8 +6,6 @@
     <h4>{{Breadcrumbs::render('role/create')}}</h4>
     <h4>Attend Response for the First Time</h4>
 
-    {{--<hr>--}}
-    {{--<div class="clearfix"></div>--}}
 @stop
 
 @section('content')

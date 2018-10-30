@@ -1,5 +1,4 @@
 <?php
-
 /*
 |--------------------------------------------------------------------------
 | Web Routes
@@ -10,7 +9,6 @@
 | contains the "web" middleware group. Now create something great!
 |
 */
-
 use App\User;
 use Carbon\Carbon;
 use Illuminate\Support\Facades\Auth;
@@ -19,10 +17,11 @@ use Illuminate\Support\Facades\DB;
 Route::get('/test', function () {
 
     $complaint_id = 45;
-
-    $r =  new \App\Http\Controllers\Complaints\ComplaintsController();
-    $details = $r->responseDetail($complaint_id);
-    return $details;
+    $edit_complaints =DB::table('vw_complaints')
+        ->select('*')
+        ->where('complaint_id', '=', $complaint_id)
+        ->get();
+        return $edit_complaints;
 });
 
 Route::get('api/json/all/complaints/open','HomeController@getJsonOPenComplaintsPerMonth');
@@ -30,16 +29,10 @@ Route::get('api/json/all/complaints/pending','HomeController@getJsonPendingCompl
 Route::get('api/json/all/complaints/closed','HomeController@getJsonClosedComplaintsPerMonth');
 Route::get('api/json/summary/byscheme','HomeController@summaryBySchemeApi');
 
-
-
-
-
-
 Route::get('api/json/all/complaints/piechart','HomeController@getJsonAllComplaintsPiechart');
 
 // get default url
 Route::get('/','Auth\LoginController@index');
-
 Route::get('logout', 'Auth\LoginController@logout');
 
 Auth::routes();
@@ -54,8 +47,6 @@ Route::get('api/complaints/opening/all','Complaints\ComplaintsController@complai
 Route::get('api/complaints/editing/all','Complaints\ComplaintsController@complaintEditing');
 Route::get('complaints/response/{complaint_id}','Complaints\ComplaintsController@response');
 Route::resource('complaints','Complaints\ComplaintsController');
-
-
 
 //Complaints type Controller
 Route::resource('complaints-types','Complaints\ComplaintsTypeController');
@@ -84,7 +75,6 @@ Route::resource('roleProfile','Admin\RoleProfileController');
 Route::post('user/login','UserController@store');
 Route::post('user/update','Admin\UserController@updates');
 
-
 //profile
 Route::get('profile/create','Admin\ProfileController@create');
 Route::get('profile/edit','Admin\ProfileController@edit');
@@ -112,7 +102,6 @@ Route::get('api/search', 'SearchController@apiSearch');
 
 
 //Report Controller
-
 Route::get('report/select','Report\ReportController@selectReport');
 Route::get('report/get/{id}','Report\ReportController@getReport')->name('report_get');
 Route::post('report/params','Report\ReportController@paramReport');
@@ -121,6 +110,8 @@ Route::post('report/params','Report\ReportController@paramReport');
 //Reponse controller
 
 Route::get('response/attend/{complaint_id}','Complaints\ResponseController@attend');
+Route::get('edit/complaints/{complaint_id}','Complaints\ResponseController@editComplaints');
+
 
 
 

@@ -32,6 +32,16 @@ class ResponseController extends Controller
 
     }
 
+    public function editComplaints($complaint_id){
+
+        $edit_complaints =(array)DB::table('vw_complaints')
+            ->select('*')
+            ->where('complaint_id', '=', $complaint_id)
+            ->first();
+        return view('response.edit_complaints',compact('edit_complaints','complaint_id'));
+
+    }
+
 
 
 }
