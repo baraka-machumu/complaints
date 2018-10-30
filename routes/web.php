@@ -119,11 +119,11 @@ Route::get('search/form', 'SearchController@create');
 Route::get('api/search', 'SearchController@apiSearch');
 
 
-
 //Report Controller
 
-Route::get('report/select','Report\ReportController@select');
-Route::get('report/category','Report\ReportController@category');
+Route::get('report/select','Report\ReportController@selectReport');
 
+Route::get('report/get/{id}','Report\ReportController@getReport')->name('report_get');
+Route::post('report/params','Report\ReportController@paramReport');
 
 

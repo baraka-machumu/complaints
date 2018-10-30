@@ -288,7 +288,7 @@ class ComplaintsController extends Controller
         $data_closed =  DB::table('complaints')
             ->leftJoin('complainer','complaints.complainer_id','=','complainer.complainer_id')
             ->join('schemes','schemes.scheme_id','=','complainer.scheme_id')
-            ->select('complainer.firstname','complainer.surname','complainer.surname','complaints.complaint','complaints.date_complaint')
+            ->select('complainer.firstname','complainer.surname','complainer.surname','complaints.complaint','complaints.date_complaint','complaints.close_date')
             ->where('complaint_status_id','=','2')
             ->get();
 

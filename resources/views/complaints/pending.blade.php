@@ -23,9 +23,7 @@
     </table>
 
 </div>
-<script>
 
-</script>
 
 
 

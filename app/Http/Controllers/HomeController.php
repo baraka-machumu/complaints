@@ -183,7 +183,6 @@ SELECT COUNT(complaint_status_name) AS wcf FROM vw_complaints WHERE scheme_name 
         return response()->json(['closed'=>$array_data,'date'=>$array_data_months])->header('Content-type','text/json');
     }
 
-
     public  function complaintsBySchemeGepf()
     {
         $data_gepf= (object) DB::select(" SELECT COUNT(complaint_status_name) AS gepf FROM vw_complaints WHERE scheme_name LIKE 'GEPF%' AND complaint_status_name LIKE 'open%' UNION

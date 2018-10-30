@@ -47,7 +47,7 @@ $menu =  [
         ],
 
         [
-            'text' => 'Search',
+            'text' => 'Advanced Search',
             'url'  => 'search/form',
             'icon' => 'th',
         ],
