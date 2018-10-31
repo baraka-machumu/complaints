@@ -40,6 +40,7 @@ class ReportController extends Controller
 
     public function paramReport(Request $request)
     {
+
        $id = Session::get('id');
 //        $schemes = Scheme::all()->toArray();
         $report_data = DB::table('report_config')->select('resource_url')->where('id', '=',$id)->get();

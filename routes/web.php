@@ -40,6 +40,7 @@ Route::get('api/complaints/count', 'HomeController@complaintsStatus');
 Route::get('/dashboard', 'HomeController@index')->name('dashboard');
 
 //Complaints Controller
+Route::get('edit/complaints/{complaint_id}','Complaints\ComplaintsController@editPending');
 Route::get('complaint/tab','Complaints\ComplaintsController@complaintTab');
 Route::get('create','Complaints\ComplaintsController@create');
 Route::get('complaints/tab','Complaints\ComplaintsController@complaintTab');
@@ -47,6 +48,9 @@ Route::get('api/complaints/opening/all','Complaints\ComplaintsController@complai
 Route::get('api/complaints/editing/all','Complaints\ComplaintsController@complaintEditing');
 Route::get('complaints/response/{complaint_id}','Complaints\ComplaintsController@response');
 Route::resource('complaints','Complaints\ComplaintsController');
+
+Route::post('complaints/update/{complaint_id}','Complaints\ComplaintsController@updatePending');
+
 
 //Complaints type Controller
 Route::resource('complaints-types','Complaints\ComplaintsTypeController');
@@ -110,7 +114,8 @@ Route::post('report/params','Report\ReportController@paramReport');
 //Reponse controller
 
 Route::get('response/attend/{complaint_id}','Complaints\ResponseController@attend');
-Route::get('edit/complaints/{complaint_id}','Complaints\ResponseController@editComplaints');
+Route::post('response/store/{complaint_id}','Complaints\ResponseController@storeResponse');
+
 
 
 

@@ -4,9 +4,12 @@ namespace App\Http\Controllers\Complaints;
 
 use App\Complaint;
 use App\ComplaintType;
+use App\Letter;
 use App\MembershipStatus;
+use App\Response;
 use App\ResponseType;
 use App\Scheme;
+use Carbon\Carbon;
 use Illuminate\Http\Request;
 use App\Http\Controllers\Controller;
 use Illuminate\Support\Facades\DB;
@@ -28,19 +31,35 @@ class ResponseController extends Controller
         $complaint_type_controller =  new ComplaintsTypeController();
         $complaint_type =$complaint_type_controller->getAllComplaintsType();
 
-        return view('response.attend',compact('complainer_details','response_type','complaint_type'));
+        return view('response.attend',compact('complainer_details','response_type','complaint_type','complaint_id'));
 
     }
 
-    public function editComplaints($complaint_id){
+    public function storeResponse(Request $request,$complaint_id)
+    {
 
-        $edit_complaints =(array)DB::table('vw_complaints')
-            ->select('*')
-            ->where('complaint_id', '=', $complaint_id)
-            ->first();
-        return view('response.edit_complaints',compact('edit_complaints','complaint_id'));
+        $response  =  new Response();
+        $letter  = new Letter();
+
+        $response->responsetype_id =  $request->get('response_type');
+        $response->complaint_id =  $complaint_id;
+        $response->resp =  $request->get('reponse_details');
+        $response->response_date = Carbon::now();
+
+
+         dd($request->get('letters'));
+
+        $success =  $response->save();
+
+
+
+
+
+
 
     }
+
+
 
 
 

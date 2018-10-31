@@ -20,7 +20,7 @@
     </div> <!-- end .flash-message -->
 
     <div class="row">
-        <form>
+        <form method="post" action="{{action('Complaints\ResponseController@storeResponse',$complaint_id)}}" enctype="multipart/form-data">
         <div class="col-md-6">
 
             <div class="form-group">
@@ -84,7 +84,7 @@
             </div>
             <div class="form-group">
                 <label for="scheme">Upload Document</label>
-                <input type="file" class="form-control" id="scheme" name="scheme"  >
+                <input type="file"  id="file-upload" name="letters[]"   class="file" data-overwrite-initial="true">
             </div>
             <button type="submit" class="btn btn-primary">Submit</button>
 
@@ -98,5 +98,16 @@
 
         @section('js')
 
+            <script>
+
+//                $("#file-upload").fileinput({
+//
+//                    allowedFileExtensions: ['pdf', 'png','jpg'],
+//                    maxFileSize:10000,
+//                    maxFilesNum: 10
+//
+//                });
+
+            </script>
 
 @stop

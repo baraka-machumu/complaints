@@ -4,15 +4,21 @@
 
 @section('content_header')
 @stop
-
 @section('content')
     <div class="row">
-        <form>
-            <div class="col-md-6">
 
+        <form method="post" action="{{action('Complaints\ComplaintsController@updatePending',['complaint_id'=>$complaint_id])}}">
+
+            {{ csrf_field() }}
+
+            <div class="col-md-6">
                 <div class="form-group">
-                    <label for="fullname">Full Name</label>
-                    <input type="text" class="form-control" id="fullname" name="firstname" value="{{$edit_complaints['firstname'].' '.$edit_complaints['surname']}}">
+                    <label for="fullname">First Name</label>
+                    <input type="text" class="form-control" id="fullname" name="firstname" value="{{$edit_complaints['firstname']}}">
+                </div>
+                <div class="form-group">
+                    <label for="fullname">Last Name</label>
+                    <input type="text" class="form-control" id="fullname" name="surname" value="{{$edit_complaints['surname']}}">
                 </div>
                 <div class="form-group">
                     <label for="residence">Residence</label>
@@ -28,12 +34,13 @@
                 </div>
 
 
+
+            </div>
+            <div class="col-md-6">
                 <div class="form-group">
                     <label for="email">Email</label>
                     <input type="text" class="form-control" value="{{$edit_complaints['email']}}" id="email" name="email">
                 </div>
-            </div>
-            <div class="col-md-6">
 
                 <div class="form-group">
                     <label for="ssno">Membership Number	</label>

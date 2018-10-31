@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers\Complaints;
 
+use App\Complainer;
 use App\Complaint;
 use App\ComplaintType;
 use App\MembershipStatus;
@@ -493,5 +494,73 @@ class ComplaintsController extends Controller
             ->get();
      return $search;
     }
+
+
+    public function editPending($complaint_id){
+
+        $edit_complaints =(array)DB::table('vw_complaints')
+            ->select('*')
+            ->where('complaint_id', '=', $complaint_id)
+            ->first();
+        return view('complaints.editPending',compact('edit_complaints','complaint_id'));
+
+    }
+
+    public function  updatePending(Request $request,$complaint_id){
+
+
+        $complainer= DB::table('complaints')->select('complainer_id')->where('complaint_id', $complaint_id)->first();
+
+        $complainer_id =  $complainer->complainer_id;
+
+
+        $complainer = Complainer::find($complainer_id);
+
+        $complainer->firstname =  $request->get('firstname');
+        $complainer->surname =  $request->get('surname');
+        $complainer->residence =  $request->get('residence');
+        $complainer->phone =  $request->get('phone');
+        $complainer->postal =  $request->get('postal');
+        $complainer->email =  $request->get('email');
+        $complainer->ssno =  $request->get('ssno');
+        $complainer->employer =  $request->get('employer');
+
+        $success = $complainer->save();
+
+        if ($success)
+        {
+
+
+            $complaint = Complaint::find($complaint_id);
+
+            $complaint->complaint =  $request->get('complaint');
+
+            $success =   $complaint->save();
+
+           if ($success){
+
+               Session::flash('alert-success', 'successful  updated');
+
+           } else {
+
+               Session::flash('alert-warning', 'Failed to update');
+           }
+
+        }
+
+        else {
+            Session::flash('alert-warning', 'Failed to update Complainer');
+
+        }
+
+        return redirect('complaints/tab/#3');
+
+    }
+
+
+
+
+
+
 
 }
