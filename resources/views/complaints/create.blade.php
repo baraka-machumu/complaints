@@ -129,7 +129,10 @@
                         placeholder: "Select Scheme",
                         allowClear: true
                     });
-
+                    $('#complaint_type').select2({
+                        placeholder: "Select Scheme",
+                        allowClear: true
+                    });
 
                 });
 
