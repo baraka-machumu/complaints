@@ -3,15 +3,16 @@
 @section('title', 'Dashboard')
 
 @section('content_header')
-    <h4>{{Breadcrumbs::render('role/create')}}</h4>
-    @if($actions==1)
+    <h4>{{Breadcrumbs::render('response_attend')}}</h4>
 
+    @if($actions==1)
     <h4>Attend Response for the First Time</h4>
+
         @else
-        <h4>Close Complaints</h4>
+        <h4>Close Complaint</h4>
 
     @endif
- {{--{{$actions}}--}}
+
 @stop
 
 @section('content')
@@ -27,8 +28,8 @@
 
     <div class="row">
         <form method="post" action="{{action('Complaints\ResponseController@storeResponse',[$complaint_id,$actions])}}" enctype="multipart/form-data">
-            {{ csrf_field() }}
 
+            {{csrf_field()}}
             <div class="col-md-6">
 
             <div class="form-group">
@@ -92,7 +93,7 @@
             </div>
             <div class="form-group">
                 <label for="scheme">Upload Document</label>
-                <input type="file"  id="file-upload" name="letters[]"  multiple class="file" data-overwrite-initial="true">
+                <input type="file"  id="file-upload" name="letters[]" multiple  class="file">
             </div>
             <button type="submit" class="btn btn-primary">Submit</button>
 
@@ -108,7 +109,13 @@
 
             <script>
 
-
+//                $("#file-upload").fileinput({
+//
+//                    allowedFileExtensions: ['pdf', 'png','jpg'],
+//                    maxFileSize:10000,
+//                    maxFilesNum: 10
+//
+//                });
 
             </script>
 

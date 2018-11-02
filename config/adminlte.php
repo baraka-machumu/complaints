@@ -87,19 +87,12 @@ $menu =  [
             'icon'    => 'th',
             'submenu' => [
 
-                [
-                    'text' => 'Register Complaints Type',
-                    'url'  => 'complaints-types/create',
-                ],
+
                 [
                     'text' => 'Register User',
                     'url'  => 'user/register',
                 ],
 
-                [
-                    'text' => 'View All User',
-                    'url'  => '#',
-                ],
 
                 [
                     'text' => 'Create Role',

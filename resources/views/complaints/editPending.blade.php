@@ -4,6 +4,7 @@
 
 @section('content_header')
     <h4>Edit Complaint</h4>
+
 @stop
 @section('content')
     <div class="row">

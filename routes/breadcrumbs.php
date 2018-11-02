@@ -29,6 +29,33 @@ Breadcrumbs::register('report_select',function ($trail){
     $trail->push('Select',url('report'));
 
 });
+Breadcrumbs::register('response',function ($trail){
+
+    $trail->push('Response',url('response'));
+
+});
+
+Breadcrumbs::register('response_attend',function ($trail){
+
+    $trail->parent('response');
+    $trail->push('Attend',url('response/attend'));
+
+});
+
+Breadcrumbs::register('complaint',function ($trail){
+
+    $trail->push('Complaint',url('complaint'));
+
+});
+
+Breadcrumbs::register('complaint_create',function ($trail){
+
+    $trail->parent('complaint');
+
+    $trail->push('Create',url('complaint/create'));
+
+});
+
 
 //fetty
 Breadcrumbs::register('role', function ($trait)
