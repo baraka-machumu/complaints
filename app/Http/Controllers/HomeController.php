@@ -35,10 +35,10 @@ class HomeController extends Controller
             ->where('complaint_status_id', '=', 1)->count();
 
         $pendingComplaints = DB::table('complaints')
-            ->where('complaint_status_id', '=', 2)->count();
+            ->where('complaint_status_id', '=', 3)->count();
 
         $closedComplaints = DB::table('complaints')
-            ->where('complaint_status_id', '=', 3)->count();
+            ->where('complaint_status_id', '=', 2)->count();
         $data= ['open'=>$openComplaints,'pending'=>$pendingComplaints,'closed'=>$closedComplaints];
         return response()->json($data,'200',['json']);
     }

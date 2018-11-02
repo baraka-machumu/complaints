@@ -4,8 +4,14 @@
 
 @section('content_header')
     <h4>{{Breadcrumbs::render('role/create')}}</h4>
-    <h4>Attend Response for the First Time</h4>
+    @if($actions==1)
 
+    <h4>Attend Response for the First Time</h4>
+        @else
+        <h4>Close Complaints</h4>
+
+    @endif
+ {{--{{$actions}}--}}
 @stop
 
 @section('content')
@@ -20,8 +26,10 @@
     </div> <!-- end .flash-message -->
 
     <div class="row">
-        <form method="post" action="{{action('Complaints\ResponseController@storeResponse',$complaint_id)}}" enctype="multipart/form-data">
-        <div class="col-md-6">
+        <form method="post" action="{{action('Complaints\ResponseController@storeResponse',[$complaint_id,$actions])}}" enctype="multipart/form-data">
+            {{ csrf_field() }}
+
+            <div class="col-md-6">
 
             <div class="form-group">
                 <label for="fullname">Full Name</label>
@@ -84,7 +92,7 @@
             </div>
             <div class="form-group">
                 <label for="scheme">Upload Document</label>
-                <input type="file"  id="file-upload" name="letters[]"   class="file" data-overwrite-initial="true">
+                <input type="file"  id="file-upload" name="letters[]"  multiple class="file" data-overwrite-initial="true">
             </div>
             <button type="submit" class="btn btn-primary">Submit</button>
 
@@ -100,13 +108,7 @@
 
             <script>
 
-//                $("#file-upload").fileinput({
-//
-//                    allowedFileExtensions: ['pdf', 'png','jpg'],
-//                    maxFileSize:10000,
-//                    maxFilesNum: 10
-//
-//                });
+
 
             </script>
 

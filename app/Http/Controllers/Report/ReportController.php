@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers\Report;
 
+use App\ComplaintType;
 use App\Http\Controllers\Controller;
 use App\Scheme;
 use Illuminate\Http\Request;
@@ -14,7 +15,7 @@ class ReportController extends Controller
 
     public  function selectReport()
     {
-        $report_names =  DB::table('report_config')->select('id','report_name')->get();
+        $report_names =  DB::table('report_config')->select('id','report_name', 'report_orientation')->get();
 
         return view('reports.select_report',compact('report_names'));
 
@@ -33,16 +34,18 @@ class ReportController extends Controller
             header('Content-type:application/pdf');
             echo $report;
         }
+        $schemes = Scheme::getSchemes();
+        $complaint_types = ComplaintType::getComplaintType();
 
         Session::put('id', $id);
-        return view('reports.params', compact('report_data'));
+        return view('reports.params', compact('report_data', 'schemes','complaint_types'));
     }
 
     public function paramReport(Request $request)
     {
 
        $id = Session::get('id');
-//        $schemes = Scheme::all()->toArray();
+
         $report_data = DB::table('report_config')->select('resource_url')->where('id', '=',$id)->get();
 
         $input_control = $request->get('data');

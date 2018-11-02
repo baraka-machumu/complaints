@@ -1,7 +1,6 @@
 @extends('adminlte::page')
 
 @section('title', 'Dashboard')
-
 @section('content_header')
     <div class="clearfix"></div>
 @stop

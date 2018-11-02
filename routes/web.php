@@ -110,13 +110,8 @@ Route::get('report/select','Report\ReportController@selectReport');
 Route::get('report/get/{id}','Report\ReportController@getReport')->name('report_get');
 Route::post('report/params','Report\ReportController@paramReport');
 
-
 //Reponse controller
 
-Route::get('response/attend/{complaint_id}','Complaints\ResponseController@attend');
-Route::post('response/store/{complaint_id}','Complaints\ResponseController@storeResponse');
-
-
-
-
+Route::get('response/attend/{complaint_id}/{actions}','Complaints\ResponseController@attend');
+Route::post('response/store/{complaint_id}/{actions}','Complaints\ResponseController@storeResponse');
 

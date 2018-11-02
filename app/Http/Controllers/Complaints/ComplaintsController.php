@@ -133,7 +133,9 @@ class ComplaintsController extends Controller
         $edit_complaints = $this->editComplaints();
         $closed_complaints =  $this->closedComplaints();
 
-        return view('complaints.tab',compact('open_complaints','edit_complaints', 'pending_complaints','closed_complaints'));
+        $actions = ['not_close'=>1, 'close'=>2];
+
+        return view('complaints.tab',compact('open_complaints','edit_complaints', 'pending_complaints','closed_complaints', 'actions'));
 
     }
 

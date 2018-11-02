@@ -1,7 +1,5 @@
 
 <div id="table-open">
-
-
     <table class='table table-bordered table-striped' id="open-data-table">
         <thead>
         <tr>
@@ -14,7 +12,9 @@
         <tr><td>{{$open->firstname.' '.$open->surname}}</td>
             <td> {{substr($open->complaint,0,100)}}</td>
             <td>{{ $open->date_complaint}}</td>
-            <td><a href="{{action('Complaints\ResponseController@attend', $open->complaint_id)}}"><span class='glyphicon glyphicon-eye-open'>open</span></a>
+            <td><a href="{{action('Complaints\ResponseController@attend', [$open->complaint_id,$actions['not_close']])}}"><span class='glyphicon glyphicon-eye-open'>open</span></a>
+                <span style="margin-left: 1px;"><a href="{{action('Complaints\ResponseController@attend', [$open->complaint_id, $actions['close']])}}"><span class='fa fa-lock'>close</span></a></span>
+
             </td>
         </tr>
         @endforeach

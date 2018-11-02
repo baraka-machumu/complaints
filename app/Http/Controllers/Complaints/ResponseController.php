@@ -14,13 +14,11 @@ use Illuminate\Http\Request;
 use App\Http\Controllers\Controller;
 use Illuminate\Support\Facades\DB;
 use Illuminate\Support\Facades\Session;
+use Illuminate\Support\Facades\Storage;
 
 class ResponseController extends Controller
 {
-
-
-
-    public function attend($complaint_id){
+    public function attend($complaint_id, $actions){
 
         $controller  = new ComplaintsController();
         $complainer_details = $controller->complainerDetail($complaint_id);
@@ -31,36 +29,48 @@ class ResponseController extends Controller
         $complaint_type_controller =  new ComplaintsTypeController();
         $complaint_type =$complaint_type_controller->getAllComplaintsType();
 
-        return view('response.attend',compact('complainer_details','response_type','complaint_type','complaint_id'));
+        return view('response.attend',compact('actions','complainer_details','response_type','complaint_type','complaint_id'));
 
     }
 
-    public function storeResponse(Request $request,$complaint_id)
+    public function storeResponse(Request $request,$complaint_id, $actions)
     {
-
         $response  =  new Response();
-        $letter  = new Letter();
 
         $response->responsetype_id =  $request->get('response_type');
         $response->complaint_id =  $complaint_id;
         $response->resp =  $request->get('reponse_details');
-        $response->response_date = Carbon::now();
+        $response->date_response = Carbon::now();
 
-
-         dd($request->get('letters'));
+        $files = $request->file('letters');
 
         $success =  $response->save();
+        $update_complaint_status = DB::statement('call update_complaint_status(?,?)',array($complaint_id, $actions));
 
+        if ($success &&$update_complaint_status) {
+            if (!empty($files)) {
 
+                foreach ($files as $file) {
+                    $letter = new Letter();
 
+                    $filename = $file->getClientOriginalName();
+                    Storage::disk('local')->put('public/latter/' . $filename, 'content');
 
+                    $letter->complaint_id = $complaint_id;
+                    $letter->letter_link = $filename;
 
+                    $letter->save();
 
+                }
+            }
+                Session::flash('alert-success', 'Response successful  added');
+
+        }
+        else {
+            Session::flash('alert-warning', 'Failed');
+
+        }
+        return redirect('response/attend/'.$complaint_id.'/'.$actions);
 
     }
-
-
-
-
-
 }
