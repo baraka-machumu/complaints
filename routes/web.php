@@ -16,12 +16,9 @@ use Illuminate\Support\Facades\DB;
 
 Route::get('/test', function () {
 
-    $complaint_id = 45;
-    $edit_complaints =DB::table('vw_complaints')
-        ->select('*')
-        ->where('complaint_id', '=', $complaint_id)
-        ->get();
-        return $edit_complaints;
+    $actions = ['notclose'=>1,'close'=>0];
+
+    echo $actions['notclose'];
 });
 
 Route::get('api/json/all/complaints/open','HomeController@getJsonOPenComplaintsPerMonth');
@@ -113,8 +110,8 @@ Route::post('report/params','Report\ReportController@paramReport');
 
 //Reponse controller
 
-Route::get('response/attend/{complaint_id}','Complaints\ResponseController@attend');
-Route::post('response/store/{complaint_id}','Complaints\ResponseController@storeResponse');
+Route::get('response/attend/{complaint_id}/{actions}','Complaints\ResponseController@attend');
+Route::post('response/store/{complaint_id}/{actions}','Complaints\ResponseController@storeResponse');
 
 
 

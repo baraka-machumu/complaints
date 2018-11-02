@@ -25,26 +25,31 @@
 
             @foreach($report_names as $report_name)
 
-            <a href="{{route('report_get', ['id'=>$report_name->id])}}" class="list-group-item" >{{$report_name->report_name}}</a>
 
-                @endforeach
+                @if($report_name->report_orientation=='left')
+                <a href="{{route('report_get', ['id'=>$report_name->id])}}" class="list-group-item" >{{$report_name->report_name}}</a>
+
+                @endif
+            @endforeach
         </div>
+
         <div class="col-md-6">
 
-
-            <div class="form-group">
-
-
-            </div>
+            @foreach($report_names as $report_name)
+                @if($report_name->report_orientation=='right')
 
 
+                <a href="{{route('report_get', ['id'=>$report_name->id])}}" class="list-group-item" >{{$report_name->report_name}}</a>
+
+                @endif
+            @endforeach
         </div>
     </div>
 @stop
 
 @section('css')
     <style>
-       .row  a{
+        .row  a{
             color: #3C8DBC;
         }
 

@@ -2,6 +2,7 @@
 $(function () {
 
 
-    $('#edit-data-table').dataTable();
-
+    $('#edit-data-table').dataTable({
+        "ordering": false
+    });
 });

@@ -67,6 +67,21 @@
     </div>
 @stop
 
+@section('css')
+
+    <style>
+        table.table-bordered{
+            border:1px ;
+            margin-top:20px;
+        }
+        table.table-bordered > thead > tr > th{
+            border:1px ;
+        }
+        table.table-bordered > tbody > tr > td{
+            border:1px ;
+        }
+    </style>
+    @stop
 
 @section('js')
 

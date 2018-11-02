@@ -11,8 +11,6 @@
 
 @section('content')
 
-
-
     <div class="row">
         <div class="col-md-6">
 
@@ -37,14 +35,32 @@
             @if($report_data[0]->p3!==null)
                 <div class="form-group">
                     <label for="scheme">{{$report_data[0]->p3_caption}}</label>
-                    <input type="text" class="form-control role_name" id="scheme" name="data[{{$report_data[0]->p3}}]" >
+
+                    <select class="form-control" id="scheme" name="data[{{$report_data[0]->p3}}]">
+                        <option selected="true" disabled="disabled">---Select Scheme--</option>
+
+                    @foreach($schemes as $scheme)
+                        <option value="{{$scheme->scheme_name}}">{{$scheme->scheme_name}}</option>
+                        @endforeach
+
+                    </select>
+
 
                 </div>
             @endif
             @if($report_data[0]->p4!==null)
                 <div class="form-group">
                     <label for="complaint_type">{{$report_data[0]->p4_caption}}</label>
-                    <input type="text" class="form-control role_name" id="complaint_type" name="data[{{$report_data[0]->p4}}]" >
+                    <select class="form-control" id="complaint_type" name="data[{{$report_data[0]->p4}}]">
+                        <option selected="true" disabled="disabled">---Select Complaint Type--</option>
+
+                        @foreach($complaint_types as $complaint_type)
+                            <option value="{{$complaint_type->complaint_type_name}}">{{$complaint_type->complaint_type_name}}</option>
+
+
+                        @endforeach
+                    </select>
+
 
                 </div>
             @endif

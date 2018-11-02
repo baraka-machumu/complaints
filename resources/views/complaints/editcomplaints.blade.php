@@ -3,7 +3,10 @@
 @section('title', 'Dashboard')
 
 @section('content_header')
-    <div class="clearfix"></div>
+    <div class="clearfix">
+    </div>
+    <h4>Edit Complaint</h4>
+
 @stop
 
 @section('content')

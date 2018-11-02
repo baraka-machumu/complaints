@@ -36,6 +36,7 @@ class ComplaintsController extends Controller
         $complaintsTypes = ComplaintType::all()->toArray();
         return view('complaints.create', with(['all_scheme_types'=>$all_scheme_types,'complaintsTypes'=>$complaintsTypes
             ,'membership_status'=>$membership_status]));
+
     }
 
     /**
@@ -133,7 +134,9 @@ class ComplaintsController extends Controller
         $edit_complaints = $this->editComplaints();
         $closed_complaints =  $this->closedComplaints();
 
-        return view('complaints.tab',compact('open_complaints','edit_complaints', 'pending_complaints','closed_complaints'));
+        $actions = ['not_close'=>1,'close'=>2];
+
+        return view('complaints.tab',compact('actions','open_complaints','edit_complaints', 'pending_complaints','closed_complaints'));
 
     }
 
