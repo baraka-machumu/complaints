@@ -9,10 +9,11 @@
         "cossou/jasperphp": "^2.7",
         "davejamesmiller/laravel-breadcrumbs": "4.x",
         "fideloper/proxy": "^4.0",
+        "guzzlehttp/guzzle": "^6.3",
+        "jaspersoft/rest-client": "*",
         "jeroennoten/laravel-adminlte": "^1.24",
         "laravel/framework": "5.5.*",
-        "laravel/tinker": "~1.0",
-        "jaspersoft/rest-client": "*"
+        "laravel/tinker": "~1.0"
     },
     "require-dev": {
         "filp/whoops": "~2.0",

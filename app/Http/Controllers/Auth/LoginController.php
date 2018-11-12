@@ -2,10 +2,18 @@
 
 namespace App\Http\Controllers\Auth;
 
+use App\Complainer;
+use App\Complaint;
+use App\ComplaintCount;
+use App\ComplaintType;
 use App\Http\Controllers\Controller;
+use App\MembershipStatus;
+use App\ReceiveMode;
+use App\Scheme;
 use Illuminate\Foundation\Auth\AuthenticatesUsers;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
+use Illuminate\Support\Facades\Session;
 
 class LoginController extends Controller
 {
@@ -58,8 +66,17 @@ class LoginController extends Controller
             return redirect()->route('dashboard');
         }
 
-        return view('user.default_page_before_login');
+        $rec_modes = ReceiveMode::all()->toArray();
+        $membership_status = MembershipStatus::all()->toArray();
+        $all_scheme_types = Scheme::all()->toArray();
+        $groupcomplaints = ComplaintCount::all()->toArray();
+        $complaintsTypes = ComplaintType::all()->toArray();
+        return view('complaints.complainer_view', with(['all_scheme_types'=>$all_scheme_types,'groupcomplaints'=>$groupcomplaints,'complaintsTypes'=>$complaintsTypes
+            ,'membership_status'=>$membership_status,'rec_modes'=>$rec_modes]));
+//        return view('complaints.complainer_view');
     }
+
+
 
     public function logout(Request $request)
     {

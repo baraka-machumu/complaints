@@ -13,12 +13,16 @@ use App\User;
 use Carbon\Carbon;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\DB;
+use Illuminate\Support\Facades\Mail;
+use Illuminate\Support\Facades\Route;
 
 Route::get('/test', function () {
 
-    $actions = ['notclose'=>1,'close'=>0];
+    Mail::send('mail.notification', ['name' => "fatuma"], function ($message) {
 
-    echo $actions['notclose'];
+        $message->from('fatuma.mkima@ssra.go.tz', 'Laravel');
+        $message->to('fatuma.mkima@ssra.go.tz')->subject('test!');
+    });
 });
 
 Route::get('api/json/all/complaints/open','HomeController@getJsonOPenComplaintsPerMonth');
@@ -45,6 +49,7 @@ Route::get('api/complaints/opening/all','Complaints\ComplaintsController@complai
 Route::get('api/complaints/editing/all','Complaints\ComplaintsController@complaintEditing');
 Route::get('complaints/response/{complaint_id}','Complaints\ComplaintsController@response');
 Route::resource('complaints','Complaints\ComplaintsController');
+Route::post('complaints/website/store','Complaints\ComplaintsController@websiteStore');
 
 Route::post('complaints/update/{complaint_id}','Complaints\ComplaintsController@updatePending');
 
