@@ -80,7 +80,7 @@ class ComplaintsController extends Controller
 
             $complaint->save();
 
-            Session::flash('alert-success', 'successful  registered complaint');
+            Session::flash('alert-success', 'successful  registered complaint and email sent');
 
 
         } else {
@@ -100,15 +100,18 @@ class ComplaintsController extends Controller
      */
     public function show($id)
     {
-        $data = $this->openComplaints($id);
-        $complaint_open_show =[];
-
-        foreach ($data as $data_show){
-
-            array_push($complaint_open_show,$data_show);
-        }
-
-        return view('complaints.showOpenComplaints');
+        $complainer =  $this->complainerDetail($id);
+        $responses =  $this->responseDetail($id);
+        return view('complaints.showComplaints', compact('responses','complainer'));
+//        $data = $this->openComplaints($id);
+//        $complaint_open_show =[];
+//
+//        foreach ($data as $data_show){
+//
+//            array_push($complaint_open_show,$data_show);
+//        }
+//
+//        return view('complaints.showOpenComplaints');
     }
 
     /**
@@ -284,13 +287,8 @@ class ComplaintsController extends Controller
 
     public function response($complaint_id)
     {
-
-
         $complainer =  $this->complainerDetail($complaint_id);
         $responses =  $this->responseDetail($complaint_id);
-
-//        dd($responses);
-
         return view('complaints.response', compact('responses','complainer'));
     }
 

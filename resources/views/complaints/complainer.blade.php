@@ -20,7 +20,7 @@
        </div>
 
 
-        <p>Your reference number is {{$refno}}</p>
+        <p style="margin-left: 20px;">Your reference number is {{$refno}}</p>
     </div>
 
 @stop
