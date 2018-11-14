@@ -32,7 +32,6 @@
                 @endif
             @endforeach
         </div>
-
         <div class="col-md-6">
 
             @foreach($report_names as $report_name)
@@ -49,7 +48,7 @@
 
 @section('css')
     <style>
-        .row  a{
+       .row  a{
             color: #3C8DBC;
         }
 

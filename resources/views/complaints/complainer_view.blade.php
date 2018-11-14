@@ -7,7 +7,7 @@
 @stop
 @section('content')
     <div class="row" style="margin-top: -30px">
-        <form action="{{action('Complaints\ComplaintsController@store')}}" method="post">
+        <form action="{{action('Complaints\ComplaintsController@websiteStore')}}" method="post">
             {{ csrf_field() }}
             <div class="col-md-4">
                 <h4>Taarifa Binafsi/Personal Information</h4>
@@ -76,15 +76,6 @@
                 <h4>Complaints Details</h4>
 
                 <div class="form-group">
-                    <label for="complaint_rec_mode_id">Complaint Receive Mode:</label>
-                    <select class="form-control" id="complaint_rec_mode_id" name="complaint_rec_mode_id"  style="height: 35px; font-size: 14px" required>
-                        @foreach($rec_modes as $rec_mode)
-                            <option value="{{$rec_mode['complaint_rec_mode_id']}}">{{$rec_mode['complaint_rec_mode_name']}}</option>
-                        @endforeach
-                    </select>
-                </div>
-
-                <div class="form-group">
                     <label for="complaint_type">Complaint Type</label>
                     <select class="form-control" id="complaint_type" name="complaint_type_id"  required>
                         @foreach($complaintsTypes as $complaintsType)
@@ -94,11 +85,25 @@
                 </div>
 
                 <div class="form-group">
+                    <label for="complaint_count_id">Individual or Group Complaint:</label>
+                    <select class="form-control" id="complaint_count_id" name="complaint_count_id"  style="height: 35px; font-size: 14px" required>
+                        @foreach($groupcomplaints as $groupcomplaint)
+                            <option value="{{$groupcomplaint['complaint_count_id']}}">{{$groupcomplaint['complaint_type']}}</option>
+                        @endforeach
+                    </select>
+                </div>
+
+                <div class="form-group">
                     <label for="complaints">Lalamiko/Complaint</label>
                     <textarea type="text" class="form-control" id="complaint" name="complaint" ></textarea>
                 </div>
 
-                <button type="submit" class="btn btn-primary">Tuma/Submit</button>
+                <div class="form-group">
+                    <label for="validator">Enter This Text <span id="verify_text" style="font-weight: bold; font-size: 20px; color:#3C8DBC"></span></label>
+                    <input type="text" class="form-control" id="validator" name="validator" >
+                </div>
+
+                <button id="save" type="submit" class="btn btn-primary">Tuma/Submit</button>
             </div>
         </form>
     </div>
@@ -140,13 +145,51 @@
                 allowClear: true
             });
 
-            $('#complaint_rec_mode_id').select2({
+            $('#complaint_count_id').select2({
                 placeholder: "Select Complaint Receive Mode",
                 allowClear: true
             });
 
+            // Random text generator
+
+            function makeText() {
+                var text = "";
+                var possible = "ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz0123456789";
+
+                for (var i = 0; i < 7; i++)
+                    text += possible.charAt(Math.floor(Math.random() * possible.length));
+
+                return text;
+            }
+
+            var text =  makeText();
+
+            $('#verify_text').append(text);
+
+            $('#save').prop("disabled", true);
+            $('#validator').keyup(function ()
+            {
+
+                var validated_value = $('#validator').val();
+
+
+                if (validated_value==text)
+                {
+                    $('#save').prop("disabled", false);
+
+
+                }
+
+                else
+                {
+                    $('#save').prop("disabled", true);
+                }
+            });
 
         });
+
+
+
 
     </script>
 @stop

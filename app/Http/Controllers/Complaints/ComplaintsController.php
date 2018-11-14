@@ -8,6 +8,7 @@ use App\ComplaintType;
 use App\Http\Controllers\Mail\MailController;
 use App\MembershipStatus;
 use App\ReceiveModes;
+use App\ReceiveMode;
 use App\Scheme;
 use Carbon\Carbon;
 use Illuminate\Http\Request;
@@ -35,15 +36,13 @@ class ComplaintsController extends Controller
      * @return \Illuminate\Http\Response
      */
     public function create()
-
     {
+        $rec_modes = ReceiveMode::all()->toArray();
         $membership_status = MembershipStatus::all()->toArray();
         $all_scheme_types = Scheme::all()->toArray();
-
-        $rec_modes =  ReceiveModes::all()->toArray();
         $complaintsTypes = ComplaintType::all()->toArray();
-        return view('complaints.create', with(['rec_modes'=>$rec_modes,'all_scheme_types'=>$all_scheme_types,'complaintsTypes'=>$complaintsTypes
-            ,'membership_status'=>$membership_status]));
+        return view('complaints.create', with(['all_scheme_types'=>$all_scheme_types,'complaintsTypes'=>$complaintsTypes
+            ,'membership_status'=>$membership_status,'rec_modes'=>$rec_modes]));
 
     }
 
@@ -55,66 +54,45 @@ class ComplaintsController extends Controller
      */
     public function store(Request $request)
     {
-
-
-        Mail::send('mail.notification', ['name' => 'baraka'], function ($message) {
-
-            $message->from('barakabryson@gmail.com', 'Laravel');
-            $message->to('divantinechuwa@gmail.com')->subject('tulia!');
-        });
-
-
-        return "successful sent";
-
-
-
-        $complainer =  new Complainer();
+        $complainer = new Complainer();
 
         $complaint = new Complaint();
 
-        $complainer->firstname =  $request->get('first_name');
-        $complainer->middlename =  $request->get('middle_name');
-        $complainer->surname =  $request->get('surname');
-        $complainer->postal =  $request->get('postal');
-        $complainer->residence =  $request->get('residence');
-        $complainer->phone =  $request->get('phone');
-        $complainer->email =  $request->get('email');
-        $complainer->ssinfo_id =  $request->get('ssinfo_id');
-        $complainer->ssno =  $request->get('ssno');
-        $complainer->employer =  $request->get('employer');
-        $complainer->scheme_id =  $request->get('scheme_id');
+        $complainer->firstname = $request->get('first_name');
+        $complainer->surname = $request->get('surname');
+        $complainer->middlename = $request->get('middle_name');
+        $complainer->postal = $request->get('postal');
+        $complainer->residence = $request->get('residence');
+        $complainer->phone = $request->get('phone');
+        $complainer->email = $request->get('email');
+        $complainer->ssinfo_id = $request->get('ssinfo_id');
+        $complainer->scheme_id = $request->get('scheme_id');
+        $complainer->ssno = $request->get('ssno');
+        $complainer->employer = $request->get('employer');
 
+        $success = $complainer->save();
 
-        $success =  $complainer->save();
-
-        if ($success){
-
-            $refno = "S".$complainer->complainer_id."A";
-
-           $complaint->complainer_id=  $complainer->complainer_id;
-           $complaint->complaint_type_id =  $request->get('complaint_type_id');
-           $complaint->complaint =  $request->get('complaint');
-           $complaint->date_complaint =  Carbon::now();
-
-            $complaint->refno =$refno;
-            $complaint->complaint_rec_mode_id =  $request->get('complaint_rec_mode_id');
-            $complaint->complaint =  $request->get('complaint');
+        if ($success) {
+            $refno = "S" .$complainer->complainer_id. "A";
+            $complaint->complainer_id = $complainer->complainer_id;
+            $complaint->complaint_type_id = $request->get('complaint_type_id');
+            $complaint->complaint = $request->get('complaint');
+            $complaint->date_complaint = Carbon::now();
+            $complaint->refno = $refno;
+            $complaint->complaint_rec_mode_id = $request->get('complaint_rec_mode_id');
 
             $complaint->save();
 
-
-
-
-
-            Session::flash('alert-success', 'Complaint successful saved');
+            Session::flash('alert-success', 'successful  registered complaint and email sent');
 
 
         } else {
-
             Session::flash('alert-warning', 'Failed to register complaint');
         }
 
-        return redirect('complaints/create');
+        return  redirect('complaints/create');
+
+
     }
 
     /**
@@ -125,15 +103,18 @@ class ComplaintsController extends Controller
      */
     public function show($id)
     {
-        $data = $this->openComplaints($id);
-        $complaint_open_show =[];
-
-        foreach ($data as $data_show){
-
-            array_push($complaint_open_show,$data_show);
-        }
-
-        return view('complaints.showOpenComplaints');
+        $complainer =  $this->complainerDetail($id);
+        $responses =  $this->responseDetail($id);
+        return view('complaints.showComplaints', compact('responses','complainer'));
+//        $data = $this->openComplaints($id);
+//        $complaint_open_show =[];
+//
+//        foreach ($data as $data_show){
+//
+//            array_push($complaint_open_show,$data_show);
+//        }
+//
+//        return view('complaints.showOpenComplaints');
     }
 
     /**
@@ -309,13 +290,8 @@ class ComplaintsController extends Controller
 
     public function response($complaint_id)
     {
-
-
         $complainer =  $this->complainerDetail($complaint_id);
         $responses =  $this->responseDetail($complaint_id);
-
-//        dd($responses);
-
         return view('complaints.response', compact('responses','complainer'));
     }
 
@@ -562,7 +538,7 @@ class ComplaintsController extends Controller
             ->orwhere(['complainer.email'  ,'LIKE' , '%'.$fullsearch.'%'])
             ->orwhere(['complaints.date_complaint'  ,'LIKE' , '%'.$fullsearch.'%'])
             ->get();
-     return $search;
+        return $search;
     }
 
 
@@ -607,14 +583,14 @@ class ComplaintsController extends Controller
 
             $success =   $complaint->save();
 
-           if ($success){
+            if ($success){
 
-               Session::flash('alert-success', 'successful  updated');
+                Session::flash('alert-success', 'successful  updated');
 
-           } else {
+            } else {
 
-               Session::flash('alert-warning', 'Failed to update');
-           }
+                Session::flash('alert-warning', 'Failed to update');
+            }
 
         }
 
@@ -623,7 +599,50 @@ class ComplaintsController extends Controller
 
         }
 
-        return redirect('complaints/tab/#3');
+        return redirect('complaints/tab');
+
+    }
+
+
+    public function websiteStore(Request $request)
+    {
+        $complainer = new Complainer();
+
+        $complaint = new Complaint();
+
+        $complainer->firstname = $request->get('first_name');
+        $complainer->surname = $request->get('surname');
+        $complainer->middlename = $request->get('middle_name');
+        $complainer->postal = $request->get('postal');
+        $complainer->residence = $request->get('residence');
+        $complainer->phone = $request->get('phone');
+        $complainer->email = $request->get('email');
+        $complainer->ssinfo_id = $request->get('ssinfo_id');
+        $complainer->scheme_id = $request->get('scheme_id');
+        $complainer->ssno = $request->get('ssno');
+        $complainer->employer = $request->get('employer');
+
+        $success = $complainer->save();
+
+        if ($success) {
+            $refno = "S" .$complainer->complainer_id. "A";
+            $complaint->complainer_id = $complainer->complainer_id;
+            $complaint->complaint_type_id = $request->get('complaint_type_id');
+            $complaint->complaint = $request->get('complaint');
+            $complaint->date_complaint = Carbon::now();
+            $complaint->refno = $refno;
+            $complaint->complaint_count_id = $request->get('complaint_count_id');
+
+            $complaint->save();
+
+            Session::flash('alert-success', 'complaint successful added');
+
+
+        } else {
+            Session::flash('alert-warning', 'Failed to add complaint');
+        }
+
+        return  view('complaints.complainer', compact('refno'));
 
     }
 

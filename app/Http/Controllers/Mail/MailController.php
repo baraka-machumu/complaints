@@ -2,31 +2,26 @@
 
 namespace App\Http\Controllers\Mail;
 
-use App\Complainer;
+use Illuminate\Http\Request;
 use App\Http\Controllers\Controller;
 use Illuminate\Support\Facades\Mail;
 
-/**
- * Created by PhpStorm.
- * User: baraka.machumu
- * Date: 11/3/2018
- * Time: 11:26 AM
- */
 class MailController extends Controller
 {
 
+    public static function sendMail($receiver)
+    {
+//        Mail::send('mail.notification', [$receiver], function ($message) use ($receiver) {
+//            $message->to($receiver);
+//            $message->subject('Testing Mails');
+//
+//        });
 
+        Mail::send('mail.notification', ['name' => "fatuma"], function ($message) {
 
-    public static function  sendMail($receiver){
-
-
-        Mail::send('mail.notification', ['name' => $receiver], function ($message) {
-
-            $message->from('barakabryson@gmail.com', 'Laravel');
-            $message->to('divantinechuwa@gmail.com')->subject('tulia!');
+            $message->from('fettymkima@gmail.com', 'Laravel');
+            $message->to('fettymkima@gmail.com')->subject('test!');
         });
 
-
     }
-
 }

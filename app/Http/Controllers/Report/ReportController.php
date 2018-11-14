@@ -2,7 +2,6 @@
 
 namespace App\Http\Controllers\Report;
 
-use App\ComplaintType;
 use App\Http\Controllers\Controller;
 use App\Scheme;
 use Illuminate\Http\Request;

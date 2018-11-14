@@ -14,7 +14,6 @@ use Illuminate\Http\Request;
 use App\Http\Controllers\Controller;
 use Illuminate\Support\Facades\DB;
 use Illuminate\Support\Facades\Session;
-use Illuminate\Support\Facades\Storage;
 
 class ResponseController extends Controller
 {
@@ -32,7 +31,7 @@ class ResponseController extends Controller
         $complaint_type_controller =  new ComplaintsTypeController();
         $complaint_type =$complaint_type_controller->getAllComplaintsType();
 
-        return view('response.attend',compact('actions','complainer_details','response_type','complaint_type','complaint_id'));
+        return view('response.attend',compact('complainer_details','response_type','complaint_type','complaint_id'));
 
     }
 

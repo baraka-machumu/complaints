@@ -1,7 +1,6 @@
 @extends('adminlte::page')
 
 @section('title', 'Dashboard')
-
 @section('content_header')
     <div class="clearfix">
     </div>
@@ -82,6 +81,11 @@
                     </select>
                 </div>
             </div>
+
+            {{--<div class="form-group">--}}
+                {{--<label for="complaint">Complaints</label>--}}
+                {{--<textarea id="complaint" class="form-control" name="complaint" rows="7">{{ $complaint_edit['complaint']}}</textarea>--}}
+            {{--</div>--}}
 
             <button style="margin-top: 80PX" type="submit" class="btn btn-primary">Save</button>
 

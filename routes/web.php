@@ -15,17 +15,14 @@ use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\DB;
 use Illuminate\Support\Facades\Mail;
 use Illuminate\Support\Facades\Route;
-use PHPMailer\PHPMailer\PHPMailer;
 
 Route::get('/test', function () {
 
-    $receiver ="bob";
-    Mail::send('mail.notification', ['name' => $receiver], function ($message) {
+    Mail::send('mail.notification', ['name' => "fatuma"], function ($message) {
 
-        $message->from('barakabryson@gmail.com', 'Laravel');
-        $message->to('divantinechuwa@gmail.com')->subject('tulia!');
+        $message->from('fatuma.mkima@ssra.go.tz', 'Laravel');
+        $message->to('fatuma.mkima@ssra.go.tz')->subject('test!');
     });
-
 });
 
 Route::get('api/json/all/complaints/open','HomeController@getJsonOPenComplaintsPerMonth');
@@ -52,6 +49,7 @@ Route::get('api/complaints/opening/all','Complaints\ComplaintsController@complai
 Route::get('api/complaints/editing/all','Complaints\ComplaintsController@complaintEditing');
 Route::get('complaints/response/{complaint_id}','Complaints\ComplaintsController@response');
 Route::resource('complaints','Complaints\ComplaintsController');
+Route::post('complaints/website/store','Complaints\ComplaintsController@websiteStore');
 
 Route::post('complaints/update/{complaint_id}','Complaints\ComplaintsController@updatePending');
 
