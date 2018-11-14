@@ -13,12 +13,19 @@ use App\User;
 use Carbon\Carbon;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\DB;
+use Illuminate\Support\Facades\Mail;
+use Illuminate\Support\Facades\Route;
+use PHPMailer\PHPMailer\PHPMailer;
 
 Route::get('/test', function () {
 
-    $actions = ['notclose'=>1,'close'=>0];
+    $receiver ="bob";
+    Mail::send('mail.notification', ['name' => $receiver], function ($message) {
 
-    echo $actions['notclose'];
+        $message->from('barakabryson@gmail.com', 'Laravel');
+        $message->to('divantinechuwa@gmail.com')->subject('tulia!');
+    });
+
 });
 
 Route::get('api/json/all/complaints/open','HomeController@getJsonOPenComplaintsPerMonth');

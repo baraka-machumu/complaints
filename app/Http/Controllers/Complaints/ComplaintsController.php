@@ -5,12 +5,17 @@ namespace App\Http\Controllers\Complaints;
 use App\Complainer;
 use App\Complaint;
 use App\ComplaintType;
+use App\Http\Controllers\Mail\MailController;
 use App\MembershipStatus;
+use App\ReceiveModes;
 use App\Scheme;
+use Carbon\Carbon;
 use Illuminate\Http\Request;
 use App\Http\Controllers\Controller;
 use Illuminate\Support\Facades\DB;
+use Illuminate\Support\Facades\Mail;
 use Illuminate\Support\Facades\Session;
+
 
 class ComplaintsController extends Controller
 {
@@ -30,11 +35,14 @@ class ComplaintsController extends Controller
      * @return \Illuminate\Http\Response
      */
     public function create()
+
     {
         $membership_status = MembershipStatus::all()->toArray();
         $all_scheme_types = Scheme::all()->toArray();
+
+        $rec_modes =  ReceiveModes::all()->toArray();
         $complaintsTypes = ComplaintType::all()->toArray();
-        return view('complaints.create', with(['all_scheme_types'=>$all_scheme_types,'complaintsTypes'=>$complaintsTypes
+        return view('complaints.create', with(['rec_modes'=>$rec_modes,'all_scheme_types'=>$all_scheme_types,'complaintsTypes'=>$complaintsTypes
             ,'membership_status'=>$membership_status]));
 
     }
@@ -47,7 +55,66 @@ class ComplaintsController extends Controller
      */
     public function store(Request $request)
     {
-        //
+
+
+        Mail::send('mail.notification', ['name' => 'baraka'], function ($message) {
+
+            $message->from('barakabryson@gmail.com', 'Laravel');
+            $message->to('divantinechuwa@gmail.com')->subject('tulia!');
+        });
+
+
+        return "successful sent";
+
+
+
+        $complainer =  new Complainer();
+
+        $complaint = new Complaint();
+
+        $complainer->firstname =  $request->get('first_name');
+        $complainer->middlename =  $request->get('middle_name');
+        $complainer->surname =  $request->get('surname');
+        $complainer->postal =  $request->get('postal');
+        $complainer->residence =  $request->get('residence');
+        $complainer->phone =  $request->get('phone');
+        $complainer->email =  $request->get('email');
+        $complainer->ssinfo_id =  $request->get('ssinfo_id');
+        $complainer->ssno =  $request->get('ssno');
+        $complainer->employer =  $request->get('employer');
+        $complainer->scheme_id =  $request->get('scheme_id');
+
+
+        $success =  $complainer->save();
+
+        if ($success){
+
+            $refno = "S".$complainer->complainer_id."A";
+
+           $complaint->complainer_id=  $complainer->complainer_id;
+           $complaint->complaint_type_id =  $request->get('complaint_type_id');
+           $complaint->complaint =  $request->get('complaint');
+           $complaint->date_complaint =  Carbon::now();
+
+            $complaint->refno =$refno;
+            $complaint->complaint_rec_mode_id =  $request->get('complaint_rec_mode_id');
+            $complaint->complaint =  $request->get('complaint');
+
+            $complaint->save();
+
+
+
+
+
+            Session::flash('alert-success', 'Complaint successful saved');
+
+
+        } else {
+
+            Session::flash('alert-warning', 'Failed to register complaint');
+        }
+
+        return redirect('complaints/create');
     }
 
     /**
