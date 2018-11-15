@@ -45,7 +45,8 @@ Route::get('api/complaints/count', 'HomeController@complaintsStatus');
 Route::get('/dashboard', 'HomeController@index')->name('dashboard');
 
 //followup Controller
-Route::get('complaints/followups', 'FollowupController@create');
+Route::get('complaints/followups', 'FollowupController@followup');
+Route::post('complaints/followups', 'FollowupController@searchfollowup');
 
 //Complaints Controller
 Route::get('edit/complaints/{complaint_id}','Complaints\ComplaintsController@editPending');

@@ -190,10 +190,11 @@ class ComplaintsController extends Controller
         $open_complaints =$this->openComplaints();
         $edit_complaints = $this->editComplaints();
         $closed_complaints =  $this->closedComplaints();
+        $delayed_complaints=  $this->delayedComplaints();
 
         $actions = ['not_close'=>1,'close'=>2];
 
-        return view('complaints.tab',compact('actions','open_complaints','edit_complaints', 'pending_complaints','closed_complaints'));
+        return view('complaints.tab',compact('delayed_complaints','actions','open_complaints','edit_complaints', 'pending_complaints','closed_complaints'));
 
     }
 
@@ -407,6 +408,21 @@ class ComplaintsController extends Controller
         return $data_closed;
 
     }
+
+
+    public function  delayedComplaints(){
+
+        $data_closed =  DB::table('complaints')
+            ->leftJoin('complainer','complaints.complainer_id','=','complainer.complainer_id')
+            ->join('schemes','schemes.scheme_id','=','complainer.scheme_id')
+            ->select('complaints.complaint_id','complainer.firstname','complainer.surname','complainer.surname','complaints.complaint','complaints.date_complaint')
+            ->where('complaint_status_id','=','1')
+            ->get();
+
+        return $data_closed;
+
+    }
+
 
     private function closedComplaintsSearch($fullname)
     {

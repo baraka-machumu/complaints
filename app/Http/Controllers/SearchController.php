@@ -23,10 +23,12 @@ class SearchController extends Controller
                     $fullname  = $data->firstname.' '.$data->surname;
                     $email = substr($data->email,0,100);
                     $date = substr($data->date_complaint,0,11);
+
+                    $complaint_id = $data->complaint_id;
                     $table .= "<tr><td height='50'>$fullname</td>";
                     $table .= "<td height='50'>$email</td>";
                     $table .= "<td height='50'>$date</td>";
-                    $table .= "<td height='50'><a href='#'><span class='glyphicon glyphicon-eye-open'>view Responses</span></a>";
+                    $table .= "<td height='50'><a href='".url('complaints/response',$complaint_id)."'><span class='glyphicon glyphicon-edit'>view Response</span></a>";
                 }
                 $table .="</table>";
 

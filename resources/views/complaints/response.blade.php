@@ -41,10 +41,12 @@
 
             </tr>
             <tr>
+
                 <th>Close Date</th><td>{{$complainer['close_date']}}</td>
 
             </tr>
             <tr>
+
                 <th>Complaints</th><td>{{$complainer['complaint']}}</td>
 
             </tr>
@@ -59,6 +61,7 @@
                 @if(empty($responses))
                     <tr><th>Reponse</th> <td>No Reponse yet</td></tr>
                 @endif
+
                 @foreach($responses as $response)
                     <tr><th>Reponse</th> <td>{{$response->resp}}</td></tr>
                     @endforeach
@@ -66,5 +69,5 @@
         </div>
 
     </div>
-        @stop
+@stop
 

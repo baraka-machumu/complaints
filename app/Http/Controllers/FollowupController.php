@@ -35,7 +35,6 @@ class FollowupController extends Controller
         $complainer = Complainer::complainerDetail($complaint_id->complaint_id);
         $letter = Letter::letterDetail($complaint_id->complaint_id);
 
-
         $responses = Response::responseDetail($complaint_id->complaint_id);
 
 
