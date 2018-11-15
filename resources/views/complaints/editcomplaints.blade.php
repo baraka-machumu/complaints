@@ -18,7 +18,8 @@
                     <p class="alert alert-{{ $msg }}">{{ Session::get('alert-' . $msg) }} <a href="#" class="close" data-dismiss="alert" aria-label="close">&times;</a></p>
                 @endif
             @endforeach
-        </div> <!-- end .flash-message -->
+        </div>
+        <!-- end .flash-message -->
         <form method="post" action="{{action('Complaints\ComplaintsController@update', $id)}}" >
             {{ csrf_field() }}
             {{ method_field('PATCH') }}

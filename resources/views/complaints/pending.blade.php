@@ -13,7 +13,7 @@
         @foreach ($pending_complaints as $pending)
             <tr>
                 <td>{{$pending->firstname.' '.$pending->surname}}</td>
-                <td>{{substr($pending->complaint,0,100)}}</td>
+                <td>{{substr($pending->complaint,0,100)}}  <a href="{{action('Complaints\ComplaintsController@show', [$pending->complaint_id])}}">Read More</a></td>
                 <td>{{ $pending->date_complaint}}</td>
                 <td>
                     <a href="{{url('response/attend', [$pending->complaint_id,'actions'=>$actions['not_close']])}}" ><span class="glyphicon glyphicon-eye-open">open</span></a>

@@ -9,6 +9,7 @@ use App\Http\Controllers\Mail\MailController;
 use App\MembershipStatus;
 use App\ReceiveMode;
 use App\Scheme;
+use App\SMS\SmsController;
 use Carbon\Carbon;
 use Illuminate\Http\Request;
 use App\Http\Controllers\Controller;
@@ -55,12 +56,16 @@ class ComplaintsController extends Controller
 
         $complaint = new Complaint();
 
+        $phone_number =  substr($request->get('phone'),1,9);
+
+        $phone_number = '+255'.$phone_number;
+
         $complainer->firstname = $request->get('first_name');
         $complainer->surname = $request->get('surname');
         $complainer->middlename = $request->get('middle_name');
         $complainer->postal = $request->get('postal');
         $complainer->residence = $request->get('residence');
-        $complainer->phone = $request->get('phone');
+        $complainer->phone = $phone_number;
         $complainer->email = $request->get('email');
         $complainer->ssinfo_id = $request->get('ssinfo_id');
         $complainer->scheme_id = $request->get('scheme_id');
@@ -80,7 +85,11 @@ class ComplaintsController extends Controller
 
             $complaint->save();
 
-            Session::flash('alert-success', 'successful  registered complaint and email sent');
+            $message= "Ndugu ".$complainer->firstname ."  ".$complainer->surname.",  Kufuatilia lalamiko lako, tuma ".$refno." kwenda namba 0762440706 au ingiza namba hiyo kwenye mfumo wetu ya malalamiko";
+
+            $send_sms = SmsController::sendSms($message,$phone_number,'SSRA');
+
+            Session::flash('alert-success', 'complaint successful  registered  and sms sent');
 
 
         } else {
@@ -311,6 +320,7 @@ class ComplaintsController extends Controller
         return $details;
 
     }
+
 
 
     public function complaintOpening(Request $request){
@@ -551,6 +561,8 @@ class ComplaintsController extends Controller
 
     public function  updatePending(Request $request,$complaint_id){
 
+        $phone_number =  substr($request->get('phone'),1,9);
+        $phone_number = '+255'.$phone_number;
 
         $complainer= DB::table('complaints')->select('complainer_id')->where('complaint_id', $complaint_id)->first();
 
@@ -562,7 +574,7 @@ class ComplaintsController extends Controller
         $complainer->firstname =  $request->get('firstname');
         $complainer->surname =  $request->get('surname');
         $complainer->residence =  $request->get('residence');
-        $complainer->phone =  $request->get('phone');
+        $complainer->phone =  $phone_number;
         $complainer->postal =  $request->get('postal');
         $complainer->email =  $request->get('email');
         $complainer->ssno =  $request->get('ssno');
@@ -603,6 +615,9 @@ class ComplaintsController extends Controller
 
     public function websiteStore(Request $request)
     {
+        $phone_number =  substr($request->get('phone'),1,9);
+        $phone_number = '+255'.$phone_number;
+
         $complainer = new Complainer();
 
         $complaint = new Complaint();
@@ -612,7 +627,7 @@ class ComplaintsController extends Controller
         $complainer->middlename = $request->get('middle_name');
         $complainer->postal = $request->get('postal');
         $complainer->residence = $request->get('residence');
-        $complainer->phone = $request->get('phone');
+        $complainer->phone = $phone_number;
         $complainer->email = $request->get('email');
         $complainer->ssinfo_id = $request->get('ssinfo_id');
         $complainer->scheme_id = $request->get('scheme_id');
@@ -632,14 +647,20 @@ class ComplaintsController extends Controller
 
             $complaint->save();
 
-            Session::flash('alert-success', 'complaint successful added');
+            $message= "Ndugu ".$complainer->firstname ."  ".$complainer->surname.",  Kufuatilia lalamiko lako, tuma ".$refno." kwenda namba 0762440706 au ingiza namba hiyo kwenye mfumo wetu ya malalamiko";
+
+            $send_sms = SmsController::sendSms($message,$phone_number,'SSRA');
+
+            Session::flash('alert-success', 'complaint successful  registered  and sms sent');
 
 
         } else {
-            Session::flash('alert-warning', 'Failed to add complaint');
+            Session::flash('alert-warning', 'Failed to register complaint');
         }
 
-        return  view('complaints.complainer', compact('refno'));
+        $message_website= "Ndugu ".$complainer->firstname ."  ".$complainer->surname.",  Kufuatilia lalamiko lako, tuma ".$refno." kwenda namba 0762440706";
+
+        return  view('complaints.complainer', compact('message_website'));
 
     }
 

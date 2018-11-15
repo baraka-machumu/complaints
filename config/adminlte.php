@@ -44,16 +44,23 @@ $menu =  [
             'text' => 'Home',
             'url'  => 'dashboard',
             'icon' => 'home',
+            'can'  =>'islogin'
         ],
-
+        [
+            'text' => 'Home',
+            'url'  => '/',
+            'icon' => 'home',
+            'can' =>'islogout'
+        ],
         [
             'text' => 'Advanced Search',
             'url'  => 'search/form',
             'icon' => 'th',
+            'can'=>'islogin'
         ],
         [
             'text' => 'Fuatilia Lalamiko',
-            'url'  =>'#',
+            'url'  =>'complaints/followups',
             'icon' => 'th',
 
 
@@ -68,7 +75,7 @@ $menu =  [
             'text'    => 'Complaints',
             'icon'    => 'th',
             'url'      => 'complaint/tab',
-            'url'     =>'complaints/tab',
+//            'url'     =>'complaints/tab',
             'can'=>'islogin'
 
 

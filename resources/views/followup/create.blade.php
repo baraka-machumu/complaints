@@ -1,0 +1,54 @@
+@extends('adminlte::page')
+
+@section('title', 'Dashboard')
+
+@section('content_header')
+    <h5>{{ Breadcrumbs::render('complaint_create') }} </h5>
+@stop
+@section('content')
+
+    <div class="row">
+    <div class="col-md-12">
+        <p>Ingiza Namba ya kumbukumbu / Enter Reference Number:</p>
+
+    <form method="post" class="example" action="{{action('FollowupController@searchfollowup')}}">
+        {{ csrf_field() }}
+        <input type="text" placeholder="Search.." name="search" class="form-control">
+        <button type="submit" class="btn btn-primary"><i class="fa fa-search"></i></button>
+    </form>
+
+    </div>
+    </div>
+
+@stop
+
+@section('css')
+    <style>
+        form.example input[type=text] {
+
+            font-size: 17px;
+            float: left;
+            width: 40%;
+        }
+
+        form.example button {
+            float: left;
+            width: 10%;
+
+            color: white;
+
+            border-left: none;
+        }
+
+        form.example::after {
+            content: "";
+            clear: both;
+            display: table;
+        }
+    </style>
+@stop
+
+
+
+
+

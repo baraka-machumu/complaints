@@ -9,6 +9,24 @@
     <div class="row" style="margin-top: -30px">
         <form action="{{action('Complaints\ComplaintsController@websiteStore')}}" method="post">
             {{ csrf_field() }}
+
+            <div class="col-md-3" id="hint">
+
+                <h4 style="text-align: center">Hints</h4>
+
+                <div style="background-color: #F4F4F4">
+
+                <ul>
+                    <li>
+                        If you are making a follow up <a href="{{url('complaints/followups')}}">click here</a>
+                    </li>
+                    <li>
+                        All fields marked (*) are mandatory
+                    </li>
+                </ul>
+                </div>
+
+            </div>
             <div class="col-md-4">
                 <h4>Taarifa Binafsi/Personal Information</h4>
                 <div class="form-group">
@@ -45,7 +63,7 @@
                     <input type="email" class="form-control" id="email" name="email">
                 </div>
             </div>
-            <div class="col-md-6">
+            <div class="col-md-5">
                 <h4>Social Security Details</h4>
                 <div class="form-group">
                     <label for="ssinfo">Social Security Status:</label>
@@ -103,7 +121,7 @@
                     <input type="text" class="form-control" id="validator" name="validator" >
                 </div>
 
-                <button id="save" type="submit" class="btn btn-primary">Tuma/Submit</button>
+                <button id="save"  type="submit" class="btn btn-primary">Tuma/Submit</button>
             </div>
         </form>
     </div>
@@ -125,6 +143,13 @@
 
     <link rel="stylesheet" href="/css/admin_custom.css">
 @stop
+
+@section('css')
+    <style>
+        #hint{background-color: #F4F4F4;}
+
+    </style>
+    @stop
 
 @section('js')
     <script>
@@ -177,7 +202,6 @@
                 {
                     $('#save').prop("disabled", false);
 
-
                 }
 
                 else
@@ -186,9 +210,52 @@
                 }
             });
 
+            $("#phone").keyup(function (e) {
+
+                var phoneNo = $('#phone').val();
+
+                if (phoneNo.length ==10)
+                {
+                    $('#save').prop("disabled", false);
+                }
+                else {
+                    $('#save').prop("disabled", true);
+                }
+            });
+
+
+            $("#phone").keydown(function (e) {
+
+                var phoneNo =  $('#phone').val();
+
+                if(phoneNo.length==9)
+                {
+                    $('#save').prop("disabled", false);
+                }
+                else
+                {
+                    $('#save').prop("disabled", true);
+                }
+
+                if ($.inArray(e.keyCode, [46, 8, 9, 27, 13, 110]) !== -1 ||
+                    // Allow: Ctrl+A, Command+A
+                    (e.keyCode === 65 && (e.ctrlKey === true || e.metaKey === true)) ||
+                    // Allow: home, end, left, right, down, up
+                    (e.keyCode >= 35 && e.keyCode <= 40)) {
+                    // let it happen, don't do anything
+                    return;
+                }
+                // Ensure that it is a number and stop the keypress
+                if ((e.shiftKey || (e.keyCode < 48 || e.keyCode > 57)) && (e.keyCode < 96 || e.keyCode > 105)) {
+                    e.preventDefault();
+                }
+            });
+
+
         });
 
-
+        var input = document.querySelector("#phone");
+        window.intlTelInput(input, {onlyCountries: ["tz"]});
 
 
     </script>

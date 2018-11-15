@@ -19,8 +19,16 @@
            </div> <!-- end .flash-message -->
        </div>
 
+        <div class="col-md-12">
 
-        <p style="margin-left: 20px;">Your reference number is {{$refno}}</p>
+            <p style="font-size: 16px;">
+                {{$message_website}} au bofya <a href="{{url('complaint/followup')}}">Fuatilia lalamiko</a>
+
+            </p>
+
+
+        </div>
+
     </div>
 
 @stop

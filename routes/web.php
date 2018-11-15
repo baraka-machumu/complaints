@@ -9,6 +9,7 @@
 | contains the "web" middleware group. Now create something great!
 |
 */
+use App\SMS\SmsController;
 use App\User;
 use Carbon\Carbon;
 use Illuminate\Support\Facades\Auth;
@@ -18,11 +19,14 @@ use Illuminate\Support\Facades\Route;
 
 Route::get('/test', function () {
 
-    Mail::send('mail.notification', ['name' => "fatuma"], function ($message) {
+      $sms =  new SmsController();
 
-        $message->from('fatuma.mkima@ssra.go.tz', 'Laravel');
-        $message->to('fatuma.mkima@ssra.go.tz')->subject('test!');
-    });
+      $check = $sms->sendSms("hi hi hi bob ake","+255754997494","baraka machumu");
+
+      $decode =  json_decode($check);
+
+      dd($decode->success);
+
 });
 
 Route::get('api/json/all/complaints/open','HomeController@getJsonOPenComplaintsPerMonth');
@@ -39,6 +43,9 @@ Route::get('logout', 'Auth\LoginController@logout');
 Auth::routes();
 Route::get('api/complaints/count', 'HomeController@complaintsStatus');
 Route::get('/dashboard', 'HomeController@index')->name('dashboard');
+
+//followup Controller
+Route::get('complaints/followups', 'FollowupController@create');
 
 //Complaints Controller
 Route::get('edit/complaints/{complaint_id}','Complaints\ComplaintsController@editPending');
@@ -105,6 +112,8 @@ Route::post('userProfile/update','Admin\UserProfileController@updates');
 //Search Controller
 Route::get('search/form', 'SearchController@create');
 Route::get('api/search', 'SearchController@apiSearch');
+
+
 
 
 //Report Controller

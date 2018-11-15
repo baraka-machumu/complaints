@@ -31,7 +31,10 @@ class AuthServiceProvider extends ServiceProvider
 
             return  true;
         });
+        Gate::define('islogout',function ($r){
 
+            return  false;
+        });
 
     }
 }

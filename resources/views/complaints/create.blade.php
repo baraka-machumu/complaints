@@ -7,6 +7,15 @@
 @stop
 @section('content')
     <div class="row" style="margin-top: -30px">
+        <div class="col-md-12 flash-message">
+            @foreach (['danger', 'warning', 'success', 'info'] as $msg)
+                @if(Session::has('alert-' . $msg))
+
+                    <p class="alert alert-{{ $msg }}">{{ Session::get('alert-' . $msg) }} <a href="#" class="close" data-dismiss="alert" aria-label="close">&times;</a></p>
+                @endif
+            @endforeach
+        </div>
+        <!-- end .flash-message -->
         <form action="{{action('Complaints\ComplaintsController@store')}}" method="post">
             {{ csrf_field() }}
             <div class="col-md-4">
@@ -37,7 +46,7 @@
 
                 <div class="form-group">
                     <label for="phone">Simu/Phone Number:</label>
-                    <input type="text" class="form-control" id="phone" name="phone">
+                    <input type="text" class="form-control"  id="phone" name="phone" style="width:315px">
                 </div>
 
                 <div class="form-group">
@@ -98,7 +107,7 @@
                     <textarea type="text" class="form-control" id="complaint" name="complaint" ></textarea>
                 </div>
 
-                <button type="submit" class="btn btn-primary">Tuma/Submit</button>
+                <button type="submit" class="btn btn-primary" id="save-create">Tuma/Submit</button>
             </div>
         </form>
     </div>
@@ -145,8 +154,53 @@
                 allowClear: true
             });
 
+            $("#phone").keyup(function (e) {
+
+                var phoneNo = $('#phone').val();
+
+                if (phoneNo.length ==10)
+                {
+                    $('#save-create').prop("disabled", false);
+                }
+                else {
+                    $('#save-create').prop("disabled", true);
+                }
+                });
+
+
+                $("#phone").keydown(function (e) {
+
+                var phoneNo =  $('#phone').val();
+
+                if(phoneNo.length==9)
+                {
+                    $('#save-create').prop("disabled", false);
+                }
+                else
+                {
+                    $('#save-create').prop("disabled", true);
+                }
+
+                if ($.inArray(e.keyCode, [46, 8, 9, 27, 13, 110]) !== -1 ||
+                    // Allow: Ctrl+A, Command+A
+                    (e.keyCode === 65 && (e.ctrlKey === true || e.metaKey === true)) ||
+                    // Allow: home, end, left, right, down, up
+                    (e.keyCode >= 35 && e.keyCode <= 40)) {
+                    // let it happen, don't do anything
+                    return;
+                }
+                // Ensure that it is a number and stop the keypress
+                if ((e.shiftKey || (e.keyCode < 48 || e.keyCode > 57)) && (e.keyCode < 96 || e.keyCode > 105)) {
+                    e.preventDefault();
+                }
+            });
 
         });
+
+        var input = document.querySelector("#phone");
+        window.intlTelInput(input, {onlyCountries: ["tz"]});
+
+
 
     </script>
 @stop
