@@ -7,6 +7,7 @@ use App\Complaint;
 use App\ComplaintType;
 use App\Http\Controllers\Mail\MailController;
 use App\MembershipStatus;
+use App\ReceiveModes;
 use App\ReceiveMode;
 use App\Scheme;
 use App\SMS\SmsController;
@@ -14,7 +15,9 @@ use Carbon\Carbon;
 use Illuminate\Http\Request;
 use App\Http\Controllers\Controller;
 use Illuminate\Support\Facades\DB;
+use Illuminate\Support\Facades\Mail;
 use Illuminate\Support\Facades\Session;
+
 
 class ComplaintsController extends Controller
 {

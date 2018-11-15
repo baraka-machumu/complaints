@@ -61,6 +61,7 @@ SELECT COUNT(complaint_status_name) AS ppf FROM vw_complaints WHERE scheme_name 
 
     }
 
+   
 
     public  function complaintsBySchemePspf()
     {
