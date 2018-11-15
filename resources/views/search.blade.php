@@ -4,7 +4,7 @@
 
 @section('content_header')
 
-    <h4>{{ Breadcrumbs::render('register') }} </h4>
+    <h4>{{ Breadcrumbs::render('form_search') }} </h4>
 
 @stop
 

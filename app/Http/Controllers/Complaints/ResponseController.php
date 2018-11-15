@@ -40,31 +40,32 @@ class ResponseController extends Controller
 
     public function storeResponse(Request $request,$complaint_id,$actions)
     {
-        $complaint_id = DB::table('vw_complaints')
+        $complaint = DB::table('vw_complaints')
             ->select('complaint_id')
             ->where('complaint_id',$complaint_id)
             ->first();
-        $complainers = Complainer::complainerDetail($complaint_id->complaint_id);
+        $complainers = Complainer::complainerDetail($complaint->complaint_id);
 
-        $refno = $complainers->refno;
-        $phone_number = $complainers->phone;
-       $firstname = $complainers->firstname;
+        $refno= $complainers->refno;
+//        dd($refno);
+        $phone_number =$complainers->phone;
+
+        $firstname = $complainers->firstname;
         $surname = $complainers->surname;
-//        dd($surname);
 
         $response  =  new Response();
 
-
         $response->responsetype_id =  $request->get('response_type');
-        $response->complaint_id =  $complaint_id;
+        $response->complaint_id =  $complaint->complaint_id;
         $response->resp =  $request->get('reponse_details');
         $response->date_response = Carbon::now();
-
+//        dd($refno);
         $success =  $response->save();
+
 
 //          $mail = MailController::sendMail();
         $message= "Ndugu ".$firstname ."  ".$surname.",  Kufuatilia lalamiko lako, tuma ".$refno." kwenda namba 0762440706 au ingiza namba hiyo kwenye mfumo wetu ya malalamiko";
-       $send_sms = SmsController::sendSms($message,$phone_number,'SSRA');
+        $send_sms = SmsController::sendSms($message,$phone_number,'SSRA');
         $update_complaint_status =   DB::statement('call update_complaint_status(?,?)',array($complaint_id,$actions));
 
         if ($success && $update_complaint_status){
@@ -90,7 +91,7 @@ class ResponseController extends Controller
 
             }
 
-                Session::flash('alert-success', 'Response was successful saved');
+            Session::flash('alert-success', 'Response was successful saved');
 
         } else {
 
