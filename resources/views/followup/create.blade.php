@@ -3,7 +3,7 @@
 @section('title', 'Dashboard')
 
 @section('content_header')
-    <h5>{{ Breadcrumbs::render('complaint_create') }} </h5>
+    <h5>{{ Breadcrumbs::render('followup') }} </h5>
 @stop
 @section('content')
 

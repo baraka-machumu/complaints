@@ -9,6 +9,7 @@
 | contains the "web" middleware group. Now create something great!
 |
 */
+use App\Complainer;
 use App\SMS\SmsController;
 use App\User;
 use Carbon\Carbon;
@@ -18,14 +19,20 @@ use Illuminate\Support\Facades\Mail;
 use Illuminate\Support\Facades\Route;
 
 Route::get('/test', function () {
+    $complaint_id = 2958;
+    $complaint_id = DB::table('vw_complaints')
+        ->select('complaint_id')
+        ->where('complaint_id',$complaint_id)
+        ->first();
+    $complainers = Complainer::complainerDetail($complaint_id->complaint_id);
 
-      $sms =  new SmsController();
+    $refno= $complainers->refno;
+    $phone_number =$complainers->phone;
+    $firstname = $complainers->firstname;
+    $surname = $complainers->surname;
 
-      $check = $sms->sendSms("hi hi hi bob ake","+255754997494","baraka machumu");
-
-      $decode =  json_decode($check);
-
-      dd($decode->success);
+    $message= "Ndugu ".$firstname ."  ".$surname.", lalamiko lako, No ".$refno." Limejibiwa kufuatilia tuma ".$refno." kwenda namba 0762440706 au ingiza namba hiyo kwenye mfumo wetu ya malalamiko";
+    $send_sms = SmsController::sendSms($message,$phone_number,'SSRA');
 
 });
 
@@ -46,7 +53,8 @@ Route::get('/dashboard', 'HomeController@index')->name('dashboard');
 
 //followup Controller
 Route::get('complaints/followups', 'FollowupController@followup');
-Route::post('complaints/followups', 'FollowupController@searchfollowup');
+Route::post('complaints/result', 'FollowupController@searchfollowup');
+
 
 //Complaints Controller
 Route::get('edit/complaints/{complaint_id}','Complaints\ComplaintsController@editPending');

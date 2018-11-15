@@ -682,11 +682,4 @@ class ComplaintsController extends Controller
         return  view('complaints.complainer', compact('message_website'));
 
     }
-
-
-
-
-
-
-
 }

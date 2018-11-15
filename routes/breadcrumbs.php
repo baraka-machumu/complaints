@@ -100,3 +100,24 @@ Breadcrumbs::register('assign/profile', function ($trail) {
     $trail->parent('roleProfile');
     $trail->push('Assign/Profile', url('assign/profile'));
 });
+
+Breadcrumbs::register('advance_search', function ($trail)
+{
+   $trail->parent('home');
+   $trail->push('search', url('search/form'));
+});
+
+Breadcrumbs::register('form_search', function ($trail)
+{
+    $trail->parent('advance_search');
+    $trail->push('form', url('search/form'));
+});
+
+
+Breadcrumbs::register('followup', function ($trail)
+{
+    $trail->parent('home');
+    $trail->push('followup', url('complaints/followups'));
+});
+
+
