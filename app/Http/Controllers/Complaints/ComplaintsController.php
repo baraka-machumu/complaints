@@ -23,9 +23,9 @@ class ComplaintsController extends Controller
 {
     public function __construct()
     {
-        $this->middleware('auth');
-        $this->middleware('user', ['except'=>['complaintTab','show','response']]);
-        $this->middleware('admin',['except'=>['complaintTab','show','response']]);
+        //$this->middleware('auth');
+        //$this->middleware('user', ['except'=>['complaintTab','show','response']]);
+       // $this->middleware('admin',['except'=>['complaintTab','show','response']]);
     }
     /**
      * Display a listing of the resource.
