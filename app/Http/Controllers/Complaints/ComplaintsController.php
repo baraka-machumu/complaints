@@ -21,6 +21,12 @@ use Illuminate\Support\Facades\Session;
 
 class ComplaintsController extends Controller
 {
+    public function __construct()
+    {
+        $this->middleware('auth');
+        $this->middleware('user', ['except'=>['complaintTab','show','response']]);
+        $this->middleware('admin',['except'=>['complaintTab','show','response']]);
+    }
     /**
      * Display a listing of the resource.
      *
@@ -115,15 +121,6 @@ class ComplaintsController extends Controller
         $complainer =  $this->complainerDetail($id);
         $responses =  $this->responseDetail($id);
         return view('complaints.showComplaints', compact('responses','complainer'));
-//        $data = $this->openComplaints($id);
-//        $complaint_open_show =[];
-//
-//        foreach ($data as $data_show){
-//
-//            array_push($complaint_open_show,$data_show);
-//        }
-//
-//        return view('complaints.showOpenComplaints');
     }
 
     /**

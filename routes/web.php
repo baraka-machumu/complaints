@@ -12,6 +12,7 @@
 use App\Complainer;
 use App\SMS\SmsController;
 use App\User;
+use App\UserProfile;
 use Carbon\Carbon;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\DB;
@@ -19,20 +20,7 @@ use Illuminate\Support\Facades\Mail;
 use Illuminate\Support\Facades\Route;
 
 Route::get('/test', function () {
-    $complaint_id = 2958;
-    $complaint_id = DB::table('vw_complaints')
-        ->select('complaint_id')
-        ->where('complaint_id',$complaint_id)
-        ->first();
-    $complainers = Complainer::complainerDetail($complaint_id->complaint_id);
-
-    $refno= $complainers->refno;
-    $phone_number =$complainers->phone;
-    $firstname = $complainers->firstname;
-    $surname = $complainers->surname;
-
-    $message= "Ndugu ".$firstname ."  ".$surname.", lalamiko lako, No ".$refno." Limejibiwa kufuatilia tuma ".$refno." kwenda namba 0762440706 au ingiza namba hiyo kwenye mfumo wetu ya malalamiko";
-    $send_sms = SmsController::sendSms($message,$phone_number,'SSRA');
+   echo UserProfile::userProfileId();
 
 });
 
@@ -135,6 +123,11 @@ Route::post('report/params','Report\ReportController@paramReport');
 
 Route::get('response/attend/{complaint_id}/{actions}','Complaints\ResponseController@attend');
 Route::post('response/store/{complaint_id}/{actions}','Complaints\ResponseController@storeResponse');
+
+//error controller
+Route::get('error/response', 'ErrorController@errorRedirect');
+
+
 
 
 

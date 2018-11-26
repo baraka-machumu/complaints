@@ -8,12 +8,21 @@
 @section('content')
 
     <div class="row">
+        <div class="col-md-12 flash-message">
+            @foreach (['danger', 'warning', 'success', 'info'] as $msg)
+                @if(Session::has('alert-' . $msg))
+
+                    <p class="alert alert-{{ $msg }}">{{ Session::get('alert-' . $msg) }} <a href="#" class="close" data-dismiss="alert" aria-label="close">&times;</a></p>
+                @endif
+            @endforeach
+        </div>
+        <!-- end .flash-message -->
     <div class="col-md-12">
         <p>Ingiza Namba ya kumbukumbu / Enter Reference Number:</p>
 
     <form method="post" class="example" action="{{action('FollowupController@searchfollowup')}}">
         {{ csrf_field() }}
-        <input type="text" placeholder="Search.." name="search" class="form-control">
+        <input type="text" placeholder="Search.." name="search" class="form-control" required>
         <button type="submit" class="btn btn-primary"><i class="fa fa-search"></i></button>
     </form>
 

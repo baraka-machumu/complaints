@@ -27,17 +27,23 @@ class FollowupController extends Controller
     public function searchfollowup(Request $request)
     {
         $refno= $request->get('search');
-        $complaint_id = DB::table('complaints')
+        $complaint = DB::table('complaints')
             ->select('complaint_id')
             ->where('refno',$refno)
             ->first();
 
-        $complainer = Complainer::complainerDetail($complaint_id->complaint_id);
-        $letter = Letter::letterDetail($complaint_id->complaint_id);
+        if (empty($complaint))
+        {
+            Session::flash('alert-warning', 'No data found for your search');
+
+            return redirect('complaints/followups');
+        }
+
+        $complainer = Complainer::complainerDetail($complaint->complaint_id);
+        $letter = Letter::letterDetail($complaint->complaint_id);
 
 
-        $responses = Response::responseDetail($complaint_id->complaint_id);
-
+        $responses = Response::responseDetail($complaint->complaint_id);
 
         return view('followup.result', compact('letter', 'responses', 'complainer'));
 

@@ -5,6 +5,10 @@ use Illuminate\Http\Request;
 use Illuminate\Support\Facades\DB;
 class SearchController extends Controller
 {
+    public function __construct()
+    {
+        $this->middleware('auth');
+    }
     public function create()
     {
         return view('search');
@@ -36,8 +40,6 @@ class SearchController extends Controller
                     $table ="<table class='table table-striped'><td colspan='12'><label class='label label-warning'>No Data Found For Your Search</label></td></table>";
                 }
             }
-
-
         }
         return $table;
     }
