@@ -12,6 +12,14 @@ use Illuminate\Support\Facades\Session;
 
 class UserProfileController extends Controller
 {
+
+    public function __construct()
+    {
+
+        $this->middleware('admin');
+        $this->middleware('auth');
+
+    }
     /**
      * Display a listing of the resource.
      *

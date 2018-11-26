@@ -12,6 +12,7 @@
 use App\Complainer;
 use App\SMS\SmsController;
 use App\User;
+use App\UserProfile;
 use Carbon\Carbon;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\DB;
@@ -19,20 +20,22 @@ use Illuminate\Support\Facades\Mail;
 use Illuminate\Support\Facades\Route;
 
 Route::get('/test', function () {
-    $complaint_id = 2958;
-    $complaint_id = DB::table('vw_complaints')
-        ->select('complaint_id')
-        ->where('complaint_id',$complaint_id)
-        ->first();
-    $complainers = Complainer::complainerDetail($complaint_id->complaint_id);
 
-    $refno= $complainers->refno;
-    $phone_number =$complainers->phone;
-    $firstname = $complainers->firstname;
-    $surname = $complainers->surname;
+    $openComplaints = DB::table('complaints')
+        ->where('complaint_status_id','=', 1)
+        ->whereMonth('date_complaint','=',date('m'))->count();
 
-    $message= "Ndugu ".$firstname ."  ".$surname.", lalamiko lako, No ".$refno." Limejibiwa kufuatilia tuma ".$refno." kwenda namba 0762440706 au ingiza namba hiyo kwenye mfumo wetu ya malalamiko";
-    $send_sms = SmsController::sendSms($message,$phone_number,'SSRA');
+    $pendingComplaints = DB::table('complaints')
+        ->where('complaint_status_id', '=', 3)
+        ->whereMonth('date_complaint','=',date('m'))->count();
+
+    $closedComplaints = DB::table('complaints')
+        ->where('complaint_status_id', '=', 2)
+        ->whereMonth('date_complaint','=',date('m'))->count();
+
+
+    $data= ['open'=>$openComplaints,'pending'=>$pendingComplaints,'closed'=>$closedComplaints];
+    return response()->json($data,'200',['json']);
 
 });
 
@@ -40,6 +43,7 @@ Route::get('api/json/all/complaints/open','HomeController@getJsonOPenComplaintsP
 Route::get('api/json/all/complaints/pending','HomeController@getJsonPendingComplaintsPerMonth');
 Route::get('api/json/all/complaints/closed','HomeController@getJsonClosedComplaintsPerMonth');
 Route::get('api/json/summary/byscheme','HomeController@summaryBySchemeApi');
+Route::get('api/json/all/complaints/thismonth','HomeController@complaintsPerMonth');
 
 Route::get('api/json/all/complaints/piechart','HomeController@getJsonAllComplaintsPiechart');
 
@@ -137,6 +141,9 @@ Route::get('response/attend/{complaint_id}/{actions}','Complaints\ResponseContro
 Route::post('response/store/{complaint_id}/{actions}','Complaints\ResponseController@storeResponse');
 
 
+//Error Controller
+
+Route::get('error/response','ErrorController@errorRedirect');
 
 
 

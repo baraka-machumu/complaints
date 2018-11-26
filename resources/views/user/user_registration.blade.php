@@ -63,7 +63,7 @@
                             <td style="display: none">{{ $user->id}}</td>
 
                             <td><a href="#" data-toggle="modal" data-target="#edit" class="edit" >
-                                    <span class="glyphicon glyphicon-pencil"></span></a></td>
+                                    <span class="glyphicon glyphicon-edit"></span></a></td>
                             <td>
                                 <form action="{{action('Admin\UserController@destroy',$user->id)}}" method="post">
                                     {{ csrf_field() }}

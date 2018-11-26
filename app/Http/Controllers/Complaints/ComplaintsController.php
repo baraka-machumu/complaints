@@ -21,6 +21,13 @@ use Illuminate\Support\Facades\Session;
 
 class ComplaintsController extends Controller
 {
+    public function __construct()
+    {
+        $this->middleware('user',['except'=>['complaintTab','show','response']]);
+        $this->middleware('admin',['except'=>['complaintTab','show','response']]);
+//        $this->middleware('auth',['except'=>['c']]);
+
+    }
     /**
      * Display a listing of the resource.
      *
@@ -44,7 +51,6 @@ class ComplaintsController extends Controller
         $complaintsTypes = ComplaintType::all()->toArray();
         return view('complaints.create', with(['all_scheme_types'=>$all_scheme_types,'complaintsTypes'=>$complaintsTypes
             ,'membership_status'=>$membership_status,'rec_modes'=>$rec_modes]));
-
     }
 
     /**
@@ -634,6 +640,8 @@ class ComplaintsController extends Controller
 
     public function websiteStore(Request $request)
     {
+
+        dd(34);
         $phone_number =  substr($request->get('phone'),1,9);
         $phone_number = '+255'.$phone_number;
 

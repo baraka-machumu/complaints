@@ -10,6 +10,15 @@ use Illuminate\Support\Facades\Session;
 
 class ComplaintsTypeController extends Controller
 {
+
+    public function __construct()
+    {
+        $this->middleware('user');
+        $this->middleware('admin');
+        $this->middleware('auth');
+
+
+    }
     /**
      * Display a listing of the resource.
      *
