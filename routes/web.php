@@ -20,7 +20,22 @@ use Illuminate\Support\Facades\Mail;
 use Illuminate\Support\Facades\Route;
 
 Route::get('/test', function () {
-   echo UserProfile::userProfileId();
+
+    $openComplaints = DB::table('complaints')
+        ->where('complaint_status_id','=', 1)
+        ->whereMonth('date_complaint','=',date('m'))->count();
+
+    $pendingComplaints = DB::table('complaints')
+        ->where('complaint_status_id', '=', 3)
+        ->whereMonth('date_complaint','=',date('m'))->count();
+
+    $closedComplaints = DB::table('complaints')
+        ->where('complaint_status_id', '=', 2)
+        ->whereMonth('date_complaint','=',date('m'))->count();
+
+
+    $data= ['open'=>$openComplaints,'pending'=>$pendingComplaints,'closed'=>$closedComplaints];
+    return response()->json($data,'200',['json']);
 
 });
 
@@ -28,6 +43,7 @@ Route::get('api/json/all/complaints/open','HomeController@getJsonOPenComplaintsP
 Route::get('api/json/all/complaints/pending','HomeController@getJsonPendingComplaintsPerMonth');
 Route::get('api/json/all/complaints/closed','HomeController@getJsonClosedComplaintsPerMonth');
 Route::get('api/json/summary/byscheme','HomeController@summaryBySchemeApi');
+Route::get('api/json/all/complaints/thismonth','HomeController@complaintsPerMonth');
 
 Route::get('api/json/all/complaints/piechart','HomeController@getJsonAllComplaintsPiechart');
 
@@ -124,12 +140,10 @@ Route::post('report/params','Report\ReportController@paramReport');
 Route::get('response/attend/{complaint_id}/{actions}','Complaints\ResponseController@attend');
 Route::post('response/store/{complaint_id}/{actions}','Complaints\ResponseController@storeResponse');
 
-//error controller
-Route::get('error/response', 'ErrorController@errorRedirect');
 
+//Error Controller
 
-
-
+Route::get('error/response','ErrorController@errorRedirect');
 
 
 
