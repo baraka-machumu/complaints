@@ -15,12 +15,22 @@ use App\SMS\SmsController;
 use Carbon\Carbon;
 use Illuminate\Http\Request;
 use App\Http\Controllers\Controller;
+use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\DB;
 use Illuminate\Support\Facades\Session;
+use Illuminate\Support\Facades\Storage;
 
 class ResponseController extends Controller
 {
 
+    public function __construct()
+    {
+        $this->middleware('user');
+        $this->middleware('admin');
+        $this->middleware('auth');
+
+
+    }
 
 
     public function attend($complaint_id,$actions){
@@ -59,6 +69,9 @@ class ResponseController extends Controller
         $response->complaint_id =  $complaint->complaint_id;
         $response->resp =  $request->get('reponse_details');
         $response->date_response = Carbon::now();
+        $response->user_id = Auth::user()->id;
+
+
 //        dd($refno);
         $success =  $response->save();
 
