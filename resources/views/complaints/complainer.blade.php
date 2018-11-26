@@ -22,7 +22,7 @@
         <div class="col-md-12">
 
             <p style="font-size: 16px;">
-                {{$message_website}} au bofya <a href="{{url('complaint/followup')}}">Fuatilia lalamiko</a>
+                {{$message_website}} au bofya <a href="{{url('complaint/followups')}}">Fuatilia lalamiko</a>
 
             </p>
 

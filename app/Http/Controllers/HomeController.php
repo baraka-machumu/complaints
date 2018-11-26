@@ -43,6 +43,26 @@ class HomeController extends Controller
         return response()->json($data,'200',['json']);
     }
 
+    public function complaintsPerMonth()
+    {
+
+        $openComplaints = DB::table('complaints')
+            ->where('complaint_status_id','=', 1)
+            ->whereMonth('date_complaint','=',date('m'))->count();
+
+        $pendingComplaints = DB::table('complaints')
+            ->where('complaint_status_id', '=', 3)
+            ->whereMonth('date_complaint','=',date('m'))->count();
+
+        $closedComplaints = DB::table('complaints')
+            ->where('complaint_status_id', '=', 2)
+            ->whereMonth('date_complaint','=',date('m'))->count();
+
+
+        $data= ['open'=>$openComplaints,'pending'=>$pendingComplaints,'closed'=>$closedComplaints];
+        return response()->json($data,'200',['json']);
+    }
+
 
     public  function complaintsBySchemePpf()
     {

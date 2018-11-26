@@ -5,7 +5,7 @@
 @section('content_header')
 
 <link href="https://adminlte.io/themes/AdminLTE/bower_components/bootstrap-datepicker/dist/css/bootstrap-datepicker.min.css" type="text/css" rel="stylesheet">
-    <h4>{{ Breadcrumbs::render('report_select') }} </h4>
+    <h4>{{ Breadcrumbs::render('report_get') }} </h4>
 
 @stop
 

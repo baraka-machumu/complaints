@@ -145,6 +145,7 @@
             </div>
             <!-- /.box -->
         </div>
+    </div>
         {{--box panel for table --}}
 
 
@@ -179,6 +180,50 @@
                 </div>
             </div>
         </div>
+
+{{--complaints this month--}}
+
+    <div class="row">
+        <div class="col-md-12">
+            <div class="box">
+                <div class="box-body" style="">
+                    <div class="box-header with-border" style="background-color:#3C8DBC;color:white; ">
+                        <h3 class="box-title" >Complaints This month</h3>
+
+                        <div class="box-tools pull-right">
+                            <button type="button" class="btn btn-box-tool" data-widget="collapse"><i class="fa fa-minus"></i>
+                            </button>
+
+                            <button type="button" class="btn btn-box-tool" data-widget="remove"><i class="fa fa-times"></i></button>
+                        </div>
+                    </div>
+
+                    <table class="table table-striped table-hover table-bordered" id="thismonth">
+                        <tr>
+                            <td>Open Complaints</td>
+                            <td>Pending Complaints</td>
+                            <td>Closed Complaints</td>
+                            <td>Total Complaints</td>
+
+                        </tr>
+
+                        <tr>
+                            <td id="open-thismonth"></td>
+                            <td id="pending-thismonth"></td>
+                            <td id="closed-thismonth"></td>
+                            <td id="total-thismonth"></td>
+
+                        </tr>
+                    </table>
+
+
+                </div>
+            </div>
+        </div>
+    </div>
+
+
+
         @stop
 
         @section('css')
@@ -201,6 +246,8 @@
             <script src="/complaints/js/chart.js"></script>
             <script src="/complaints/js/line.js"></script>
             <script src="/complaints/js/complaints_count.js"></script>
+            <script src="/complaints/js/complaints_thismonth.js"></script>
+
             <script src="/complaints/js/complaint_byscheme.js"></script>
 
 

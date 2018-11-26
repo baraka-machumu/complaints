@@ -26,9 +26,17 @@ Breadcrumbs::register('report',function ($trail){
 Breadcrumbs::register('report_select',function ($trail){
 
     $trail->parent('report');
-    $trail->push('Select',url('report'));
+    $trail->push('Select',url('report/select'));
 
 });
+
+Breadcrumbs::register('report_get',function ($trail){
+
+    $trail->parent('report_select');
+    $trail->push('Get',url('report/select'));
+
+});
+
 Breadcrumbs::register('response',function ($trail){
 
     $trail->push('Response',url('response'));
@@ -56,6 +64,16 @@ Breadcrumbs::register('complaint_create',function ($trail){
 
 });
 
+Breadcrumbs::register('advanced_search',function ($trail){
+
+    $trail->parent('home');
+    $trail->push('Search',url('search/form'));
+});
+Breadcrumbs::register('form_search',function ($trail){
+    $trail->parent('advanced_search');
+
+    $trail->push('Form',url('search/form'));
+});
 
 //fetty
 Breadcrumbs::register('role', function ($trait)
@@ -87,12 +105,6 @@ Breadcrumbs::register('advance_search', function ($trail)
 {
    $trail->parent('home');
    $trail->push('search', url('search/form'));
-});
-
-Breadcrumbs::register('form_search', function ($trail)
-{
-    $trail->parent('advance_search');
-    $trail->push('form', url('search/form'));
 });
 
 

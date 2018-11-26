@@ -48,7 +48,7 @@ class LoginController extends Controller
      *
      * @var string
      */
-    protected $redirectTo = '/';
+    protected $redirectTo = 'dashboard';
 
     /**
      * Create a new controller instance.
@@ -63,6 +63,7 @@ class LoginController extends Controller
     public  function  index()
     {
         if (Auth::check() ) {
+
             return redirect()->route('dashboard');
         }
 
@@ -71,9 +72,9 @@ class LoginController extends Controller
         $all_scheme_types = Scheme::all()->toArray();
         $groupcomplaints = ComplaintCount::all()->toArray();
         $complaintsTypes = ComplaintType::all()->toArray();
+
         return view('complaints.complainer_view', with(['all_scheme_types'=>$all_scheme_types,'groupcomplaints'=>$groupcomplaints,'complaintsTypes'=>$complaintsTypes
             ,'membership_status'=>$membership_status,'rec_modes'=>$rec_modes]));
-//        return view('complaints.complainer_view');
     }
 
 
