@@ -26,14 +26,15 @@
                 </div>
 
                 <div class="form-group">
+                    <label for="middle_name">Jina La Kati/Middle Name:</label>
+                    <input type="text" class="form-control" id="middle_name" name="middle_name">
+                </div>
+
+                <div class="form-group">
                     <label for="surname">Jina la ukoo/Last Name:</label>
                     <input type="text" class="form-control" id="surname" name="surname">
                 </div>
 
-                <div class="form-group">
-                    <label for="middle_name">Jina La Kati/Middle Name:</label>
-                    <input type="text" class="form-control" id="middle_name" name="middle_name">
-                </div>
 
                 <div class="form-group">
                     <label for="postal">S.L.P/P.O Box:</label>
