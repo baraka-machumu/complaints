@@ -91,7 +91,7 @@ class ResponseController extends Controller
 
                     $name  =  str_replace('.pdf','',$file->getClientOriginalName());
 
-                    $filename = $name. $extension;
+                    $filename = $name.".".$extension;
 
                     $file->move(
                         base_path().'/public/letter', $filename
