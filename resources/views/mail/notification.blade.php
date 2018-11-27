@@ -1,4 +1,4 @@
 
 
 
-<span>hellow mambo niaje {{$name}}</span>
+<span>hellow mambo niaje {{$url}}</span>

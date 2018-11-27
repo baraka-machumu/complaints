@@ -43,6 +43,18 @@ class User extends Authenticatable
         return 1;
     }
 
+    public static function token ()
+    {
+        return str_random(30);
 
+    }
+
+    public function  passwordGenerator(){
+
+        $prefix = "ssra";
+        $date = Carbon::now();
+        $date  =substr($date,0,4);
+        return bcrypt($prefix.".".$date);
+    }
 
 }

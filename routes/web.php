@@ -21,22 +21,6 @@ use Illuminate\Support\Facades\Route;
 
 Route::get('/test', function () {
 
-    $openComplaints = DB::table('complaints')
-        ->where('complaint_status_id','=', 1)
-        ->whereMonth('date_complaint','=',date('m'))->count();
-
-    $pendingComplaints = DB::table('complaints')
-        ->where('complaint_status_id', '=', 3)
-        ->whereMonth('date_complaint','=',date('m'))->count();
-
-    $closedComplaints = DB::table('complaints')
-        ->where('complaint_status_id', '=', 2)
-        ->whereMonth('date_complaint','=',date('m'))->count();
-
-
-    $data= ['open'=>$openComplaints,'pending'=>$pendingComplaints,'closed'=>$closedComplaints];
-    return response()->json($data,'200',['json']);
-
 });
 
 Route::get('api/json/all/complaints/open','HomeController@getJsonOPenComplaintsPerMonth');
@@ -50,6 +34,7 @@ Route::get('api/json/all/complaints/piechart','HomeController@getJsonAllComplain
 // get default url
 Route::get('/','Auth\LoginController@index');
 Route::get('logout', 'Auth\LoginController@logout');
+
 
 Auth::routes();
 Route::get('api/complaints/count', 'HomeController@complaintsStatus');
@@ -88,6 +73,9 @@ Route::post('scheme-types/update','Scheme\SchemeTypeController@updates');
 Route::get('user/register','Admin\UserController@create');
 Route::get('user/edit','Admin\UserController@create');
 Route::get('user/delete','Admin\UserController@create');
+
+
+
 Route::resource('user','Admin\UserController');
 
 //Role route
@@ -146,4 +134,11 @@ Route::post('response/store/{complaint_id}/{actions}','Complaints\ResponseContro
 Route::get('error/response','ErrorController@errorRedirect');
 
 
+//email auth
+Route::get('auth/email-authenticate/{token}', [
+    'as' => 'auth.email-authenticate',
+    'uses' => 'Mail\EmailAuthController@create'
+]);
+
+Route::post('auth/create-password/{token}','Mail\EmailAuthController@store');
 

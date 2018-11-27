@@ -8,6 +8,7 @@ use Illuminate\Http\Request;
 use App\Http\Controllers\Controller;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\DB;
+use Illuminate\Support\Facades\Mail;
 use Illuminate\Support\Facades\Session;
 
 
@@ -15,8 +16,8 @@ class UserController extends Controller
 {
     public function __construct()
     {
-        $this->middleware('auth');
-        $this->middleware('admin');
+//        $this->middleware('auth');
+//        $this->middleware('admin');
     }
     /**
      * Display a listing of the resource.
@@ -51,12 +52,26 @@ class UserController extends Controller
         $username = $request->get('username');
         $email =  $request->get('email');
         $password  =  $this->passwordGenerator();
+        $token= User::token();
 
         $user->name  =  $username;
         $user->email = $email;
         $user->password = $password;
+        $user->remember_token =  $token;
 
         $success =  $user->save();
+
+
+        $url = route('auth.email-authenticate', [
+            'token' => $token
+        ]);
+
+        Mail::send('mail.notification', ['url' => $url], function ($m) {
+
+            $m->from('fatuma.mkima@ssra.go.tz', 'Complaints');
+            $m->to('fatuma.mkima@ssra.go.tz')->subject('Complaints login');
+
+        });
 
         if ($success)
         {
@@ -108,6 +123,9 @@ class UserController extends Controller
         $user->email =  $request->get('email');
 
         $success = $user->save();
+
+
+
 
 
         if ($success)
