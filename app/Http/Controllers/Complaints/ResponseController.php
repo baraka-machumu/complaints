@@ -89,11 +89,9 @@ class ResponseController extends Controller
                     $letter  = new Letter();
                     $extension = $file->getClientOriginalExtension();
 
-                    $name  =  $file->getClientOriginalName();
+                    $name  =  str_replace('.pdf','',$file->getClientOriginalName());
 
-                    dd($name);
-                    
-                    $filename = $file. $extension;
+                    $filename = $name. $extension;
 
                     $file->move(
                         base_path().'/public/letter', $filename
