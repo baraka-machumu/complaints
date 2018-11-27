@@ -79,7 +79,7 @@
 
                 @foreach($latter as $latters)
                     <tr><th>Latter</th>
-                        <td> <a href="{{url('/storage/app/public/letter/'.$latters->letter_link)}}">{{$latters->letter_link}}</a>
+                        <td> <a href="{{url('public/letter/'.$latters->letter_link)}}">{{$latters->letter_link}}</a>
 
                     </tr>
                 @endforeach

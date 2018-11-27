@@ -20,12 +20,10 @@ use Illuminate\Support\Facades\DB;
 use Illuminate\Support\Facades\Session;
 use Illuminate\Support\Facades\Storage;
 
-
 class ResponseController extends Controller
 {
     public function __construct()
     {
-
         $this->middleware('user');
         $this->middleware('admin');
         $this->middleware('auth');
@@ -77,7 +75,7 @@ class ResponseController extends Controller
 
 //          $mail = MailController::sendMail();
         $message= "Ndugu ".$firstname ."  ".$surname.",  Kufuatilia lalamiko lako, tuma ".$refno." kwenda namba 0762440706 au ingiza namba hiyo kwenye mfumo wetu ya malalamiko";
-        $send_sms = SmsController::sendSms($message,$phone_number,'SSRA');
+//        $send_sms = SmsController::sendSms($message,$phone_number,'SSRA');
         $update_complaint_status =   DB::statement('call update_complaint_status(?,?)',array($complaint_id,$actions));
 
         if ($success && $update_complaint_status){
@@ -89,11 +87,17 @@ class ResponseController extends Controller
                 foreach ($files as $file){
 
                     $letter  = new Letter();
+                    $extension = $file->getClientOriginalExtension();
 
-                    $filename = $file->getClientOriginalName();
+                    $name  =  $file->getClientOriginalName();
 
-                    Storage::disk('local')->put('public/letter/'.$filename, 'Contents');
+                    dd($name);
+                    
+                    $filename = $file. $extension;
 
+                    $file->move(
+                        base_path().'/public/letter', $filename
+                    );
                     $letter->complaint_id = $complaint_id;
                     $letter->letter_link = $filename;
 
