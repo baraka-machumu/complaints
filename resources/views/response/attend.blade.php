@@ -109,13 +109,6 @@
 
             <script>
 
-//                $("#file-upload").fileinput({
-//
-//                    allowedFileExtensions: ['pdf', 'png','jpg'],
-//                    maxFileSize:10000,
-//                    maxFilesNum: 10
-//
-//                });
 
             </script>
 

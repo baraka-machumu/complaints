@@ -33,6 +33,7 @@ Route::get('/test', function () {
         ->where('complaint_status_id', '=', 2)
         ->whereMonth('date_complaint','=',date('m'))->count();
 
+
     $data= ['open'=>$openComplaints,'pending'=>$pendingComplaints,'closed'=>$closedComplaints];
     return response()->json($data,'200',['json']);
 

@@ -6,6 +6,7 @@ use App\Complainer;
 use App\Complaint;
 use App\ComplaintType;
 use App\Http\Controllers\Mail\MailController;
+use App\Letter;
 use App\MembershipStatus;
 use App\ReceiveModes;
 use App\ReceiveMode;
@@ -298,7 +299,8 @@ class ComplaintsController extends Controller
     {
         $complainer =  $this->complainerDetail($complaint_id);
         $responses =  $this->responseDetail($complaint_id);
-        return view('complaints.response', compact('responses','complainer'));
+        $latter = Letter::letterDetail($complaint_id);
+        return view('complaints.response', compact('responses','complainer','latter'));
     }
 
     public function complainerDetail($complaint_id)

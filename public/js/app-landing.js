@@ -706,7 +706,7 @@ var i,
 		".*" +
 		")\\)|)",
 
-	// Leading and non-escaped trailing whitespace, capturing some non-whitespace characters preceding the latter
+	// Leading and non-escaped trailing whitespace, capturing some non-whitespace characters preceding the letter
 	rwhitespace = new RegExp( whitespace + "+", "g" ),
 	rtrim = new RegExp( "^" + whitespace + "+|((?:^|[^\\\\])(?:\\\\.)*)" + whitespace + "+$", "g" ),
 
@@ -2632,7 +2632,7 @@ function matcherFromGroupMatchers( elementMatchers, setMatchers ) {
 			}
 
 			// `i` is now the count of elements visited above, and adding it to `matchedCount`
-			// makes the latter nonnegative.
+			// makes the letter nonnegative.
 			matchedCount += i;
 
 			// Apply set filters to unmatched elements
@@ -2734,7 +2734,7 @@ select = Sizzle.select = function( selector, context, results, seed ) {
 	results = results || [];
 
 	// Try to minimize operations if there is only one selector in the list and no seed
-	// (the latter of which guarantees us context)
+	// (the letter of which guarantees us context)
 	if ( match.length === 1 ) {
 
 		// Reduce context if the leading compound selector is an ID
@@ -10403,7 +10403,7 @@ function runTimeout(fun) {
         //normal enviroments in sane situations
         return setTimeout(fun, 0);
     }
-    // if setTimeout wasn't available but was latter defined
+    // if setTimeout wasn't available but was letter defined
     if ((cachedSetTimeout === defaultSetTimout || !cachedSetTimeout) && setTimeout) {
         cachedSetTimeout = setTimeout;
         return setTimeout(fun, 0);
@@ -10428,7 +10428,7 @@ function runClearTimeout(marker) {
         //normal enviroments in sane situations
         return clearTimeout(marker);
     }
-    // if clearTimeout wasn't available but was latter defined
+    // if clearTimeout wasn't available but was letter defined
     if ((cachedClearTimeout === defaultClearTimeout || !cachedClearTimeout) && clearTimeout) {
         cachedClearTimeout = clearTimeout;
         return clearTimeout(marker);

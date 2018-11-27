@@ -78,7 +78,7 @@
                     <tr>
                         <td>{{$i}}</td>
                         <td>
-                            <a href="{{URL::asset('storage/app/public/latter/'.$letters->letter_link)}}">{{$letters->letter_link}}</a>
+                            <a href="{{URL::asset('letter'.$letters->letter_link)}}">{{$letters->letter_link}}</a>
 
                         </td>
 
@@ -90,7 +90,6 @@
 
             </table>
         </div>
-
     </div>
 @stop
 

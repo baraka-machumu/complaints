@@ -9457,7 +9457,7 @@
 		 * When DataTables calculates the column widths to assign to each column,
 		 * it finds the longest string in each column and then constructs a
 		 * temporary table and reads the widths from that. The problem with this
-		 * is that "mmm" is much wider then "iiii", but the latter is a longer
+		 * is that "mmm" is much wider then "iiii", but the letter is a longer
 		 * string - thus the calculation can go wrong (doing it properly and putting
 		 * it into an DOM object and measuring that is horribly(!) slow). Thus as
 		 * a "work around" we provide this option. It will append its value to the
@@ -9894,7 +9894,7 @@
 		 * Basically the same as `search`, this parameter defines the individual column
 		 * filtering state at initialisation time. The array must be of the same size
 		 * as the number of columns, and each element be an object with the parameters
-		 * `search` and `escapeRegex` (the latter is optional). 'null' is also
+		 * `search` and `escapeRegex` (the letter is optional). 'null' is also
 		 * accepted and the default will be used.
 		 *  @type array
 		 *  @default []
@@ -12320,7 +12320,7 @@
 		 * When DataTables calculates the column widths to assign to each column,
 		 * it finds the longest string in each column and then constructs a
 		 * temporary table and reads the widths from that. The problem with this
-		 * is that "mmm" is much wider then "iiii", but the latter is a longer
+		 * is that "mmm" is much wider then "iiii", but the letter is a longer
 		 * string - thus the calculation can go wrong (doing it properly and putting
 		 * it into an DOM object and measuring that is horribly(!) slow). Thus as
 		 * a "work around" we provide this option. It will append its value to the
