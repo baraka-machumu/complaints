@@ -3,6 +3,7 @@ $(function () {
 
 
     $('#edit-data-table').dataTable({
-        "ordering": false
+        "ordering": false,
+        "lengthChange": false
     });
 });

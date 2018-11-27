@@ -3,7 +3,8 @@ $(function ()
 {
     $('#pending-data-table').dataTable({
 
-        "ordering": false
+        "ordering": false,
+        "lengthChange": false
     });
 
 });
