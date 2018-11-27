@@ -19,39 +19,39 @@
         <form action="{{action('Complaints\ComplaintsController@store')}}" method="post">
             {{ csrf_field() }}
             <div class="col-md-4">
-                <h4>Taarifa Binafsi/Personal Information</h4>
+                <h4>Personal Information</h4>
                 <div class="form-group">
-                    <label for="first_name" style="font-size: 16px">Jina la Kwanza/First Name:</label>
+                    <label for="first_name" style="font-size: 16px">First Name:</label>
                     <input type="text" class="form-control" id="first_name" name="first_name" >
                 </div>
 
                 <div class="form-group">
-                    <label for="middle_name" style="font-size: 16px">Jina La Kati/Middle Name:</label>
+                    <label for="middle_name" style="font-size: 16px">Middle Name:</label>
                     <input type="text" class="form-control" id="middle_name" name="middle_name">
                 </div>
 
                 <div class="form-group">
-                    <label for="surname" style="font-size: 16px">Jina la ukoo/Last Name:</label>
+                    <label for="surname" style="font-size: 16px">Last Name:</label>
                     <input type="text" class="form-control" id="surname" name="surname">
                 </div>
 
 
                 <div class="form-group">
-                    <label for="postal" style="font-size: 16px">S.L.P/P.O Box:</label>
+                    <label for="postal" style="font-size: 16px">P.O Box:</label>
                     <input type="text" class="form-control" id="postal" name="postal">
                 </div>
                 <div class="form-group">
-                    <label for="residence" style="font-size: 16px">Makazi/Residence:</label>
+                    <label for="residence" style="font-size: 16px">Residence:</label>
                     <input type="text" class="form-control" id="residence" name="residence">
                 </div>
 
                 <div class="form-group">
-                    <label for="phone" style="font-size: 16px">Simu/Phone Number:</label>
+                    <label for="phone" style="font-size: 16px">Phone Number:</label>
                     <input type="text" class="form-control"  id="phone" name="phone" style="width:315px">
                 </div>
 
                 <div class="form-group">
-                    <label for="email" style="font-size: 16px">Barua Pepe/Email:</label>
+                    <label for="email" style="font-size: 16px">Email:</label>
                     <input type="email" class="form-control" id="email" name="email">
                 </div>
             </div>
@@ -104,11 +104,11 @@
                 </div>
 
                 <div class="form-group">
-                    <label for="complaints" style="font-size: 16px">Lalamiko/Complaint</label>
+                    <label for="complaints" style="font-size: 16px">Complaint</label>
                     <textarea type="text" class="form-control" id="complaint" name="complaint" ></textarea>
                 </div>
 
-                <button type="submit" class="btn btn-primary" id="save-create">Tuma/Submit</button>
+                <button type="submit" class="btn btn-primary" id="save-create">Submit</button>
             </div>
         </form>
     </div>
