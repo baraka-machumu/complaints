@@ -92,9 +92,9 @@
                                 <strong>complaints</strong>
                             </p>
 
-                            <div class="chart">
+                            <div class="chart" id="empty">
                                 <!-- Sales Chart Canvas -->
-                                <canvas class="salesChart" style="height: 180px; width: 645px;" width="967" height="270"></canvas>
+                                <canvas  class="salesChart" style="height: 180px; width: 645px;" width="967" height="270"></canvas>
                             </div>
                             <!-- /.chart-responsive -->
                         </div>

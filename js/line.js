@@ -210,19 +210,34 @@ $(function () {
             salesChart.Line(salesChartData, salesChartOptions);
         });
     }
+
+
+    function  removeAddToCanvas() {
+
+        var canvas  =  $('<canvas  class="salesChart" style="height: 180px; width: 645px;" width="967" height="270"></canvas>');
+
+        $("#empty").empty();
+
+        $("#empty").append(canvas);
+    }
     openComplaintsGraph();
 
     $("#open-graph").click(function (e) {
-        openComplaintsGraph();
 
+        removeAddToCanvas();
+        openComplaintsGraph();
     });
 
     $("#pending-graph").click(function (e) {
+
+        removeAddToCanvas();
         pendingComplaintsGraph();
 
     });
 
     $("#closed-graph").click(function (e) {
+
+        removeAddToCanvas();
         closedComplaintsGraph();
 
     });
