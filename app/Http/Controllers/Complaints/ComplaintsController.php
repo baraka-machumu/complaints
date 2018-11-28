@@ -166,9 +166,7 @@ class ComplaintsController extends Controller
             Session::flash('alert-warning', 'Failed to update Complaints');
 
         }
-        return redirect('complaints/tab');
-
-
+        return redirect('complaint/tab/1');
     }
 
     /**
