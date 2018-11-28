@@ -3,7 +3,7 @@
 {{--<input type="text" id="search_edit" class="form-control" placeholder="search here">--}}
 <div id="table">
 
-    <table class="table table-borderless table-striped" id="edit-data-table">
+    <table class="table table-bordered table-striped" id="edit-data-table">
         <thead>
         <tr>
             <th>Full name</th><th>Complaint</th><th>Complaint Type</th><th>Action</th>

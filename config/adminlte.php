@@ -74,7 +74,7 @@ $menu =  [
         [
             'text'    => 'Complaints',
             'icon'    => 'th',
-            'url'      => 'complaint/tab',
+            'url'      => 'complaint/tab/1',
 //            'url'     =>'complaints/tab',
             'can'=>'islogin'
 

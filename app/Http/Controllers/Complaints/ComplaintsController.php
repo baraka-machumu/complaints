@@ -182,7 +182,7 @@ class ComplaintsController extends Controller
         //
     }
 
-    public function complaintTab()
+    public function complaintTab($tab)
     {
         $pending_complaints = $this->pendingComplaints();
         $open_complaints =$this->openComplaints();
@@ -191,7 +191,7 @@ class ComplaintsController extends Controller
 
         $actions = ['not_close'=>1,'close'=>2];
 
-        return view('complaints.tab',compact('actions','open_complaints','edit_complaints', 'pending_complaints','closed_complaints'));
+        return view('complaints.tab',compact('tab','actions','open_complaints','edit_complaints', 'pending_complaints','closed_complaints'));
 
     }
 

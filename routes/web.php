@@ -47,7 +47,7 @@ Route::post('complaints/result', 'FollowupController@searchfollowup');
 
 //Complaints Controller
 Route::get('edit/complaints/{complaint_id}','Complaints\ComplaintsController@editPending');
-Route::get('complaint/tab','Complaints\ComplaintsController@complaintTab');
+Route::get('complaint/tab/{tab}','Complaints\ComplaintsController@complaintTab');
 Route::get('create','Complaints\ComplaintsController@create');
 Route::get('complaints/tab','Complaints\ComplaintsController@complaintTab');
 Route::get('api/complaints/opening/all','Complaints\ComplaintsController@complaintOpening');

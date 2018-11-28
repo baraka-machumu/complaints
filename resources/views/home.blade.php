@@ -9,7 +9,7 @@
 @section('content')
     <div class="row">
         <div class="col-md-3 col-sm-6 col-xs-12">
-            <div class="info-box">
+            <div class="info-box complaints-counts" id="open-counts">
                 <span class="info-box-icon bg-red"><i class="fa fa-folder-open "></i></span>
 
                 <div class="info-box-content">
@@ -21,7 +21,7 @@
             <!-- /.info-box -->
         </div>
         <div class="col-md-3 col-sm-6 col-xs-12">
-            <div class="info-box">
+            <div class="info-box complaints-counts" id="pending-counts">
                 <span class="info-box-icon bg-yellow"><i class="fa fa-adjust"></i></span>
 
                 <div class="info-box-content">
@@ -34,7 +34,7 @@
         </div>
 
         <div class="col-md-3 col-sm-6 col-xs-12">
-            <div class="info-box">
+            <div class="info-box complaints-counts" id="closed-counts">
                 <span class="info-box-icon bg-green"><i class="fa  fa-lock"></i></span>
 
                 <div class="info-box-content">
@@ -47,7 +47,7 @@
         </div>
 
         <div class="col-md-3 col-sm-5 col-xs-12" style="">
-            <div class="info-box">
+            <div class="info-box complaints-counts">
                 <span class="info-box-icon bg-aqua"><i class="fa-sum"></i></span>
 
                 <div class="info-box-content">
@@ -238,6 +238,13 @@
                     font-family: sans-serif;
                 }
 
+                .complaints-counts:hover{
+
+                    background-color: whitesmoke;
+
+                }
+
+
             </style>
 
         @stop
@@ -249,6 +256,39 @@
             <script src="/complaints/js/complaints_thismonth.js"></script>
 
             <script src="/complaints/js/complaint_byscheme.js"></script>
+
+            <script>
+
+                $(function (e) {
+
+
+                    $("#open-counts").click(function (ex) {
+
+                        window.location.href = "<?php
+                            use Illuminate\Support\Facades\URL;
+                            $tab =  2;
+                        echo URL::to('complaint/tab',$tab); ?>";
+
+                    });
+
+                    $("#pending-counts").click(function (ex) {
+
+                        window.location.href = "<?php
+                            $tab =  3;
+                            echo URL::to('complaint/tab',$tab); ?>";
+
+                    });
+                    $("#closed-counts").click(function (ex) {
+
+                        window.location.href = "<?php
+                            $tab =  4;
+                            echo URL::to('complaint/tab',$tab); ?>";
+
+                    });
+
+
+                });
+            </script>
 
 
 @stop
