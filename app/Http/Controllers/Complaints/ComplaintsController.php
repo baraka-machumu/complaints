@@ -167,6 +167,8 @@ class ComplaintsController extends Controller
 
         }
         return redirect('complaint/tab/1');
+
+
     }
 
     /**
@@ -289,7 +291,6 @@ class ComplaintsController extends Controller
             ->select('complainer.firstname','complainer.surname','complainer.surname','complaints.complaint','complaints.date_complaint','complaints.complaint_id')
             ->where('complaint_status_id','=','1')
             ->get();
-
         return $data_open;
     }
 
@@ -320,9 +321,6 @@ class ComplaintsController extends Controller
         return $details;
 
     }
-
-
-
     public function complaintOpening(Request $request){
 
         $open_complaints= $this->openComplaints();
@@ -608,7 +606,7 @@ class ComplaintsController extends Controller
 
         }
 
-        return redirect('complaints/tab');
+        return redirect('complaint/tab/3');
 
     }
 

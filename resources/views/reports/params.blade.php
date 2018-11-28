@@ -22,14 +22,14 @@
             @if($report_data[0]->p1!==null)
                 <div class="form-group">
                     <label for="start_date">{{$report_data[0]->p1_caption}}</label>
-                    <input type="text" class="form-control role_name" id="start_date" name="data[{{$report_data[0]->p1}}]" >
+                    <input autocomplete="off" type="text" class="form-control role_name" id="start_date" name="data[{{$report_data[0]->p1}}]" >
                 </div>
 
             @endif
             @if($report_data[0]->p2!==null)
                 <div class="form-group">
                     <label for="end_date">{{$report_data[0]->p2_caption}}</label>
-                    <input type="text" class="form-control role_name" id="end_date" name="data[{{$report_data[0]->p2}}]" >
+                    <input autocomplete="off" type="text" class="form-control role_name" id="end_date" name="data[{{$report_data[0]->p2}}]" >
 
                 </div>
             @endif
