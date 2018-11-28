@@ -2,6 +2,7 @@
 
 namespace App;
 
+use Carbon\Carbon;
 use Illuminate\Notifications\Notifiable;
 use Illuminate\Foundation\Auth\User as Authenticatable;
 
@@ -55,6 +56,13 @@ class User extends Authenticatable
         $date = Carbon::now();
         $date  =substr($date,0,4);
         return bcrypt($prefix.".".$date);
+    }
+
+    public static function validFromToken($token)
+    {
+        return self::where('remember_token', $token)
+            ->where('created_at', '>', Carbon::parse('-1 minutes'))
+            ->firstOrFail();
     }
 
 }
