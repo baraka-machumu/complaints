@@ -19,7 +19,6 @@ use App\Http\Controllers\Controller;
 use Illuminate\Support\Facades\DB;
 use Illuminate\Support\Facades\Mail;
 use Illuminate\Support\Facades\Session;
-use PhpParser\Comment;
 
 
 class ComplaintsController extends Controller
@@ -667,8 +666,13 @@ class ComplaintsController extends Controller
 
     public function getComments(){
 
-        $comment  =  Comment::all()->toArray();
-        return view('complaints.comments',compact('comment'));
+//        =  DB::table('comments')
+//            ->leftJoin('complainer','complaints.complainer_id','=','complainer.complainer_id')
+//            ->join('schemes','schemes.scheme_id','=','complainer.scheme_id')
+//            ->select('complainer.firstname','complainer.surname','complainer.surname','complaints.complaint','complaints.date_complaint')
+//            ->where('complaint_status_id','=','2')
+//            ->where(DB::raw('concat(complainer.firstname," ",complainer.surname)') , 'LIKE' , '%'.$fullname.'%')
+//            ->get();        return view('complaints.comments',compact('comment'));
 
     }
 
