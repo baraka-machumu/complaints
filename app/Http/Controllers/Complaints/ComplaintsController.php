@@ -673,5 +673,9 @@ class ComplaintsController extends Controller
     }
 
 
+    public  function storeComment(){}
+    
+
+
 
 }
