@@ -82,7 +82,12 @@ $menu =  [
 
         ],
 
-
+        [
+            'text'    => 'Feedback',
+            'url'     =>'complaints/feedback/view',
+            'icon'    => 'th',
+            'can'=>'islogin'
+        ],
         [
             'text'    => 'Report',
             'url'     =>'report/select',

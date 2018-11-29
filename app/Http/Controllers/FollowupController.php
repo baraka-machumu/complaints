@@ -24,9 +24,8 @@ class FollowupController extends Controller
         return view('followup.create');
     }
 
-    public function searchfollowup()
+    public function searchfollowup(Request $request)
     {
-        $request =  new Request();
         $refno= $request->get('search');
         $complaint = DB::table('complaints')
             ->select('complaint_id')

@@ -53,7 +53,7 @@ Route::get('api/complaints/opening/all','Complaints\ComplaintsController@complai
 Route::get('api/complaints/editing/all','Complaints\ComplaintsController@complaintEditing');
 Route::get('complaints/response/{complaint_id}','Complaints\ComplaintsController@response');
 
-Route::get('complaints/comments/view','Complaints\ComplaintsController@getComments');
+Route::get('complaints/feedback/view','Complaints\ComplaintsController@getComments');
 Route::post('complaints/comments/store/{refno}','Complaints\ComplaintsController@storeComment');
 
 Route::resource('complaints','Complaints\ComplaintsController');

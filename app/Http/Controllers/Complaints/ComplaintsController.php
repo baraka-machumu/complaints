@@ -681,12 +681,23 @@ class ComplaintsController extends Controller
 
         if ($success)
         {
-            Session::flash('alert-success', 'successful comment sent');
+            Session::flash('alert-success', 'Comment successful sent..');
         } else
             {
             Session::flash('alert-warning', 'Failed to comment please try again....!');
             }
 
-          return redirect('complaints/result');
+        $complaint = DB::table('complaints')
+            ->select('complaint_id')
+            ->where('refno',$refno)
+            ->first();
+
+        $complainer = Complainer::complainerDetail($complaint->complaint_id);
+        $letter = Letter::letterDetail($complaint->complaint_id);
+
+
+        $responses = Response::responseDetail($complaint->complaint_id);
+
+        return view('followup.result', compact('refno','letter', 'responses', 'complainer'));
     }
 }
