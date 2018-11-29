@@ -44,7 +44,6 @@ Route::get('/dashboard', 'HomeController@index')->name('dashboard');
 Route::get('complaints/followups', 'FollowupController@followup');
 Route::post('complaints/result', 'FollowupController@searchfollowup');
 
-
 //Complaints Controller
 Route::get('edit/complaints/{complaint_id}','Complaints\ComplaintsController@editPending');
 Route::get('complaint/tab/{tab}','Complaints\ComplaintsController@complaintTab');

@@ -2,7 +2,7 @@
 
 namespace App\Http\Controllers\Complaints;
 
-use App\Comments;
+use App\Comment;
 use App\Complainer;
 use App\Complaint;
 use App\ComplaintType;
@@ -667,14 +667,16 @@ class ComplaintsController extends Controller
 
     public function getComments(){
 
-        $comment  =  Comments::all()->toArray();
+        $comment  =  Comment::all()->toArray();
         return view('complaints.comments',compact('comment'));
 
     }
 
 
-    public  function storeComment(){}
-    
+    public  function storeComment(){
+
+    }
+
 
 
 
