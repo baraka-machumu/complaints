@@ -679,11 +679,23 @@ class ComplaintsController extends Controller
     }
 
 
-    public  function storeComment(){
+    public  function storeComment(Request $request, $refno)
+    {
+        $comments  =  new Comment();
+        $comment = $request->get('comment');
+        $comments->comment  =  $comment;
+        $comments->refno  =  $refno;
 
+        $success = $comments->save();
+
+        if ($success)
+        {
+            Session::flash('alert-success', 'successful comment sent');
+        } else
+            {
+            Session::flash('alert-warning', 'Failed to comment please try again....!');
+            }
+
+          return redirect('complaints/result');
     }
-
-
-
-
 }
