@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers\Complaints;
 
+use App\Comments;
 use App\Complainer;
 use App\Complaint;
 use App\ComplaintType;
@@ -18,6 +19,7 @@ use App\Http\Controllers\Controller;
 use Illuminate\Support\Facades\DB;
 use Illuminate\Support\Facades\Mail;
 use Illuminate\Support\Facades\Session;
+use PhpParser\Comment;
 
 
 class ComplaintsController extends Controller
@@ -661,4 +663,15 @@ class ComplaintsController extends Controller
         return  view('complaints.complainer', compact('message_website'));
 
     }
+
+
+    public function getComments(){
+
+        $comment  =  Comments::all()->toArray();
+        return view('complaints.comments',compact('comment'));
+
+    }
+
+
+
 }

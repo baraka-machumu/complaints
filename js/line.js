@@ -211,7 +211,6 @@ $(function () {
         });
     }
 
-
     function  removeAddToCanvas() {
 
         var canvas  =  $('<canvas  class="salesChart" style="height: 180px; width: 645px;" width="967" height="270"></canvas>');
@@ -219,6 +218,7 @@ $(function () {
         $("#empty").empty();
 
         $("#empty").append(canvas);
+
     }
     openComplaintsGraph();
 
