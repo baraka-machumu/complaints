@@ -3,10 +3,18 @@
 @section('title', 'Dashboard')
 
 @section('content_header')
-    <h5>{{ Breadcrumbs::render('complaint_create') }} </h5>
+    <div class="row">
+
+        <div class="col-md-12" >
+            <div class="col-md-12" style="background-color: #3C8DBC; color: white">
+                <h4>All comments From Our Customers</h4>
+
+            </div>
+        </div>
+    </div>
 @stop
 @section('content')
-    <div class="row" style="margin-top: -30px">
+    <div class="row">
         <div class="col-md-12 flash-message">
             @foreach (['danger', 'warning', 'success', 'info'] as $msg)
                 @if(Session::has('alert-' . $msg))
@@ -17,24 +25,27 @@
         </div>
         <!-- end .flash-message -->
 
+        <div class="col-md-12">
         <table class='table table-bordered table-striped' id="comments-data-table">
             <thead>
             <tr>
-                <th>Full name</th><th>Complaint</th><th>Date</th><th>Action</th>
+                <th>Full name</th><th>Refno</th><th>Complaint</th><th>Comment</th><th>Date</th>
 
             </tr>
             </thead>
 
-            {{--@foreach ($closed_complaints as $closed)--}}
-                {{--<tr><td>{{$closed->firstname.' '.$closed->surname}}</td>--}}
-                    {{--<td>{{substr($closed->complaint,0,100)}}</td>--}}
-                    {{--<td>{{ $closed->date_complaint}}</td>--}}
-                    {{--<td><a href="{{url('complaints/response', $closed->complaint_id)}}"><span class='glyphicon glyphicon-eye-open'>view</span></a>--}}
-                    {{--</td>--}}
-                {{--</tr>--}}
+            @foreach ($comments as $comment)
+                <tr>
+                    <td>{{$comment->firstname.' '.$comment->surname}}</td>
+                    <td>{{$comment->refno}}</td>
+                    <td>{{$comment->complaint}}</td>
+                    <td>{{$comment->comment}}</td>
+                    <td>{{ $comment->date_complaint}}</td>
+                </tr>
 
-            {{--@endforeach--}}
+            @endforeach
         </table>
+        </div>
     </div>
 @stop
 
@@ -62,10 +73,10 @@
 
 
 
-                $('#comments-data-table').dataTable({
-                    "ordering": false,
-                    "lengthChange": false
-                });
+            $('#comments-data-table').dataTable({
+                "ordering": false,
+                "lengthChange": false
+            });
 
 
 
@@ -99,10 +110,10 @@
                 else {
                     $('#save-create').prop("disabled", true);
                 }
-                });
+            });
 
 
-                $("#phone").keydown(function (e) {
+            $("#phone").keydown(function (e) {
 
                 var phoneNo =  $('#phone').val();
 
