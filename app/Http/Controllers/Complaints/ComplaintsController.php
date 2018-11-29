@@ -666,13 +666,15 @@ class ComplaintsController extends Controller
 
     public function getComments(){
 
-//        =  DB::table('comments')
-//            ->leftJoin('complainer','complaints.complainer_id','=','complainer.complainer_id')
-//            ->join('schemes','schemes.scheme_id','=','complainer.scheme_id')
-//            ->select('complainer.firstname','complainer.surname','complainer.surname','complaints.complaint','complaints.date_complaint')
-//            ->where('complaint_status_id','=','2')
-//            ->where(DB::raw('concat(complainer.firstname," ",complainer.surname)') , 'LIKE' , '%'.$fullname.'%')
-//            ->get();        return view('complaints.comments',compact('comment'));
+       $comment =  DB::table('comments')
+            ->join('complaints','complaints.refno','=','comments.refno')
+            ->join('complainer','complainer.complainer_id','=','complainer.complainer_id')
+            ->select('complainer.firstname','complainer.surname','complainer.surname','complaints.complaint','complaints.date_complaint')
+            ->get();
+
+       dd($comment);
+
+       return view('complaints.comments',compact('comment'));
 
     }
 
