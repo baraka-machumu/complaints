@@ -4,8 +4,21 @@
 
 @section('content_header')
     <h5>{{ Breadcrumbs::render('complaint_create') }} </h5>
+    <button class="btn btn-primary" data-toggle="modal" data-target="#comment" id="comment">Comment</button>
+
 @stop
 @section('content')
+
+    <div class="flash-message">
+        @foreach (['danger', 'warning', 'success', 'info'] as $msg)
+            @if(Session::has('alert-' . $msg))
+
+                <p class="alert alert-{{ $msg }}">{{ Session::get('alert-' . $msg) }} <a href="#" class="close" data-dismiss="alert" aria-label="close">&times;</a></p>
+            @endif
+        @endforeach
+    </div>
+    <!-- end .flash-message -->
+
     <div class="row">
         <div class="col-md-12">
             <table class="table table-striped table-condensed table-bordered">
@@ -91,10 +104,52 @@
             </table>
         </div>
     </div>
+
+    <!-- Modal -->
+    <div class="modal fade" id="myModal" tabindex="-1" role="dialog" aria-labelledby="myModalLabel">
+        <div class="modal-dialog" role="document">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
+                    <h4 class="modal-title" id="myModalLabel" style="text-align: center;">Comment</h4>
+                </div>
+                <div class="modal-body">
+
+                    <div class="row">
+                        <div class="col-md-8">
+
+                            <form action="{{url('complaints/comments/store', $refno)}}" method="post">
+                                {{ csrf_field() }}
+                                <input type="hidden" class="form-control comment" name="comment" >
+
+                                <div class="form-group">
+                                    <label for="comment">Comment:</label>
+                                    <textarea type="text" class="form-control comment" id="comment"  name="comment" ></textarea>
+                                </div>
+                                <button type="button" class="btn btn-default" data-dismiss="modal">Close/Funga</button>
+                                <button type="submit" class="btn btn-primary">Submit/Tuma</button>
+                            </form>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
 @stop
 
 @section('css')
 
+@stop
+
+@section('js')
+    <script>
+        $(document).ready(function () {
+
+            $("#comment").click(function(){
+                $('#myModal').modal('show');
+            });
+        });
+    </script>
 @stop
 
 

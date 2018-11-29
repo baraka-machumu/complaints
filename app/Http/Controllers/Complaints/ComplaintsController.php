@@ -666,22 +666,27 @@ class ComplaintsController extends Controller
 
     public function getComments(){
 
-//        =  DB::table('comments')
-//            ->leftJoin('complainer','complaints.complainer_id','=','complainer.complainer_id')
-//            ->join('schemes','schemes.scheme_id','=','complainer.scheme_id')
-//            ->select('complainer.firstname','complainer.surname','complainer.surname','complaints.complaint','complaints.date_complaint')
-//            ->where('complaint_status_id','=','2')
-//            ->where(DB::raw('concat(complainer.firstname," ",complainer.surname)') , 'LIKE' , '%'.$fullname.'%')
-//            ->get();        return view('complaints.comments',compact('comment'));
 
     }
 
 
-    public  function storeComment(){
+    public  function storeComment(Request $request, $refno)
+    {
+        $comments  =  new Comment();
+        $comment = $request->get('comment');
+        $comments->comment  =  $comment;
+        $comments->refno  =  $refno;
 
+        $success = $comments->save();
+
+        if ($success)
+        {
+            Session::flash('alert-success', 'successful comment sent');
+        } else
+            {
+            Session::flash('alert-warning', 'Failed to comment please try again....!');
+            }
+
+          return redirect('complaints/result');
     }
-
-
-
-
 }
