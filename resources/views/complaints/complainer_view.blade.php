@@ -23,8 +23,8 @@
                         {{--<li style="font-size: 16px">--}}
                             {{--All fields marked (*) are mandatory--}}
                         {{--</li>--}}
-                        <li style="font-size: 16px">Simu: +255 787 498 475, +255 22 2761683-4, +255 22 2761689, </li>
-                        <li style="font-size: 16px">Barua pepe: info@ssra.go.tz</li>
+                        <li style="font-size: 15px">Simu: +255 787 498 475, +255 22 2761683-4, +255 22 2761689, </li>
+                        <li style="font-size: 15px">Barua pepe: info@ssra.go.tz</li>
                     </ul>
                 </div>
 
@@ -143,6 +143,10 @@
         label{
             font-weight: normal;
         }
+        .content-wrapper{
+
+            background-color: white;
+        }
     </style>
 
     <link rel="stylesheet" href="/css/admin_custom.css">
@@ -150,7 +154,10 @@
 
 @section('css')
     <style>
-        #hint{background-color: #F4F4F4;}
+        #hint{background-color: #F4F4F4;
+
+            .
+        }
 
     </style>
 @stop

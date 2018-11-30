@@ -132,9 +132,49 @@ $menu =  [
             'can'=>'islogin'
         ],
 
+        [
+            'text'    => 'System Table Configuration',
+            'icon'    => 'th',
+            'submenu' => [
+
+
+                [
+                    'text' => 'Schemes',
+                    'url'  => 'config-scheme/create',
+                ],
+
+                [
+                    'text' => 'Social Security Info',
+                    'url'  => 'configuration/ssinfo',
+                ],
+
+                [
+                    'text' => 'Response Types',
+                    'url'  => 'configuration/response',
+                ],
+                [
+                    'text' => 'Complaint Types',
+                    'url'  => 'Configuration/complaint-type',
+                ],
+                [
+                    'text' => 'Complaint Status',
+                    'url'  => 'Configuration/complaint-status',
+                ],
+
+                [
+                    'text' => 'Complaint Receive Modes',
+                    'url'  => 'Configuration/complaint-receive-mode',
+                ],
+                [
+                    'text' => 'Complaint Status',
+                    'url'  => 'Configuration/complaint-status',
+                ],
+
+            ],
+            'can'=>'islogin'
+        ],
+
     ],
-
-
 
     'filters' => [
         JeroenNoten\LaravelAdminLte\Menu\Filters\HrefFilter::class,

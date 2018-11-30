@@ -21,6 +21,16 @@ use Illuminate\Support\Facades\Route;
 
 Route::get('/test', function () {
 
+    $user_id =  Auth::id();
+    $color = DB::table('users')
+        ->select('color_code')
+        ->join('colors','colors.color_id','=','users.color_id')
+        ->where('id',$user_id)
+        ->first();
+
+
+    echo   $color->color_code;
+
 });
 
 Route::get('api/json/all/complaints/open','HomeController@getJsonOPenComplaintsPerMonth');
@@ -144,4 +154,17 @@ Route::get('auth/email-authenticate/{token}', [
 ]);
 
 Route::post('auth/create-password/{token}','Mail\EmailAuthController@store');
+
+
+//configuration controller
+
+Route::get('config-scheme/create','Configuration\SchemeController@create');
+Route::resource('config-scheme','Configuration\SchemeController');
+
+//color cONTROLLER
+Route::get('config-color/get-color','Configuration\ColorController@getColor');
+Route::get('config-color/color/create','Configuration\ColorController@createColor');
+Route::post('config-color/color/change','Configuration\ColorController@changeColor');
+Route::get('config-color/color/default','Configuration\ColorController@defaultColor');
+
 
