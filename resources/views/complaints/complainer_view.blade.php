@@ -122,7 +122,7 @@
 
                 <div class="form-group">
                     <label for="validator" style="font-size: 16px">Enter This Text <span id="verify_text" style="font-weight: bold; font-size: 20px; color:#3C8DBC"></span></label>
-                    <input type="text" class="form-control" id="validator" name="validator" >
+                    <input autocomplete="off" type="text" class="form-control" id="validator" name="validator" >
                 </div>
 
                 <button id="save"  type="submit" class="btn btn-primary">Tuma/Submit</button>
