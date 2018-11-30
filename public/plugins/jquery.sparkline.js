@@ -221,7 +221,7 @@
         VShape, VCanvas_base, VCanvas_canvas, VCanvas_vml, pending, shapeCount = 0;
 
     /**
-     * Default configuration settings
+     * Default Configuration settings
      */
     getDefaults = function () {
         return {

@@ -13,7 +13,7 @@
             <div class="col-md-4">
                 <h4>Taarifa Binafsi/Personal Information</h4>
                 <div class="form-group">
-                    <label for="first_name">Jina la Kwanza/First Name:</label>
+                    <label for="first_name">Jina la Kwanza/First Name44:</label>
                     <input type="text" class="form-control" id="first_name" name="first_name" >
                 </div>
 

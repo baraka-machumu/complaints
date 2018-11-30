@@ -109,7 +109,7 @@ CKEDITOR.replace( <em>'textarea_id'</em>, {
 			output = '';
 
 		if ( editorCurrent ) {
-			// If default toolbar configuration has been modified, show "current toolbar" section.
+			// If default toolbar Configuration has been modified, show "current toolbar" section.
 			if ( !defaultToolbar )
 				CKEDITOR.document.getById( 'currentToolbar' ).show();
 			else
@@ -168,7 +168,7 @@ CKEDITOR.replace( <em>'textarea_id'</em>, {
 			return '\'' + group + '\'';
 		if ( CKEDITOR.tools.isArray( group ) )
 			return dumpToolbarItems( group );
-		// Skip group when printing entire toolbar configuration and there are no items in this group.
+		// Skip group when printing entire toolbar Configuration and there are no items in this group.
 		if ( !printGroups && !group.items )
 			return;
 

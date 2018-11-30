@@ -2,6 +2,7 @@
 
 namespace App;
 
+use App\Notifications\MailResetPasswordToken;
 use Carbon\Carbon;
 use Illuminate\Notifications\Notifiable;
 use Illuminate\Foundation\Auth\User as Authenticatable;
@@ -64,5 +65,11 @@ class User extends Authenticatable
             ->where('created_at', '>', Carbon::parse('-1 minutes'))
             ->firstOrFail();
     }
+
+    public function sendPasswordResetNotification($token)
+    {
+        $this->notify(new MailResetPasswordToken($token));
+    }
+
 
 }

@@ -6846,7 +6846,7 @@ wysihtml5.dom.replaceWithChildNodes = function(node) {
  */
 (function(wysihtml5) {
   var /**
-       * Default configuration
+       * Default Configuration
        */
       doc                 = document,
       /**
